@@ -1,0 +1,1 @@
+{"version":3,"file":"common-styles.js","sourceRoot":"","sources":["common-styles.ts"],"names":[],"mappings":";;AAAA,kBAAe;IACX,WAAW,EAAE,UAAC,IAAiB;QAC3B,IAAI,CAAC,KAAK,CAAC,MAAM,GAAG,mBAAmB,CAAC;QACxC,IAAI,CAAC,KAAK,CAAC,YAAY,GAAG,KAAK,CAAC;QAChC,IAAI,CAAC,KAAK,CAAC,OAAO,GAAG,KAAK,CAAC;IAC/B,CAAC;CACJ,CAAA"}
