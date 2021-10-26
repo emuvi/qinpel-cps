@@ -4,7 +4,7 @@
   "description": "",
   "main": "all.js",
   "scripts": {
-    "build": "tsc"
+    "start": "bash -v test.sh"
   },
   "keywords": [],
   "author": "Éverton M. Vieira",

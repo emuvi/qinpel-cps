@@ -1,0 +1,1 @@
+{"version":3,"file":"qin-field.d.ts","sourceRoot":"","sources":["../../src/qin-field.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,YAAY,CAAC;AAIrC,qBAAa,QAAS,SAAQ,OAAO;IAEjC,OAAO,CAAC,QAAQ,CAAmB;IACnC,OAAO,CAAC,QAAQ,CAAkB;IAClC,OAAO,CAAC,OAAO,CAAiB;gBAEb,KAAK,EAAE,MAAM,EAAE,IAAI,EAAE,OAAO;IAQxC,OAAO,IAAI,WAAW;IAItB,OAAO;CAIjB"}

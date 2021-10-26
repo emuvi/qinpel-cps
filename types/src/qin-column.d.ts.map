@@ -1,0 +1,1 @@
+{"version":3,"file":"qin-column.d.ts","sourceRoot":"","sources":["../../src/qin-column.ts"],"names":[],"mappings":"AAIA,OAAO,EAAE,OAAO,EAAE,MAAM,YAAY,CAAC;AAGrC,qBAAa,SAAU,SAAQ,OAAO;IAElC,OAAO,CAAC,QAAQ,CAAiC;;IAOjD,OAAO,CAAC,SAAS;IAIV,SAAS;IAKT,OAAO,IAAI,WAAW;CAIhC"}

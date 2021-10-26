@@ -1,0 +1,7 @@
+.temp {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    color: #6a00ff00;
+    display: initial;
+    visibility: hidden;
+}
