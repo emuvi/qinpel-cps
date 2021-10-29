@@ -1,5 +1,5 @@
 import { QinEdit } from "./qin-edit";
-import { QinFilesNature, QinFilesOperation, QinFilesDescriptor } from "./qin-utils";
+import { QinFilesNature, QinFilesOperation, QinFilesDescriptor } from "qinpel-res";
 export declare class QinChooser extends QinEdit {
     private divBody;
     private qinExplorer;

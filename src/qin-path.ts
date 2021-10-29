@@ -1,10 +1,10 @@
-import { QinStyles, QinGrandeur } from "./qin-utils";
 import { QinEdit } from "./qin-edit";
 import { QinLine } from "./qin-line";
 import { QinString } from "./qin-string";
 import { QinButton } from "./qin-button";
 import { QinAsset } from "./qin-assets";
 import { QinIcon } from "./qin-icon";
+import { QinStyles, QinGrandeur } from "qinpel-res";
 
 export class QinPath extends QinEdit {
 

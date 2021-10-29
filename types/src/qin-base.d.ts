@@ -1,5 +1,7 @@
-import { QinAction } from "qinpel-app/types/qinpel";
+import { QinAction } from "qinpel-res";
+import { Qinpel } from "qinpel-app/types/qinpel";
 export declare abstract class QinBase {
+    qinpel(): Qinpel;
     abstract getMain(): HTMLElement;
     private baseParent;
     private baseChildren;

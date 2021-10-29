@@ -1,29 +1,25 @@
-import { Qinpel } from "qinpel-app/types/qinpel"
-// @ts-ignore
-const qinpel = window.frameElement.qinpel as Qinpel;
-
 import { QinEdit } from "./qin-edit";
 import styles from "./styles/qin-explorer-styles"
 
-import { QinFilesNature } from "./qin-utils";
+import { QinSoul, QinFilesNature } from "qinpel-res";
 
 function getIconName(fromExtension: string): string {
     let result = "explorer-file.png";
-    if (qinpel.util.isFileApp(fromExtension)) {
+    if (QinSoul.foot.isFileApp(fromExtension)) {
         result = "explorer-apps.png";
-    } else if (qinpel.util.isFileCmd(fromExtension)) {
+    } else if (QinSoul.foot.isFileCmd(fromExtension)) {
         result = "explorer-cmds.png";
-    } else if (qinpel.util.isFileExec(fromExtension)) {
+    } else if (QinSoul.foot.isFileExec(fromExtension)) {
         result = "explorer-exec.png";
-    } else if (qinpel.util.isFileImage(fromExtension)) {
+    } else if (QinSoul.foot.isFileImage(fromExtension)) {
         result = "explorer-image.png";
-    } else if (qinpel.util.isFileVector(fromExtension)) {
+    } else if (QinSoul.foot.isFileVector(fromExtension)) {
         result = "explorer-image.png"; // TODO
-    } else if (qinpel.util.isFileMusic(fromExtension)) {
+    } else if (QinSoul.foot.isFileMusic(fromExtension)) {
         result = "explorer-music.png";
-    } else if (qinpel.util.isFileMovie(fromExtension)) {
+    } else if (QinSoul.foot.isFileMovie(fromExtension)) {
         result = "explorer-movie.png";
-    } else if (qinpel.util.isFileZipped(fromExtension)) {
+    } else if (QinSoul.foot.isFileZipped(fromExtension)) {
         result = "explorer-zipped.png";
     }
     return result;
@@ -58,7 +54,7 @@ class Item {
         this.spanText.innerText = this.fileName;
         styles.applyOnSpanText(this.spanText);
         this.divItemBody.appendChild(this.spanText);
-        qinpel.util.addAction(this.divItem, (qinEvent) => {
+        QinSoul.arm.addAction(this.divItem, (qinEvent) => {
             if (qinEvent.fromPointing
                 || (qinEvent.fromTyping && qinEvent.isSpace)) {
                 this.divItem.focus();
@@ -118,10 +114,10 @@ export class QinExplorer extends QinEdit {
 
     private initBody() {
         styles.applyOnDivBody(this.divBody);
-        qinpel.util.addAction(this.divBody, (qe) => {
+        QinSoul.arm.addAction(this.divBody, (qe) => {
             if (qe.fromPointing) { this.cleanSelection(); }
         });
-        qinpel.util.disableSelection(this.divBody);
+        QinSoul.skin.disableSelection(this.divBody);
     }
 
     public getMain(): HTMLElement {
@@ -167,10 +163,10 @@ export class QinExplorer extends QinEdit {
     public load(folder: string,
         onLoad?: (loaded: string) => void) {
         this.clean();
-        qinpel.post("/dir/list", { path: folder })
+        this.qinpel().post("/dir/list", { path: folder })
             .then(res => {
                 this.actualFolder = folder;
-                for (let line of qinpel.util.getTextLines(res.data)) {
+                for (let line of QinSoul.body.getTextLines(res.data)) {
                     let lineValue = line.substring(3);
                     if (!lineValue) {
                         continue;
@@ -188,7 +184,7 @@ export class QinExplorer extends QinEdit {
                     } else if (line.indexOf("F: ") === 0) {
                         if (this.nature == QinFilesNature.BOTH ||
                             this.nature == QinFilesNature.FILES) {
-                            let extension = qinpel.util.getFileExtension(lineValue);
+                            let extension = QinSoul.foot.getFileExtension(lineValue);
                             let passedExtension = true;
                             if (this.extensions && this.extensions.length > 0) {
                                 passedExtension = this.extensions.indexOf(extension) > -1;
@@ -201,7 +197,7 @@ export class QinExplorer extends QinEdit {
                 }
             })
             .catch(err => {
-                this.divBody.innerText = qinpel.util.getErrorMessage(err);
+                this.divBody.innerText = QinSoul.head.getErrorMessage(err);
             });
     }
 

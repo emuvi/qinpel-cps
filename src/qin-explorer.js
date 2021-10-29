@@ -16,34 +16,33 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QinExplorer = void 0;
-var qinpel = window.frameElement.qinpel;
 var qin_edit_1 = require("./qin-edit");
 var qin_explorer_styles_1 = require("./styles/qin-explorer-styles");
-var qin_utils_1 = require("./qin-utils");
+var qinpel_res_1 = require("qinpel-res");
 function getIconName(fromExtension) {
     var result = "explorer-file.png";
-    if (qinpel.util.isFileApp(fromExtension)) {
+    if (qinpel_res_1.QinSoul.foot.isFileApp(fromExtension)) {
         result = "explorer-apps.png";
     }
-    else if (qinpel.util.isFileCmd(fromExtension)) {
+    else if (qinpel_res_1.QinSoul.foot.isFileCmd(fromExtension)) {
         result = "explorer-cmds.png";
     }
-    else if (qinpel.util.isFileExec(fromExtension)) {
+    else if (qinpel_res_1.QinSoul.foot.isFileExec(fromExtension)) {
         result = "explorer-exec.png";
     }
-    else if (qinpel.util.isFileImage(fromExtension)) {
+    else if (qinpel_res_1.QinSoul.foot.isFileImage(fromExtension)) {
         result = "explorer-image.png";
     }
-    else if (qinpel.util.isFileVector(fromExtension)) {
+    else if (qinpel_res_1.QinSoul.foot.isFileVector(fromExtension)) {
         result = "explorer-image.png";
     }
-    else if (qinpel.util.isFileMusic(fromExtension)) {
+    else if (qinpel_res_1.QinSoul.foot.isFileMusic(fromExtension)) {
         result = "explorer-music.png";
     }
-    else if (qinpel.util.isFileMovie(fromExtension)) {
+    else if (qinpel_res_1.QinSoul.foot.isFileMovie(fromExtension)) {
         result = "explorer-movie.png";
     }
-    else if (qinpel.util.isFileZipped(fromExtension)) {
+    else if (qinpel_res_1.QinSoul.foot.isFileZipped(fromExtension)) {
         result = "explorer-zipped.png";
     }
     return result;
@@ -73,7 +72,7 @@ var Item = (function () {
         this.spanText.innerText = this.fileName;
         qin_explorer_styles_1.default.applyOnSpanText(this.spanText);
         this.divItemBody.appendChild(this.spanText);
-        qinpel.util.addAction(this.divItem, function (qinEvent) {
+        qinpel_res_1.QinSoul.arm.addAction(this.divItem, function (qinEvent) {
             if (qinEvent.fromPointing
                 || (qinEvent.fromTyping && qinEvent.isSpace)) {
                 _this.divItem.focus();
@@ -117,7 +116,7 @@ var QinExplorer = (function (_super) {
         _this.actualFolder = "";
         _this.serverFolder = "";
         _this.items = [];
-        _this.nature = nature ? nature : qin_utils_1.QinFilesNature.BOTH;
+        _this.nature = nature ? nature : qinpel_res_1.QinFilesNature.BOTH;
         _this.extensions = extensions ? extensions : [];
         _this.initBody();
         return _this;
@@ -125,12 +124,12 @@ var QinExplorer = (function (_super) {
     QinExplorer.prototype.initBody = function () {
         var _this = this;
         qin_explorer_styles_1.default.applyOnDivBody(this.divBody);
-        qinpel.util.addAction(this.divBody, function (qe) {
+        qinpel_res_1.QinSoul.arm.addAction(this.divBody, function (qe) {
             if (qe.fromPointing) {
                 _this.cleanSelection();
             }
         });
-        qinpel.util.disableSelection(this.divBody);
+        qinpel_res_1.QinSoul.skin.disableSelection(this.divBody);
     };
     QinExplorer.prototype.getMain = function () {
         return this.divBody;
@@ -165,10 +164,10 @@ var QinExplorer = (function (_super) {
     QinExplorer.prototype.load = function (folder, onLoad) {
         var _this = this;
         this.clean();
-        qinpel.post("/dir/list", { path: folder })
+        this.qinpel().post("/dir/list", { path: folder })
             .then(function (res) {
             _this.actualFolder = folder;
-            for (var _i = 0, _a = qinpel.util.getTextLines(res.data); _i < _a.length; _i++) {
+            for (var _i = 0, _a = qinpel_res_1.QinSoul.body.getTextLines(res.data); _i < _a.length; _i++) {
                 var line = _a[_i];
                 var lineValue = line.substring(3);
                 if (!lineValue) {
@@ -181,15 +180,15 @@ var QinExplorer = (function (_super) {
                     }
                 }
                 else if (line.indexOf("D: ") === 0) {
-                    if (_this.nature == qin_utils_1.QinFilesNature.BOTH ||
-                        _this.nature == qin_utils_1.QinFilesNature.DIRECTORIES) {
+                    if (_this.nature == qinpel_res_1.QinFilesNature.BOTH ||
+                        _this.nature == qinpel_res_1.QinFilesNature.DIRECTORIES) {
                         _this.newDir(lineValue);
                     }
                 }
                 else if (line.indexOf("F: ") === 0) {
-                    if (_this.nature == qin_utils_1.QinFilesNature.BOTH ||
-                        _this.nature == qin_utils_1.QinFilesNature.FILES) {
-                        var extension = qinpel.util.getFileExtension(lineValue);
+                    if (_this.nature == qinpel_res_1.QinFilesNature.BOTH ||
+                        _this.nature == qinpel_res_1.QinFilesNature.FILES) {
+                        var extension = qinpel_res_1.QinSoul.foot.getFileExtension(lineValue);
                         var passedExtension = true;
                         if (_this.extensions && _this.extensions.length > 0) {
                             passedExtension = _this.extensions.indexOf(extension) > -1;
@@ -202,7 +201,7 @@ var QinExplorer = (function (_super) {
             }
         })
             .catch(function (err) {
-            _this.divBody.innerText = qinpel.util.getErrorMessage(err);
+            _this.divBody.innerText = qinpel_res_1.QinSoul.head.getErrorMessage(err);
         });
     };
     QinExplorer.prototype.clean = function () {

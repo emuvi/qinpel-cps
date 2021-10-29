@@ -1,8 +1,12 @@
-import { Qinpel, QinAction } from "qinpel-app/types/qinpel"
-// @ts-ignore
-const qinpel = window.frameElement.qinpel as Qinpel;
+import { QinSoul, QinAction } from "qinpel-res"
+import { Qinpel } from "qinpel-app/types/qinpel"
+const refQinpel = (window.frameElement as any).qinpel as Qinpel;
 
 export abstract class QinBase {
+
+    public qinpel(): Qinpel {
+        return refQinpel;
+    }
 
     public abstract getMain(): HTMLElement;
 
@@ -64,7 +68,7 @@ export abstract class QinBase {
     }
 
     public addAction(action: QinAction) {
-        qinpel.util.addAction(this.getMain(), action);
+        QinSoul.arm.addAction(this.getMain(), action);
     }
 
 }

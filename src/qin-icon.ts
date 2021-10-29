@@ -1,11 +1,6 @@
-import { Qinpel } from "qinpel-app/types/qinpel"
-// @ts-ignore 
-const qinpel = window.frameElement.qinpel as Qinpel;
-
 import { QinBase } from "./qin-base";
 import { QinAsset, qinAssetUrl } from "./qin-assets";
-
-import { QinDimension, QinGrandeur } from "./qin-utils";
+import { QinSoul, QinDimension, QinGrandeur } from "qinpel-res";
 
 export class QinIcon extends QinBase {
 
@@ -14,17 +9,17 @@ export class QinIcon extends QinBase {
     public constructor(asset: QinAsset, size?: QinDimension | QinGrandeur, fill?: string) {
         super();
         const assetUrl = qinAssetUrl(asset);
-        const extension = qinpel.util.getFileExtension(assetUrl);
-        if (qinpel.util.isFileVector(extension)) {
-            this.initVector(assetUrl, size, fill);
-        } else {
-            this.initImage(assetUrl, size);
-        }
+        this.initImage(assetUrl, size);
+        // const extension = QinSoul.foot.getFileExtension(assetUrl);
+        // if (QinSoul.foot.isFileVector(extension)) {
+        //     this.initVector(assetUrl, size, fill);
+        // } else {
+        // }
     }
 
     private initVector(assetUrl: string, size?: QinDimension | QinGrandeur, fill?: string) {
-        const obj = document.createElement("object");
-        obj.data = assetUrl;
+        const obj = document.createElement("embed");
+        obj.src = assetUrl;
         obj.type = "image/svg+xml"
         this.applySize(obj, size);
         if (fill) {
@@ -46,7 +41,7 @@ export class QinIcon extends QinBase {
                 el.style.width = size.width + "px";
                 el.style.height = size.height + "px";
             } else {
-                let dim = qinpel.util.getIconDimension(size);
+                let dim = QinSoul.skin.getIconDimension(size);
                 el.style.width = dim.width + "px";
                 el.style.height = dim.height + "px";
             }

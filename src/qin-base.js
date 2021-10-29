@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QinBase = void 0;
-var qinpel = window.frameElement.qinpel;
+var qinpel_res_1 = require("qinpel-res");
+var refQinpel = window.frameElement.qinpel;
 var QinBase = (function () {
     function QinBase() {
         this.baseParent = null;
@@ -9,6 +10,9 @@ var QinBase = (function () {
         this.baseDisplay = "initial";
         this.baseVisibility = "initial";
     }
+    QinBase.prototype.qinpel = function () {
+        return refQinpel;
+    };
     QinBase.prototype.install = function (on) {
         this.baseParent = on;
         this.baseParent.append(this);
@@ -52,7 +56,7 @@ var QinBase = (function () {
         return this.baseChildren;
     };
     QinBase.prototype.addAction = function (action) {
-        qinpel.util.addAction(this.getMain(), action);
+        qinpel_res_1.QinSoul.arm.addAction(this.getMain(), action);
     };
     return QinBase;
 }());

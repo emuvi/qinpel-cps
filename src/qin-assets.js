@@ -105,7 +105,7 @@ var QinAsset;
     QinAsset["ExplorerMovie"] = "explorer-movie.png";
     QinAsset["ExplorerMusic"] = "explorer-music.png";
     QinAsset["ExplorerZipped"] = "explorer-zipped.png";
-    QinAsset["FaceCog"] = "face-cog.svg";
+    QinAsset["FaceCog"] = "face-cog.png";
     QinAsset["FrameClose"] = "frame-close.png";
     QinAsset["FrameMaximize"] = "frame-maximize.png";
     QinAsset["FrameMenu"] = "frame-menu.png";

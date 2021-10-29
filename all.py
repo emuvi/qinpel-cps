@@ -58,6 +58,9 @@ def getOriginExports(origin: str) -> list[str]:
         identifier = getIdentifier(line, "export function ")
         if identifier:
             result.append(identifier)
+        identifier = getIdentifier(line, "export const ")
+        if identifier:
+            result.append(identifier)
     reader.close()
     return result
 
@@ -79,13 +82,19 @@ if __name__ == "__main__":
         if exports:
             exportLine = "export { "
             first = True
+            counter = 0
             for export in exports:
-                if first:
-                    exportLine += export;
-                    first = False
+                if not first:
+                    exportLine += ", "
                 else:
-                    exportLine += ", "  + export;
+                    first = False
+                if counter == 3:
+                    exportLine += "\n         "
+                    counter = 0
+                exportLine += export
+                counter += 1
             exportLine += getOriginFrom(origin)
+            exportLine += "\n"
             lines.append(exportLine);
     saveAllFile(lines)
     print("Finish to generate the source code of all.ts")

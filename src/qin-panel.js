@@ -16,8 +16,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QinPanel = void 0;
-var qinpel = window.frameElement.qinpel;
 var qin_base_1 = require("./qin-base");
+var qinpel_res_1 = require("qinpel-res");
 var qin_panel_styles_1 = require("./styles/qin-panel-styles");
 var QinPanel = (function (_super) {
     __extends(QinPanel, _super);
@@ -32,7 +32,7 @@ var QinPanel = (function (_super) {
     };
     QinPanel.prototype.putAsBody = function () {
         document.body.appendChild(this.divPanel);
-        qinpel.util.applyStyleAsBody(this.divPanel);
+        qinpel_res_1.QinSoul.skin.applyStyleAsBody(this.divPanel);
     };
     QinPanel.prototype.getMain = function () {
         return this.divPanel;

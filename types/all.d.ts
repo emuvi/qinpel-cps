@@ -11,5 +11,4 @@ export { QinLine } from "./src/qin-line";
 export { QinPanel } from "./src/qin-panel";
 export { QinPath } from "./src/qin-path";
 export { QinString } from "./src/qin-string";
-export { QinFilesNature, QinFilesOperation, QinFilesDescriptor, QinDimension, QinBounds, QinGrandeur, QinStyles } from "./src/qin-utils";
 //# sourceMappingURL=all.d.ts.map

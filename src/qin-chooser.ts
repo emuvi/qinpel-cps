@@ -1,12 +1,8 @@
-import { Qinpel } from "qinpel-app/types/qinpel"
-// @ts-ignore
-const qinpel = window.frameElement.qinpel as Qinpel;
-
 import { QinEdit } from "./qin-edit";
 import { QinExplorer } from "./qin-explorer";
+import { QinSoul, QinFilesNature, QinFilesOperation, QinFilesDescriptor } from "qinpel-res";
 import styles from "./styles/qin-chooser-styles";
 
-import { QinFilesNature, QinFilesOperation, QinFilesDescriptor } from "./qin-utils";
 
 export class QinChooser extends QinEdit {
 
@@ -48,7 +44,7 @@ export class QinChooser extends QinEdit {
     private initInput() {
         styles.applyOnInputName(this.inputName);
         this.divBottom.appendChild(this.inputName);
-        qinpel.util.addAction(this.inputName, (qinEvent) => {
+        QinSoul.arm.addAction(this.inputName, (qinEvent) => {
             if (qinEvent.fromTyping && qinEvent.isEnter) {
                 this.qinExplorer.load(this.inputName.value, (loaded) => {
                     this.inputName.value = loaded;

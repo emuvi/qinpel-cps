@@ -101,7 +101,7 @@ export enum QinAsset {
     ExplorerMovie = "explorer-movie.png",
     ExplorerMusic = "explorer-music.png",
     ExplorerZipped = "explorer-zipped.png",
-    FaceCog = "face-cog.svg",
+    FaceCog = "face-cog.png",
     FrameClose = "frame-close.png",
     FrameMaximize = "frame-maximize.png",
     FrameMenu = "frame-menu.png",

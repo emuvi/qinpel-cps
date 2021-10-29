@@ -1,6 +1,6 @@
 import { QinBase } from "./qin-base";
 import { QinAsset } from "./qin-assets";
-import { QinDimension, QinGrandeur } from "./qin-utils";
+import { QinDimension, QinGrandeur } from "qinpel-res";
 export declare class QinIcon extends QinBase {
     private elModel;
     constructor(asset: QinAsset, size?: QinDimension | QinGrandeur, fill?: string);

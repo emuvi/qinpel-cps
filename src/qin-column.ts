@@ -1,8 +1,5 @@
-import { Qinpel } from "qinpel-app/types/qinpel"
-// @ts-ignore
-const qinpel = window.frameElement.qinpel as Qinpel;
-
 import { QinBase } from "./qin-base";
+import { QinSoul } from "qinpel-res";
 import styles from "./styles/qin-column-styles";
 
 export class QinColumn extends QinBase {
@@ -20,7 +17,7 @@ export class QinColumn extends QinBase {
 
     public putAsBody() {
         document.body.appendChild(this.divPanel);
-        qinpel.util.applyStyleAsBody(this.divPanel);
+        QinSoul.skin.applyStyleAsBody(this.divPanel);
     }
 
     public getMain(): HTMLElement {

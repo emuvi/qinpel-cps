@@ -1,5 +1,5 @@
 import { QinEdit } from "./qin-edit";
-import { QinFilesNature } from "./qin-utils";
+import { QinFilesNature } from "qinpel-res";
 export declare class QinExplorer extends QinEdit {
     private divBody;
     private nature;

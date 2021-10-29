@@ -16,11 +16,10 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QinChooser = void 0;
-var qinpel = window.frameElement.qinpel;
 var qin_edit_1 = require("./qin-edit");
 var qin_explorer_1 = require("./qin-explorer");
+var qinpel_res_1 = require("qinpel-res");
 var qin_chooser_styles_1 = require("./styles/qin-chooser-styles");
-var qin_utils_1 = require("./qin-utils");
 var QinChooser = (function (_super) {
     __extends(QinChooser, _super);
     function QinChooser(nature, operation, descriptors) {
@@ -30,8 +29,8 @@ var QinChooser = (function (_super) {
         _this.divBottom = document.createElement("div");
         _this.inputName = document.createElement("input");
         _this.selectType = document.createElement("select");
-        _this.nature = nature ? nature : qin_utils_1.QinFilesNature.BOTH;
-        _this.operation = operation ? operation : qin_utils_1.QinFilesOperation.OPEN;
+        _this.nature = nature ? nature : qinpel_res_1.QinFilesNature.BOTH;
+        _this.operation = operation ? operation : qinpel_res_1.QinFilesOperation.OPEN;
         _this.descriptors = descriptors ? descriptors : [];
         _this.initBody();
         _this.initBottom();
@@ -52,7 +51,7 @@ var QinChooser = (function (_super) {
         var _this = this;
         qin_chooser_styles_1.default.applyOnInputName(this.inputName);
         this.divBottom.appendChild(this.inputName);
-        qinpel.util.addAction(this.inputName, function (qinEvent) {
+        qinpel_res_1.QinSoul.arm.addAction(this.inputName, function (qinEvent) {
             if (qinEvent.fromTyping && qinEvent.isEnter) {
                 _this.qinExplorer.load(_this.inputName.value, function (loaded) {
                     _this.inputName.value = loaded;

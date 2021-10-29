@@ -9,6 +9,9 @@
   "keywords": [],
   "author": "Éverton M. Vieira",
   "license": "LGPL-3.0-only",
+  "dependencies": {
+    "qinpel-res": "file:../qinpel-res"
+  },
   "devDependencies": {
     "qinpel-app": "file:../qinpel-app"
   }
