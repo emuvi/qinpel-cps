@@ -4,6 +4,6 @@ export declare class QinPanel extends QinBase {
     constructor();
     private initPanel;
     putAsBody(): void;
-    getMain(): HTMLElement;
+    getMain(): HTMLDivElement;
 }
 //# sourceMappingURL=qin-panel.d.ts.map

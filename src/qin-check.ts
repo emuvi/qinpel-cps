@@ -12,7 +12,7 @@ export class QinCheck extends QinEdit {
         }
     }
 
-    public getMain(): HTMLElement {
+    public getMain(): HTMLInputElement {
         return this.inputCheck;
     }
 

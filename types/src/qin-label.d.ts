@@ -2,7 +2,7 @@ import { QinBase } from "./qin-base";
 export declare class QinLabel extends QinBase {
     private spanLabel;
     constructor(title?: string);
-    getMain(): HTMLElement;
+    getMain(): HTMLSpanElement;
     setTitle(title: string): void;
     getTitle(): string;
 }

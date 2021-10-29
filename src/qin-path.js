@@ -22,6 +22,7 @@ var qin_string_1 = require("./qin-string");
 var qin_button_1 = require("./qin-button");
 var qin_assets_1 = require("./qin-assets");
 var qin_icon_1 = require("./qin-icon");
+var qin_chooser_1 = require("./qin-chooser");
 var qinpel_res_1 = require("qinpel-res");
 var QinPath = (function (_super) {
     __extends(QinPath, _super);
@@ -29,14 +30,19 @@ var QinPath = (function (_super) {
         var _this = _super.call(this) || this;
         _this.qinLine = new qin_line_1.QinLine();
         _this.qinPath = new qin_string_1.QinString();
-        _this.qinAction = new qin_button_1.QinButton(new qin_icon_1.QinIcon(qin_assets_1.QinAsset.FaceCog, qinpel_res_1.QinGrandeur.SMALL, qinpel_res_1.QinStyles.ColorFont));
+        _this.qinAction = new qin_button_1.QinButton(new qin_icon_1.QinIcon(qin_assets_1.QinAsset.FaceCog, qinpel_res_1.QinGrandeur.SMALL));
+        _this.qinChooser = new qin_chooser_1.QinChooser();
         _this.qinPath.install(_this.qinLine);
-        _this.qinAction.install(_this.qinLine);
-        _this.qinAction.addAction(function () {
-            console.log("OI!");
-        });
+        _this.initAction();
         return _this;
     }
+    QinPath.prototype.initAction = function () {
+        this.qinAction.install(this.qinLine);
+        var popup = this.qinpel().frame.newPopup(this.qinAction.getMain(), this.qinChooser.getMain());
+        this.qinAction.addAction(function () {
+            popup.show();
+        });
+    };
     QinPath.prototype.getMain = function () {
         return this.qinLine.getMain();
     };

@@ -120,7 +120,7 @@ export class QinExplorer extends QinEdit {
         QinSoul.skin.disableSelection(this.divBody);
     }
 
-    public getMain(): HTMLElement {
+    public getMain(): HTMLDivElement {
         return this.divBody;
     }
 

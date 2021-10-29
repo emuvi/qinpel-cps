@@ -14,7 +14,7 @@ export declare class QinChooser extends QinEdit {
     private initBottom;
     private initInput;
     private initSelect;
-    getMain(): HTMLElement;
+    getMain(): HTMLDivElement;
     getData(): any;
 }
 //# sourceMappingURL=qin-chooser.d.ts.map

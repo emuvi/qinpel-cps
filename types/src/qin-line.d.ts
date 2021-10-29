@@ -4,6 +4,6 @@ export declare class QinLine extends QinBase {
     constructor();
     private initPanel;
     putAsBody(): void;
-    getMain(): HTMLElement;
+    getMain(): HTMLDivElement;
 }
 //# sourceMappingURL=qin-line.d.ts.map

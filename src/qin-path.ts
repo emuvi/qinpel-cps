@@ -4,25 +4,32 @@ import { QinString } from "./qin-string";
 import { QinButton } from "./qin-button";
 import { QinAsset } from "./qin-assets";
 import { QinIcon } from "./qin-icon";
-import { QinStyles, QinGrandeur } from "qinpel-res";
+import { QinChooser } from "./qin-chooser";
+import { QinGrandeur } from "qinpel-res";
 
 export class QinPath extends QinEdit {
 
     private qinLine = new QinLine();
     private qinPath = new QinString();
-    private qinAction = new QinButton(
-        new QinIcon(QinAsset.FaceCog, QinGrandeur.SMALL, QinStyles.ColorFont));
+    private qinAction = new QinButton(new QinIcon(QinAsset.FaceCog, QinGrandeur.SMALL));
+    private qinChooser = new QinChooser();
 
     public constructor() {
         super();
         this.qinPath.install(this.qinLine);
+        this.initAction();
+    }
+    
+    private initAction() {
         this.qinAction.install(this.qinLine);
+        const popup = this.qinpel().frame.newPopup(
+            this.qinAction.getMain(), this.qinChooser.getMain());
         this.qinAction.addAction(() => {
-            console.log("OI!");
+            popup.show();
         });
     }
 
-    public getMain(): HTMLElement {
+    public getMain(): HTMLDivElement {
         return this.qinLine.getMain();
     }
 

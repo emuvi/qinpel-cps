@@ -4,6 +4,6 @@ export declare class QinColumn extends QinBase {
     constructor();
     private initPanel;
     putAsBody(): void;
-    getMain(): HTMLElement;
+    getMain(): HTMLDivElement;
 }
 //# sourceMappingURL=qin-column.d.ts.map

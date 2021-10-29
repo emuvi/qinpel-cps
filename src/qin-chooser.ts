@@ -77,7 +77,7 @@ export class QinChooser extends QinEdit {
         this.divBottom.appendChild(this.selectType);
     }
 
-    public getMain(): HTMLElement {
+    public getMain(): HTMLDivElement {
         return this.divBody;
     }
 

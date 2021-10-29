@@ -9,7 +9,7 @@ export class QinString extends QinEdit {
         this.inputString.type = "text";
     }
 
-    public getMain(): HTMLElement {
+    public getMain(): HTMLInputElement {
         return this.inputString;
     }
 

@@ -21,44 +21,15 @@ var qin_assets_1 = require("./qin-assets");
 var qinpel_res_1 = require("qinpel-res");
 var QinIcon = (function (_super) {
     __extends(QinIcon, _super);
-    function QinIcon(asset, size, fill) {
+    function QinIcon(asset, size) {
         var _this = _super.call(this) || this;
-        _this.elModel = null;
-        var assetUrl = (0, qin_assets_1.qinAssetUrl)(asset);
-        _this.initImage(assetUrl, size);
+        _this.imgIcon = document.createElement("img");
+        _this.imgIcon.src = (0, qin_assets_1.qinAssetUrl)(asset);
+        qinpel_res_1.QinSoul.skin.applyDimensionSize(_this.imgIcon, size);
         return _this;
     }
-    QinIcon.prototype.initVector = function (assetUrl, size, fill) {
-        var obj = document.createElement("embed");
-        obj.src = assetUrl;
-        obj.type = "image/svg+xml";
-        this.applySize(obj, size);
-        if (fill) {
-            obj.style.fill = fill;
-        }
-        this.elModel = obj;
-    };
-    QinIcon.prototype.initImage = function (assetUrl, size) {
-        var img = document.createElement("img");
-        img.src = assetUrl;
-        this.applySize(img, size);
-        this.elModel = img;
-    };
-    QinIcon.prototype.applySize = function (el, size) {
-        if (size) {
-            if (size instanceof qinpel_res_1.QinDimension) {
-                el.style.width = size.width + "px";
-                el.style.height = size.height + "px";
-            }
-            else {
-                var dim = qinpel_res_1.QinSoul.skin.getIconDimension(size);
-                el.style.width = dim.width + "px";
-                el.style.height = dim.height + "px";
-            }
-        }
-    };
     QinIcon.prototype.getMain = function () {
-        return this.elModel;
+        return this.imgIcon;
     };
     return QinIcon;
 }(qin_base_1.QinBase));

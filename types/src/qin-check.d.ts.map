@@ -1,1 +1,1 @@
-{"version":3,"file":"qin-check.d.ts","sourceRoot":"","sources":["../../src/qin-check.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,YAAY,CAAC;AAErC,qBAAa,QAAS,SAAQ,OAAO;IAEjC,OAAO,CAAC,UAAU,CAAmC;gBAElC,KAAK,CAAC,EAAE,MAAM;IAQ1B,OAAO,IAAI,WAAW;IAItB,OAAO,IAAI,OAAO;CAI5B"}
+{"version":3,"file":"qin-check.d.ts","sourceRoot":"","sources":["../../src/qin-check.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,YAAY,CAAC;AAErC,qBAAa,QAAS,SAAQ,OAAO;IAEjC,OAAO,CAAC,UAAU,CAAmC;gBAElC,KAAK,CAAC,EAAE,MAAM;IAQ1B,OAAO,IAAI,gBAAgB;IAI3B,OAAO,IAAI,OAAO;CAI5B"}

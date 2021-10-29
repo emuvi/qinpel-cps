@@ -16,7 +16,7 @@ export class QinField extends QinEdit {
         this.qinEdit.install(this.qinField);
     }
 
-    public getMain(): HTMLElement {
+    public getMain(): HTMLDivElement {
         return this.qinField.getMain();
     }
 

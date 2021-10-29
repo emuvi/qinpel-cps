@@ -9,7 +9,7 @@ export declare class QinExplorer extends QinEdit {
     private items;
     constructor(nature?: QinFilesNature, extensions?: string[]);
     private initBody;
-    getMain(): HTMLElement;
+    getMain(): HTMLDivElement;
     getData(): string[];
     setNature(nature: QinFilesNature): void;
     setExtensions(extensions: string[]): void;

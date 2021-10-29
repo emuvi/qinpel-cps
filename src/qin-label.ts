@@ -11,7 +11,7 @@ export class QinLabel extends QinBase {
         }
     }
 
-    public getMain(): HTMLElement {
+    public getMain(): HTMLSpanElement {
         return this.spanLabel;
     }
 

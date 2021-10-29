@@ -20,7 +20,7 @@ export class QinPanel extends QinBase {
         QinSoul.skin.applyStyleAsBody(this.divPanel);
     }
 
-    public getMain(): HTMLElement {
+    public getMain(): HTMLDivElement {
         return this.divPanel;
     }
 

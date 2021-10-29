@@ -23,7 +23,7 @@ export class QinButton extends QinBase {
         }
     }
 
-    public getMain(): HTMLElement {
+    public getMain(): HTMLButtonElement {
         return this.button;
     }
 

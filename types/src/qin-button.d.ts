@@ -6,6 +6,6 @@ export declare class QinButton extends QinBase {
     private qinIcon;
     private qinLabel;
     constructor(icon?: QinIcon, label?: QinLabel);
-    getMain(): HTMLElement;
+    getMain(): HTMLButtonElement;
 }
 //# sourceMappingURL=qin-button.d.ts.map
