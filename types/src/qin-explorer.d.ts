@@ -11,6 +11,7 @@ export declare class QinExplorer extends QinEdit {
     private initBody;
     getMain(): HTMLDivElement;
     getData(): string[];
+    setData(data: string[]): void;
     setNature(nature: QinFilesNature): void;
     setExtensions(extensions: string[]): void;
     getActualFolder(): string;

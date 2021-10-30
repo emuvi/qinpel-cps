@@ -15,28 +15,36 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QinString = void 0;
+exports.QinCombo = void 0;
 var qinpel_res_1 = require("qinpel-res");
 var qin_edit_1 = require("./qin-edit");
-var QinString = (function (_super) {
-    __extends(QinString, _super);
-    function QinString() {
+var QinCombo = (function (_super) {
+    __extends(QinCombo, _super);
+    function QinCombo() {
         var _this = _super.call(this) || this;
-        _this.inputString = document.createElement("input");
-        _this.inputString.type = "text";
-        qinpel_res_1.QinSoul.skin.styleAsEdit(_this.inputString);
+        _this.selectCombo = document.createElement("select");
+        qinpel_res_1.QinSoul.skin.styleAsEdit(_this.selectCombo);
         return _this;
     }
-    QinString.prototype.getMain = function () {
-        return this.inputString;
+    QinCombo.prototype.getMain = function () {
+        return this.selectCombo;
     };
-    QinString.prototype.getData = function () {
-        return this.inputString.value;
+    QinCombo.prototype.getData = function () {
+        return this.selectCombo.value;
     };
-    QinString.prototype.setData = function (data) {
-        this.inputString.value = data;
+    QinCombo.prototype.setData = function (data) {
+        this.selectCombo.value = data;
     };
-    return QinString;
+    QinCombo.prototype.addOption = function (title, value, selected) {
+        var option = document.createElement("option");
+        option.text = title;
+        option.value = value;
+        if (selected != undefined && selected != null) {
+            option.selected = selected;
+        }
+        this.selectCombo.appendChild(option);
+    };
+    return QinCombo;
 }(qin_edit_1.QinEdit));
-exports.QinString = QinString;
-//# sourceMappingURL=qin-string.js.map
+exports.QinCombo = QinCombo;
+//# sourceMappingURL=qin-combo.js.map

@@ -3,6 +3,7 @@ export { QinButton } from "./src/qin-button";
 export { QinCheck } from "./src/qin-check";
 export { QinChooser } from "./src/qin-chooser";
 export { QinColumn } from "./src/qin-column";
+export { QinCombo } from "./src/qin-combo";
 export { QinExplorer } from "./src/qin-explorer";
 export { QinField } from "./src/qin-field";
 export { QinIcon } from "./src/qin-icon";

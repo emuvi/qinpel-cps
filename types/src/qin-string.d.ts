@@ -4,5 +4,6 @@ export declare class QinString extends QinEdit {
     constructor();
     getMain(): HTMLInputElement;
     getData(): string;
+    setData(data: string): void;
 }
 //# sourceMappingURL=qin-string.d.ts.map

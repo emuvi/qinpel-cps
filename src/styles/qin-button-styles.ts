@@ -1,8 +1,8 @@
-import common from "./qin-common-styles"
+import { QinSoul } from "qinpel-res";
 
 export default {
     applyOnButton: (el: HTMLButtonElement) => {
-        common.applyOnEdit(el);
+        QinSoul.skin.styleAsEdit(el);
         el.style.display = "flex";
         el.style.flexDirection = "row"
         el.style.alignItems = "center";

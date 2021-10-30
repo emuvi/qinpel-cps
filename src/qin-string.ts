@@ -1,3 +1,4 @@
+import { QinSoul } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 
 export class QinString extends QinEdit {
@@ -7,6 +8,7 @@ export class QinString extends QinEdit {
     public constructor() {
         super();
         this.inputString.type = "text";
+        QinSoul.skin.styleAsEdit(this.inputString);
     }
 
     public getMain(): HTMLInputElement {
@@ -15,6 +17,10 @@ export class QinString extends QinEdit {
 
     public getData(): string {
         return this.inputString.value;
+    }
+
+    public setData(data: string) {
+        this.inputString.value = data;
     }
 
 }

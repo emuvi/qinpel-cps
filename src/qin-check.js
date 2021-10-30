@@ -16,6 +16,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QinCheck = void 0;
+var qinpel_res_1 = require("qinpel-res");
 var qin_edit_1 = require("./qin-edit");
 var QinCheck = (function (_super) {
     __extends(QinCheck, _super);
@@ -26,6 +27,7 @@ var QinCheck = (function (_super) {
         if (title) {
             _this.inputCheck.innerText = title;
         }
+        qinpel_res_1.QinSoul.skin.styleAsEdit(_this.inputCheck);
         return _this;
     }
     QinCheck.prototype.getMain = function () {
@@ -33,6 +35,9 @@ var QinCheck = (function (_super) {
     };
     QinCheck.prototype.getData = function () {
         return this.inputCheck.checked;
+    };
+    QinCheck.prototype.setData = function (data) {
+        this.inputCheck.checked = data;
     };
     return QinCheck;
 }(qin_edit_1.QinEdit));

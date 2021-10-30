@@ -17,7 +17,7 @@ export class QinPanel extends QinBase {
 
     public putAsBody() {
         document.body.appendChild(this.divPanel);
-        QinSoul.skin.applyStyleAsBody(this.divPanel);
+        QinSoul.skin.styleAsBody(this.divPanel);
     }
 
     public getMain(): HTMLDivElement {

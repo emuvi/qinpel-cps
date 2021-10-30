@@ -25,7 +25,7 @@ var QinIcon = (function (_super) {
         var _this = _super.call(this) || this;
         _this.imgIcon = document.createElement("img");
         _this.imgIcon.src = (0, qin_assets_1.qinAssetUrl)(asset);
-        qinpel_res_1.QinSoul.skin.applyDimensionSize(_this.imgIcon, size);
+        qinpel_res_1.QinSoul.skin.styleSize(_this.imgIcon, size);
         return _this;
     }
     QinIcon.prototype.getMain = function () {

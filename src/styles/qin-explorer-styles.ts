@@ -1,27 +1,18 @@
-import common from "./qin-common-styles"
+import { QinSoul } from "qinpel-res";
 
 export default {
     applyOnDivBody: (el: HTMLDivElement) => {
-        common.applyOnEdit(el);
+        QinSoul.skin.styleAsEdit(el);
         el.style.overflow = "auto";
         el.style.minHeight = "84px";
         el.style.minWidth = "140px";
         el.tabIndex = 0;
     },
     applyOnDivItem: (el: HTMLDivElement) => {
+        QinSoul.skin.styleAsEdit(el);
         el.style.display = "inline-block";
         el.style.padding = "9px";
         el.style.margin = "2px";
-        el.style.border = "1px solid #ffffff00";
-        el.style.borderRadius = "2px";
-        el.addEventListener("focus", () => {
-            el.style.outline = "none";
-            el.style.border = "1px solid #ae0000";
-        });
-        el.addEventListener("focusout", () => {
-            el.style.outline = "none";
-            el.style.border = "1px solid #ffffff00";
-        });
     },
     applyOnDivItemBody: (el: HTMLDivElement) => {
         el.style.display = "flex";

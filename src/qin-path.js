@@ -40,7 +40,7 @@ var QinPath = (function (_super) {
         this.qinAction.install(this.qinLine);
         var popup = this.qinpel().frame.newPopup(this.qinAction.getMain(), this.qinChooser.getMain());
         this.qinAction.addAction(function () {
-            popup.show();
+            popup.toggle();
         });
     };
     QinPath.prototype.getMain = function () {
@@ -48,6 +48,9 @@ var QinPath = (function (_super) {
     };
     QinPath.prototype.getData = function () {
         return this.qinPath.getData();
+    };
+    QinPath.prototype.setData = function (data) {
+        this.qinPath.setData(data);
     };
     return QinPath;
 }(qin_edit_1.QinEdit));

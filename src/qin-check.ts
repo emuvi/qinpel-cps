@@ -1,3 +1,4 @@
+import { QinSoul } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 
 export class QinCheck extends QinEdit {
@@ -10,6 +11,7 @@ export class QinCheck extends QinEdit {
         if (title) {
             this.inputCheck.innerText = title;
         }
+        QinSoul.skin.styleAsEdit(this.inputCheck);
     }
 
     public getMain(): HTMLInputElement {
@@ -18,6 +20,10 @@ export class QinCheck extends QinEdit {
 
     public getData(): boolean {
         return this.inputCheck.checked;
+    }
+
+    public setData(data: boolean) {
+        this.inputCheck.checked = data;
     }
 
 }

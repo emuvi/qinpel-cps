@@ -71,4 +71,6 @@ export abstract class QinBase {
         QinSoul.arm.addAction(this.getMain(), action);
     }
 
+    
+
 }

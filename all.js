@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QinString = exports.QinPath = exports.QinPanel = exports.QinLine = exports.QinLabel = exports.QinIcon = exports.QinField = exports.QinExplorer = exports.QinColumn = exports.QinChooser = exports.QinCheck = exports.QinButton = exports.qinAssetUrl = exports.QinAsset = void 0;
+exports.QinString = exports.QinPath = exports.QinPanel = exports.QinLine = exports.QinLabel = exports.QinIcon = exports.QinField = exports.QinExplorer = exports.QinCombo = exports.QinColumn = exports.QinChooser = exports.QinCheck = exports.QinButton = exports.qinAssetUrl = exports.QinAsset = void 0;
 var qin_assets_1 = require("./src/qin-assets");
 Object.defineProperty(exports, "QinAsset", { enumerable: true, get: function () { return qin_assets_1.QinAsset; } });
 Object.defineProperty(exports, "qinAssetUrl", { enumerable: true, get: function () { return qin_assets_1.qinAssetUrl; } });
@@ -12,6 +12,8 @@ var qin_chooser_1 = require("./src/qin-chooser");
 Object.defineProperty(exports, "QinChooser", { enumerable: true, get: function () { return qin_chooser_1.QinChooser; } });
 var qin_column_1 = require("./src/qin-column");
 Object.defineProperty(exports, "QinColumn", { enumerable: true, get: function () { return qin_column_1.QinColumn; } });
+var qin_combo_1 = require("./src/qin-combo");
+Object.defineProperty(exports, "QinCombo", { enumerable: true, get: function () { return qin_combo_1.QinCombo; } });
 var qin_explorer_1 = require("./src/qin-explorer");
 Object.defineProperty(exports, "QinExplorer", { enumerable: true, get: function () { return qin_explorer_1.QinExplorer; } });
 var qin_field_1 = require("./src/qin-field");

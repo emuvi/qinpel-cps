@@ -1,20 +1,21 @@
-import { QinEdit } from "./qin-edit";
 import { QinFilesNature, QinFilesOperation, QinFilesDescriptor } from "qinpel-res";
+import { QinEdit } from "./qin-edit";
 export declare class QinChooser extends QinEdit {
-    private divBody;
+    private qinBody;
     private qinExplorer;
-    private divBottom;
-    private inputName;
-    private selectType;
+    private qinBottom;
+    private qinName;
+    private qinExtensions;
+    private qinAction;
     private nature;
     private operation;
     private descriptors;
     constructor(nature?: QinFilesNature, operation?: QinFilesOperation, descriptors?: QinFilesDescriptor[]);
     private initBody;
     private initBottom;
-    private initInput;
-    private initSelect;
+    private initExtensions;
     getMain(): HTMLDivElement;
-    getData(): any;
+    getData(): string[];
+    setData(data: string[]): void;
 }
 //# sourceMappingURL=qin-chooser.d.ts.map

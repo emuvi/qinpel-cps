@@ -25,7 +25,7 @@ export class QinPath extends QinEdit {
         const popup = this.qinpel().frame.newPopup(
             this.qinAction.getMain(), this.qinChooser.getMain());
         this.qinAction.addAction(() => {
-            popup.show();
+            popup.toggle();
         });
     }
 
@@ -35,6 +35,10 @@ export class QinPath extends QinEdit {
 
     public getData(): string {
         return this.qinPath.getData();
+    }
+
+    public setData(data: string) {
+        this.qinPath.setData(data);
     }
 
 }

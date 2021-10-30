@@ -32,7 +32,7 @@ var QinPanel = (function (_super) {
     };
     QinPanel.prototype.putAsBody = function () {
         document.body.appendChild(this.divPanel);
-        qinpel_res_1.QinSoul.skin.applyStyleAsBody(this.divPanel);
+        qinpel_res_1.QinSoul.skin.styleAsBody(this.divPanel);
     };
     QinPanel.prototype.getMain = function () {
         return this.divPanel;

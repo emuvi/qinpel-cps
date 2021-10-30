@@ -8,6 +8,8 @@ export { QinChooser } from "./src/qin-chooser";
 
 export { QinColumn } from "./src/qin-column";
 
+export { QinCombo } from "./src/qin-combo";
+
 export { QinExplorer } from "./src/qin-explorer";
 
 export { QinField } from "./src/qin-field";

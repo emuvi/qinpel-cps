@@ -38,6 +38,9 @@ var QinField = (function (_super) {
     QinField.prototype.getData = function () {
         return this.qinEdit.getData();
     };
+    QinField.prototype.setData = function (data) {
+        this.qinEdit.setData(data);
+    };
     return QinField;
 }(qin_edit_1.QinEdit));
 exports.QinField = QinField;

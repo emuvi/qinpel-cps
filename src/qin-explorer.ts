@@ -126,8 +126,12 @@ export class QinExplorer extends QinEdit {
 
     public getData(): string[] {
         let result = [];
-
+        // TODO - Implement getData of QinExplorer
         return result;
+    }
+
+    public setData(data: string[]) {
+        // TODO - Implement setData of QinExplorer
     }
 
     public setNature(nature: QinFilesNature) {

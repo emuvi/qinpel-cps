@@ -24,4 +24,8 @@ export class QinField extends QinEdit {
         return this.qinEdit.getData();
     }
 
+    public setData(data: any) {
+        this.qinEdit.setData(data);
+    }
+
 }

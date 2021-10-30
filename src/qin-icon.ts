@@ -9,7 +9,7 @@ export class QinIcon extends QinBase {
     public constructor(asset: QinAsset, size?: QinDimension | QinGrandeur) {
         super();
         this.imgIcon.src = qinAssetUrl(asset);
-        QinSoul.skin.applyDimensionSize(this.imgIcon, size);
+        QinSoul.skin.styleSize(this.imgIcon, size);
     }
 
     public getMain(): HTMLImageElement {

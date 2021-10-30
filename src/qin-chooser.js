@@ -16,19 +16,26 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QinChooser = void 0;
-var qin_edit_1 = require("./qin-edit");
-var qin_explorer_1 = require("./qin-explorer");
 var qinpel_res_1 = require("qinpel-res");
-var qin_chooser_styles_1 = require("./styles/qin-chooser-styles");
+var qin_edit_1 = require("./qin-edit");
+var qin_column_1 = require("./qin-column");
+var qin_explorer_1 = require("./qin-explorer");
+var qin_line_1 = require("./qin-line");
+var qin_string_1 = require("./qin-string");
+var qin_combo_1 = require("./qin-combo");
+var qin_button_1 = require("./qin-button");
+var qin_icon_1 = require("./qin-icon");
+var qin_assets_1 = require("./qin-assets");
 var QinChooser = (function (_super) {
     __extends(QinChooser, _super);
     function QinChooser(nature, operation, descriptors) {
         var _this = _super.call(this) || this;
-        _this.divBody = document.createElement("div");
+        _this.qinBody = new qin_column_1.QinColumn();
         _this.qinExplorer = new qin_explorer_1.QinExplorer();
-        _this.divBottom = document.createElement("div");
-        _this.inputName = document.createElement("input");
-        _this.selectType = document.createElement("select");
+        _this.qinBottom = new qin_line_1.QinLine();
+        _this.qinName = new qin_string_1.QinString();
+        _this.qinExtensions = new qin_combo_1.QinCombo();
+        _this.qinAction = new qin_button_1.QinButton(new qin_icon_1.QinIcon(qin_assets_1.QinAsset.FaceCog, qinpel_res_1.QinGrandeur.SMALL));
         _this.nature = nature ? nature : qinpel_res_1.QinFilesNature.BOTH;
         _this.operation = operation ? operation : qinpel_res_1.QinFilesOperation.OPEN;
         _this.descriptors = descriptors ? descriptors : [];
@@ -37,58 +44,47 @@ var QinChooser = (function (_super) {
         return _this;
     }
     QinChooser.prototype.initBody = function () {
-        qin_chooser_styles_1.default.applyOnDivBody(this.divBody);
-        this.qinExplorer.install(this);
+        this.qinExplorer.install(this.qinBody);
         this.qinExplorer.setNature(this.nature);
-        this.divBody.appendChild(this.divBottom);
+        this.qinBottom.install(this.qinBody);
     };
     QinChooser.prototype.initBottom = function () {
-        qin_chooser_styles_1.default.applyOnDivBottom(this.divBottom);
-        this.initInput();
-        this.initSelect();
-    };
-    QinChooser.prototype.initInput = function () {
         var _this = this;
-        qin_chooser_styles_1.default.applyOnInputName(this.inputName);
-        this.divBottom.appendChild(this.inputName);
-        qinpel_res_1.QinSoul.arm.addAction(this.inputName, function (qinEvent) {
+        this.qinName.install(this.qinBottom);
+        qinpel_res_1.QinSoul.skin.styleFlexMax(this.qinName.getMain());
+        this.qinAction.addAction(function (qinEvent) {
             if (qinEvent.fromTyping && qinEvent.isEnter) {
-                _this.qinExplorer.load(_this.inputName.value, function (loaded) {
-                    _this.inputName.value = loaded;
+                _this.qinExplorer.load(_this.qinName.getData(), function (loaded) {
+                    _this.qinName.setData(loaded);
                 });
                 qinEvent.stop();
             }
         });
+        this.qinExtensions.install(this.qinBottom);
+        this.initExtensions();
+        this.qinAction.install(this.qinBottom);
     };
-    QinChooser.prototype.initSelect = function () {
+    QinChooser.prototype.initExtensions = function () {
         if (this.descriptors.length == 0) {
-            var optionAll = document.createElement("option");
-            optionAll.text = "All Files (*.*)";
-            optionAll.value = "*";
-            optionAll.selected = true;
-            this.selectType.appendChild(optionAll);
+            this.qinExtensions.addOption("All Files (*.*)", "*", true);
             this.qinExplorer.setExtensions([]);
         }
         else {
             for (var index = 0; index < this.descriptors.length; index++) {
                 var descriptor = this.descriptors[index];
-                var option = document.createElement("option");
-                option.text = descriptor.description;
-                option.value = descriptor.extensions.join(";");
-                if (index == 0)
-                    option.selected = true;
-                this.selectType.appendChild(option);
+                this.qinExtensions.addOption(descriptor.description, descriptor.extensions.join(";"), index == 0);
             }
             this.qinExplorer.setExtensions(this.descriptors[0].extensions);
         }
-        qin_chooser_styles_1.default.applyOnSelectType(this.selectType);
-        this.divBottom.appendChild(this.selectType);
     };
     QinChooser.prototype.getMain = function () {
-        return this.divBody;
+        return this.qinBody.getMain();
     };
     QinChooser.prototype.getData = function () {
-        return undefined;
+        return this.qinExplorer.getData();
+    };
+    QinChooser.prototype.setData = function (data) {
+        this.qinExplorer.setData(data);
     };
     return QinChooser;
 }(qin_edit_1.QinEdit));

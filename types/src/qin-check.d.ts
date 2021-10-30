@@ -4,5 +4,6 @@ export declare class QinCheck extends QinEdit {
     constructor(title?: string);
     getMain(): HTMLInputElement;
     getData(): boolean;
+    setData(data: boolean): void;
 }
 //# sourceMappingURL=qin-check.d.ts.map

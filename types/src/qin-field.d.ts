@@ -6,5 +6,6 @@ export declare class QinField extends QinEdit {
     constructor(title: string, edit: QinEdit);
     getMain(): HTMLDivElement;
     getData(): any;
+    setData(data: any): void;
 }
 //# sourceMappingURL=qin-field.d.ts.map

@@ -138,6 +138,8 @@ var QinExplorer = (function (_super) {
         var result = [];
         return result;
     };
+    QinExplorer.prototype.setData = function (data) {
+    };
     QinExplorer.prototype.setNature = function (nature) {
         this.nature = nature;
     };

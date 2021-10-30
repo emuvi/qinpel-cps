@@ -1,16 +1,26 @@
+import {
+    QinSoul, QinFilesNature, QinFilesOperation,
+    QinFilesDescriptor, QinGrandeur
+} from "qinpel-res";
 import { QinEdit } from "./qin-edit";
+import { QinColumn } from "./qin-column";
 import { QinExplorer } from "./qin-explorer";
-import { QinSoul, QinFilesNature, QinFilesOperation, QinFilesDescriptor } from "qinpel-res";
-import styles from "./styles/qin-chooser-styles";
+import { QinLine } from "./qin-line";
+import { QinString } from "./qin-string";
+import { QinCombo } from "./qin-combo";
+import { QinButton } from "./qin-button";
+import { QinIcon } from "./qin-icon";
+import { QinAsset } from "./qin-assets";
 
 
 export class QinChooser extends QinEdit {
 
-    private divBody = document.createElement("div");
+    private qinBody = new QinColumn();
     private qinExplorer = new QinExplorer();
-    private divBottom = document.createElement("div");
-    private inputName = document.createElement("input");
-    private selectType = document.createElement("select");
+    private qinBottom = new QinLine();
+    private qinName = new QinString();
+    private qinExtensions = new QinCombo();
+    private qinAction = new QinButton(new QinIcon(QinAsset.FaceCog, QinGrandeur.SMALL));
 
     private nature: QinFilesNature;
     private operation: QinFilesOperation;
@@ -29,60 +39,51 @@ export class QinChooser extends QinEdit {
     }
 
     private initBody() {
-        styles.applyOnDivBody(this.divBody);
-        this.qinExplorer.install(this);
+        this.qinExplorer.install(this.qinBody);
         this.qinExplorer.setNature(this.nature);
-        this.divBody.appendChild(this.divBottom);
+        this.qinBottom.install(this.qinBody);
     }
 
     private initBottom() {
-        styles.applyOnDivBottom(this.divBottom);
-        this.initInput();
-        this.initSelect();
-    }
-
-    private initInput() {
-        styles.applyOnInputName(this.inputName);
-        this.divBottom.appendChild(this.inputName);
-        QinSoul.arm.addAction(this.inputName, (qinEvent) => {
+        this.qinName.install(this.qinBottom);
+        QinSoul.skin.styleFlexMax(this.qinName.getMain());
+        this.qinAction.addAction((qinEvent) => {
             if (qinEvent.fromTyping && qinEvent.isEnter) {
-                this.qinExplorer.load(this.inputName.value, (loaded) => {
-                    this.inputName.value = loaded;
+                this.qinExplorer.load(this.qinName.getData(), (loaded) => {
+                    this.qinName.setData(loaded);
                 });
                 qinEvent.stop();
             }
         });
+        this.qinExtensions.install(this.qinBottom);
+        this.initExtensions();
+        this.qinAction.install(this.qinBottom);
     }
 
-    private initSelect() {
+    private initExtensions() {
         if (this.descriptors.length == 0) {
-            const optionAll = document.createElement("option");
-            optionAll.text = "All Files (*.*)";
-            optionAll.value = "*";
-            optionAll.selected = true;
-            this.selectType.appendChild(optionAll)
+            this.qinExtensions.addOption("All Files (*.*)", "*", true);
             this.qinExplorer.setExtensions([]);
         } else {
             for (let index = 0; index < this.descriptors.length; index++) {
                 const descriptor = this.descriptors[index];
-                const option = document.createElement("option");
-                option.text = descriptor.description;
-                option.value = descriptor.extensions.join(";");
-                if (index == 0) option.selected = true;
-                this.selectType.appendChild(option);
+                this.qinExtensions.addOption(descriptor.description, 
+                    descriptor.extensions.join(";"), index == 0);
             }
             this.qinExplorer.setExtensions(this.descriptors[0].extensions);
         }
-        styles.applyOnSelectType(this.selectType);
-        this.divBottom.appendChild(this.selectType);
     }
 
     public getMain(): HTMLDivElement {
-        return this.divBody;
+        return this.qinBody.getMain();
     }
 
-    public getData(): any {
-        return undefined;
+    public getData(): string[] {
+        return this.qinExplorer.getData();
+    }
+
+    public setData(data: string[]) {
+        this.qinExplorer.setData(data);
     }
 
 }

@@ -8,5 +8,6 @@ export declare class QinPath extends QinEdit {
     private initAction;
     getMain(): HTMLDivElement;
     getData(): string;
+    setData(data: string): void;
 }
 //# sourceMappingURL=qin-path.d.ts.map
