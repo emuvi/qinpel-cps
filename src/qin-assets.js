@@ -120,6 +120,7 @@ var QinAsset;
     QinAsset["FaceCancel"] = "face-cancel.png";
     QinAsset["FaceCart"] = "face-cart.png";
     QinAsset["FaceCheck"] = "face-check.png";
+    QinAsset["FaceCircle"] = "face-circle.png";
     QinAsset["FaceClock"] = "face-clock.png";
     QinAsset["FaceClose"] = "face-close.png";
     QinAsset["FaceCog"] = "face-cog.png";

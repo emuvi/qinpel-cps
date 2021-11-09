@@ -3,24 +3,32 @@ import { QinEdit } from "./qin-edit";
 
 export class QinString extends QinEdit {
     
-    private inputString = document.createElement("input");
+    private _inputMain: HTMLInputElement = document.createElement("input");
 
     public constructor() {
         super();
-        this.inputString.type = "text";
-        QinSoul.skin.styleAsEdit(this.inputString);
+        this._inputMain.type = "text";
+        QinSoul.skin.styleAsEdit(this._inputMain);
     }
 
     public getMain(): HTMLInputElement {
-        return this.inputString;
+        return this._inputMain;
     }
 
     public getData(): string {
-        return this.inputString.value;
+        return this._inputMain.value;
     }
 
     public setData(data: string) {
-        this.inputString.value = data;
+        this._inputMain.value = data;
     }
+
+    /**
+     * Getter inputMain
+     * @return {HTMLInputElement }
+     */
+	public get inputMain(): HTMLInputElement  {
+		return this._inputMain;
+	}
 
 }

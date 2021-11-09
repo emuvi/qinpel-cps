@@ -18,5 +18,22 @@ export declare abstract class QinBase {
     remove(child: QinBase): void;
     children(): QinBase[];
     addAction(action: QinAction): void;
+    putAsBody(): void;
+    putAsEdit(): void;
+    putAsScroll(): void;
+    putAsCentered(): void;
+    putAsDisplayInlineBlock(): void;
+    putAsDisplayFlex(): void;
+    putAsFlexMin(): void;
+    putAsFlexMax(): void;
+    putAsWidth(width: number): void;
+    putAsHeight(height: number): void;
+    putAsSize(width: number, height: number): void;
+    putAsMinWidth(width: number): void;
+    putAsMinHeight(height: number): void;
+    putAsMinSize(width: number, height: number): void;
+    putAsMaxWidth(width: number): void;
+    putAsMaxHeight(height: number): void;
+    putAsMaxSize(width: number, height: number): void;
 }
 //# sourceMappingURL=qin-base.d.ts.map

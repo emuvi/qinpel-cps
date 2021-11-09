@@ -1,9 +1,8 @@
 import { QinBase } from "./qin-base";
 export declare class QinPanel extends QinBase {
-    private divPanel;
+    private _divMain;
     constructor();
-    private initPanel;
-    putAsBody(): void;
     getMain(): HTMLDivElement;
+    get divMain(): HTMLDivElement;
 }
 //# sourceMappingURL=qin-panel.d.ts.map

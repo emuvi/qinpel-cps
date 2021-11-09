@@ -1,92 +1,117 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QinChooser = void 0;
-var qinpel_res_1 = require("qinpel-res");
-var qin_edit_1 = require("./qin-edit");
-var qin_column_1 = require("./qin-column");
-var qin_explorer_1 = require("./qin-explorer");
-var qin_line_1 = require("./qin-line");
-var qin_string_1 = require("./qin-string");
-var qin_combo_1 = require("./qin-combo");
-var qin_button_1 = require("./qin-button");
-var qin_icon_1 = require("./qin-icon");
-var qin_assets_1 = require("./qin-assets");
-var QinChooser = (function (_super) {
-    __extends(QinChooser, _super);
-    function QinChooser(nature, operation, descriptors) {
-        var _this = _super.call(this) || this;
-        _this.qinBody = new qin_column_1.QinColumn();
-        _this.qinExplorer = new qin_explorer_1.QinExplorer();
-        _this.qinBottom = new qin_line_1.QinLine();
-        _this.qinName = new qin_string_1.QinString();
-        _this.qinExtensions = new qin_combo_1.QinCombo();
-        _this.qinAction = new qin_button_1.QinButton(new qin_icon_1.QinIcon(qin_assets_1.QinAsset.FaceCog, qinpel_res_1.QinGrandeur.SMALL));
-        _this.nature = nature ? nature : qinpel_res_1.QinFilesNature.BOTH;
-        _this.operation = operation ? operation : qinpel_res_1.QinFilesOperation.OPEN;
-        _this.descriptors = descriptors ? descriptors : [];
-        _this.initBody();
-        _this.initBottom();
-        return _this;
+const qinpel_res_1 = require("qinpel-res");
+const qin_edit_1 = require("./qin-edit");
+const qin_column_1 = require("./qin-column");
+const qin_explorer_1 = require("./qin-explorer");
+const qin_line_1 = require("./qin-line");
+const qin_string_1 = require("./qin-string");
+const qin_combo_1 = require("./qin-combo");
+const qin_button_1 = require("./qin-button");
+const qin_icon_1 = require("./qin-icon");
+const qin_assets_1 = require("./qin-assets");
+const qin_panel_1 = require("./qin-panel");
+class QinChooser extends qin_edit_1.QinEdit {
+    constructor(nature, operation, descriptors) {
+        super();
+        this._qinMain = new qin_column_1.QinColumn();
+        this._qinUpper = new qin_line_1.QinLine();
+        this._qinConfirm = new qin_button_1.QinButton(new qin_icon_1.QinIcon(qin_assets_1.QinAsset.FaceConfirm));
+        this._qinName = new qin_string_1.QinString();
+        this._qinExtensions = new qin_combo_1.QinCombo();
+        this._qinSearch = new qin_button_1.QinButton(new qin_icon_1.QinIcon(qin_assets_1.QinAsset.FaceSearch));
+        this._qinUnder = new qin_panel_1.QinPanel();
+        this._qinExplorer = new qin_explorer_1.QinExplorer();
+        this._nature = nature ? nature : qinpel_res_1.QinFilesNature.BOTH;
+        this._operation = operation ? operation : qinpel_res_1.QinFilesOperation.OPEN;
+        this._descriptors = descriptors ? descriptors : [];
+        this.initMain();
+        this.initUpper();
+        this.initUnder();
     }
-    QinChooser.prototype.initBody = function () {
-        this.qinExplorer.install(this.qinBody);
-        this.qinExplorer.setNature(this.nature);
-        this.qinBottom.install(this.qinBody);
-    };
-    QinChooser.prototype.initBottom = function () {
-        var _this = this;
-        this.qinName.install(this.qinBottom);
-        qinpel_res_1.QinSoul.skin.styleFlexMax(this.qinName.getMain());
-        this.qinAction.addAction(function (qinEvent) {
-            if (qinEvent.fromTyping && qinEvent.isEnter) {
-                _this.qinExplorer.load(_this.qinName.getData(), function (loaded) {
-                    _this.qinName.setData(loaded);
+    initMain() {
+        this._qinUpper.install(this._qinMain);
+        this._qinUnder.install(this._qinMain);
+    }
+    initUpper() {
+        this._qinUpper.putAsFlexMin();
+        this._qinConfirm.install(this._qinUpper);
+        this._qinName.install(this._qinUpper);
+        qinpel_res_1.QinSoul.skin.styleFlexMax(this._qinName.getMain());
+        this._qinExtensions.install(this._qinUpper);
+        this.initExtensions();
+        this._qinSearch.install(this._qinUpper);
+        this._qinSearch.addAction((qinEvent) => {
+            if (qinEvent.isPrimary()) {
+                this._qinExplorer.load(this._qinName.getData(), (loaded) => {
+                    this._qinName.setData(loaded);
                 });
                 qinEvent.stop();
             }
         });
-        this.qinExtensions.install(this.qinBottom);
-        this.initExtensions();
-        this.qinAction.install(this.qinBottom);
-    };
-    QinChooser.prototype.initExtensions = function () {
-        if (this.descriptors.length == 0) {
-            this.qinExtensions.addOption("All Files (*.*)", "*", true);
-            this.qinExplorer.setExtensions([]);
+    }
+    initUnder() {
+        this._qinUnder.putAsScroll();
+        this._qinUnder.putAsFlexMax();
+        this._qinExplorer.install(this._qinUnder);
+        this._qinExplorer.nature = this._nature;
+    }
+    initExtensions() {
+        if (this._descriptors.length == 0) {
+            this._qinExtensions.addOption("All Files (*.*)", "*", true);
+            this._qinExplorer.extensions = [];
         }
         else {
-            for (var index = 0; index < this.descriptors.length; index++) {
-                var descriptor = this.descriptors[index];
-                this.qinExtensions.addOption(descriptor.description, descriptor.extensions.join(";"), index == 0);
+            for (let index = 0; index < this._descriptors.length; index++) {
+                const descriptor = this._descriptors[index];
+                this._qinExtensions.addOption(descriptor.description, descriptor.extensions.join(";"), index == 0);
             }
-            this.qinExplorer.setExtensions(this.descriptors[0].extensions);
+            this._qinExplorer.extensions = this._descriptors[0].extensions;
         }
-    };
-    QinChooser.prototype.getMain = function () {
-        return this.qinBody.getMain();
-    };
-    QinChooser.prototype.getData = function () {
-        return this.qinExplorer.getData();
-    };
-    QinChooser.prototype.setData = function (data) {
-        this.qinExplorer.setData(data);
-    };
-    return QinChooser;
-}(qin_edit_1.QinEdit));
+    }
+    getMain() {
+        return this._qinMain.getMain();
+    }
+    getData() {
+        return this._qinExplorer.getData();
+    }
+    setData(data) {
+        this._qinExplorer.setData(data);
+    }
+    get qinMain() {
+        return this._qinMain;
+    }
+    get qinUpper() {
+        return this._qinUpper;
+    }
+    get qinConfirm() {
+        return this._qinConfirm;
+    }
+    get qinName() {
+        return this._qinName;
+    }
+    get qinExtensions() {
+        return this._qinExtensions;
+    }
+    get qinSearch() {
+        return this._qinSearch;
+    }
+    get qinUnder() {
+        return this._qinUnder;
+    }
+    get qinExplorer() {
+        return this._qinExplorer;
+    }
+    get nature() {
+        return this._nature;
+    }
+    get operation() {
+        return this._operation;
+    }
+    get descriptors() {
+        return this._descriptors;
+    }
+}
 exports.QinChooser = QinChooser;
 //# sourceMappingURL=qin-chooser.js.map

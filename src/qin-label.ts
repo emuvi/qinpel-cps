@@ -2,25 +2,33 @@ import { QinBase } from "./qin-base";
 
 export class QinLabel extends QinBase {
 
-    private spanLabel = document.createElement("span");
+    private _spanMain: HTMLSpanElement = document.createElement("span");
 
     public constructor(title?: string) {
         super();
         if (title) {
-            this.spanLabel.textContent = title;
+            this._spanMain.textContent = title;
         }
     }
 
     public getMain(): HTMLSpanElement {
-        return this.spanLabel;
+        return this._spanMain;
     }
 
     public setTitle(title: string) {
-        this.spanLabel.textContent = title;
+        this._spanMain.textContent = title;
     }
 
     public getTitle(): string {
-        return this.spanLabel.textContent;
+        return this._spanMain.textContent;
     }
+
+    /**
+     * Getter spanMain
+     * @return {HTMLSpanElement }
+     */
+	public get spanMain(): HTMLSpanElement  {
+		return this._spanMain;
+	}
 
 }

@@ -116,6 +116,7 @@ export enum QinAsset {
     FaceCancel = "face-cancel.png",
     FaceCart = "face-cart.png",
     FaceCheck = "face-check.png",
+    FaceCircle = "face-circle.png",
     FaceClock = "face-clock.png",
     FaceClose = "face-close.png",
     FaceCog = "face-cog.png",

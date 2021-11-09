@@ -1,8 +1,8 @@
 export { QinAsset, qinAssetUrl } from "./src/qin-assets";
 
-export { QinButton } from "./src/qin-button";
+export { QinBoolean } from "./src/qin-boolean";
 
-export { QinCheck } from "./src/qin-check";
+export { QinButton } from "./src/qin-button";
 
 export { QinChooser } from "./src/qin-chooser";
 
@@ -15,6 +15,8 @@ export { QinExplorer } from "./src/qin-explorer";
 export { QinField } from "./src/qin-field";
 
 export { QinIcon } from "./src/qin-icon";
+
+export { QinInteger } from "./src/qin-integer";
 
 export { QinLabel } from "./src/qin-label";
 

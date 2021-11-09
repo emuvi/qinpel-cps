@@ -1,30 +1,62 @@
+import { QinSoul } from "qinpel-res";
 import { QinBase } from "./qin-base"
 import { QinIcon } from "./qin-icon"
 import { QinLabel} from "./qin-label"
 
-import styles from "./styles/qin-button-styles"
-
 export class QinButton extends QinBase {
     
-    private button = document.createElement("button");
-    private qinIcon: QinIcon = null;
-    private qinLabel: QinLabel = null;
+    private _buttonMain: HTMLButtonElement = document.createElement("button");
+    private _qinIcon: QinIcon = null;
+    private _qinLabel: QinLabel = null;
 
     public constructor(icon?: QinIcon, label?: QinLabel) {
         super();
-        styles.applyOnButton(this.button);
+        styles.applyOnButton(this._buttonMain);
         if (icon) {
-            this.qinIcon = icon;
-            this.qinIcon.install(this); 
+            this._qinIcon = icon;
+            this._qinIcon.install(this); 
         }
         if (label) {
-            this.qinLabel = label;
-            this.qinLabel.install(this);
+            this._qinLabel = label;
+            this._qinLabel.install(this);
         }
     }
 
     public getMain(): HTMLButtonElement {
-        return this.button;
+        return this._buttonMain;
     }
 
+    /**
+     * Getter buttonMain
+     * @return {HTMLButtonElement }
+     */
+	public get buttonMain(): HTMLButtonElement  {
+		return this._buttonMain;
+	}
+    
+    /**
+     * Getter qinIcon
+     * @return {QinIcon }
+     */
+	public get qinIcon(): QinIcon  {
+		return this._qinIcon;
+	}
+
+    /**
+     * Getter qinLabel
+     * @return {QinLabel }
+     */
+	public get qinLabel(): QinLabel  {
+		return this._qinLabel;
+	}
+
+}
+
+const styles = {
+    applyOnButton: (el: HTMLButtonElement) => {
+        QinSoul.skin.styleAsEdit(el);
+        el.style.display = "flex";
+        el.style.flexDirection = "row"
+        el.style.alignItems = "center";
+    }
 }

@@ -1,10 +1,10 @@
 import { QinEdit } from "./qin-edit";
-export declare class QinString extends QinEdit {
+export declare class QinInteger extends QinEdit {
     private _inputMain;
     constructor();
     getMain(): HTMLInputElement;
-    getData(): string;
-    setData(data: string): void;
+    getData(): number;
+    setData(data: number): void;
     get inputMain(): HTMLInputElement;
 }
-//# sourceMappingURL=qin-string.d.ts.map
+//# sourceMappingURL=qin-integer.d.ts.map

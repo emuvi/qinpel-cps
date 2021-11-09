@@ -3,23 +3,23 @@ import { QinEdit } from "./qin-edit";
 
 export class QinCombo extends QinEdit {
     
-    private selectCombo = document.createElement("select");
+    private _selectMain: HTMLSelectElement = document.createElement("select");
 
     public constructor() {
         super();
-        QinSoul.skin.styleAsEdit(this.selectCombo);
+        QinSoul.skin.styleAsEdit(this._selectMain);
     }
 
     public getMain(): HTMLSelectElement {
-        return this.selectCombo;
+        return this._selectMain;
     }
 
     public getData(): string {
-        return this.selectCombo.value;
+        return this._selectMain.value;
     }
 
     public setData(data: string) {
-        this.selectCombo.value = data;
+        this._selectMain.value = data;
     }
 
     public addOption(title: string, value: string, selected?: boolean) {
@@ -29,7 +29,15 @@ export class QinCombo extends QinEdit {
         if (selected != undefined && selected != null) {
             option.selected = selected;
         }
-        this.selectCombo.appendChild(option);
+        this._selectMain.appendChild(option);
     }
+
+    /**
+     * Getter selectMain
+     * @return {HTMLSelectElement }
+     */
+	public get selectMain(): HTMLSelectElement  {
+		return this._selectMain;
+	}
 
 }

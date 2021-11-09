@@ -5,40 +5,80 @@ import { QinButton } from "./qin-button";
 import { QinAsset } from "./qin-assets";
 import { QinIcon } from "./qin-icon";
 import { QinChooser } from "./qin-chooser";
-import { QinGrandeur } from "qinpel-res";
+import { QinFilesDescriptor, QinFilesNature, QinFilesOperation } from "qinpel-res";
 
 export class QinPath extends QinEdit {
 
-    private qinLine = new QinLine();
-    private qinPath = new QinString();
-    private qinAction = new QinButton(new QinIcon(QinAsset.FaceCog, QinGrandeur.SMALL));
-    private qinChooser = new QinChooser();
+    private _qinMain: QinLine = new QinLine();
+    private _qinPath: QinString = new QinString();
+    private _qinSearch: QinButton = new QinButton(new QinIcon(QinAsset.FaceFolder));
+    private _qinChooser: QinChooser;
 
-    public constructor() {
+    public constructor(
+        nature?: QinFilesNature,
+        operation?: QinFilesOperation,
+        descriptors?: QinFilesDescriptor[]) {
         super();
-        this.qinPath.install(this.qinLine);
+        this._qinChooser = new QinChooser(nature, operation, descriptors);
+        this._qinPath.install(this._qinMain);
         this.initAction();
     }
-    
+
     private initAction() {
-        this.qinAction.install(this.qinLine);
-        const popup = this.qinpel().frame.newPopup(
-            this.qinAction.getMain(), this.qinChooser.getMain());
-        this.qinAction.addAction(() => {
-            popup.toggle();
+        this._qinSearch.install(this._qinMain);
+        const popup = this.qinpel().frame.newPopup(this._qinChooser.getMain());
+        this._qinSearch.addAction((qinEvent) => {
+            if (qinEvent.isPrimary()) {
+                popup.show();
+                const upperHeight = this._qinChooser.qinUpper.getMain().clientHeight;
+                const explorerMaxHeight = popup.maxHeight - (upperHeight + 12);
+                this._qinChooser.qinExplorer.putAsMaxHeight(explorerMaxHeight);
+            }
         });
     }
 
     public getMain(): HTMLDivElement {
-        return this.qinLine.getMain();
+        return this._qinMain.getMain();
     }
 
     public getData(): string {
-        return this.qinPath.getData();
+        return this._qinPath.getData();
     }
 
     public setData(data: string) {
-        this.qinPath.setData(data);
+        this._qinPath.setData(data);
+    }
+
+    /**
+     * Getter qinMain
+     * @return {QinLine }
+     */
+    public get qinMain(): QinLine {
+        return this._qinMain;
+    }
+
+    /**
+     * Getter qinPath
+     * @return {QinString }
+     */
+    public get qinPath(): QinString {
+        return this._qinPath;
+    }
+
+    /**
+     * Getter qinSearch
+     * @return {QinButton }
+     */
+    public get qinSearch(): QinButton {
+        return this._qinSearch;
+    }
+
+    /**
+     * Getter qinChooser
+     * @return {QinChooser }
+     */
+    public get qinChooser(): QinChooser {
+        return this._qinChooser;
     }
 
 }
