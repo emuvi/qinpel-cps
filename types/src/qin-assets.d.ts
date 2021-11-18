@@ -186,8 +186,9 @@ export declare enum QinAsset {
     FrameStatusInfo = "frame-status-info.png",
     LoginKey = "login-key.png",
     MenuDevtools = "menu-devtools.ico",
-    Poppins = "poppins.ttf",
-    Qinpel = "qinpel.png"
+    Qinpel = "qinpel.png",
+    Sourcesanspro = "SourceSansPro.ttf",
+    Sourceserifpro = "SourceSerifPro.ttf"
 }
 export declare function qinAssetUrl(asset: QinAsset): string;
 //# sourceMappingURL=qin-assets.d.ts.map

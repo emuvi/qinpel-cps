@@ -85,6 +85,10 @@ export abstract class QinBase {
         this.getMain().style.overflow = "auto";
     }
 
+    public putAsDisabledSelection() {
+        QinSoul.skin.disableSelection(this.getMain());
+    }
+
     public putAsCentered() {
         this.getMain().style.textAlign = "center";
         this.getMain().style.alignItems = "center";

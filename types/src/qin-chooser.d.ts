@@ -11,7 +11,7 @@ export declare class QinChooser extends QinEdit {
     private _qinMain;
     private _qinUpper;
     private _qinConfirm;
-    private _qinName;
+    private _qinFolder;
     private _qinExtensions;
     private _qinSearch;
     private _qinUnder;
@@ -19,24 +19,31 @@ export declare class QinChooser extends QinEdit {
     private _nature;
     private _operation;
     private _descriptors;
-    constructor(nature?: QinFilesNature, operation?: QinFilesOperation, descriptors?: QinFilesDescriptor[]);
+    private _singleSelection;
+    constructor(nature?: QinFilesNature, operation?: QinFilesOperation, descriptors?: QinFilesDescriptor[], singleSelection?: boolean);
     private initMain;
     private initUpper;
     private initUnder;
     private initExtensions;
+    private loadFolder;
     getMain(): HTMLDivElement;
     getData(): string[];
     setData(data: string[]): void;
     get qinMain(): QinColumn;
     get qinUpper(): QinLine;
     get qinConfirm(): QinButton;
-    get qinName(): QinString;
+    get qinFolder(): QinString;
     get qinExtensions(): QinCombo;
     get qinSearch(): QinButton;
     get qinUnder(): QinPanel;
     get qinExplorer(): QinExplorer;
     get nature(): QinFilesNature;
+    set nature(value: QinFilesNature);
     get operation(): QinFilesOperation;
+    set operation(value: QinFilesOperation);
     get descriptors(): QinFilesDescriptor[];
+    set descriptors(value: QinFilesDescriptor[]);
+    get singleSelection(): boolean;
+    set singleSelection(value: boolean);
 }
 //# sourceMappingURL=qin-chooser.d.ts.map

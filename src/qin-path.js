@@ -14,7 +14,7 @@ class QinPath extends qin_edit_1.QinEdit {
         this._qinMain = new qin_line_1.QinLine();
         this._qinPath = new qin_string_1.QinString();
         this._qinSearch = new qin_button_1.QinButton(new qin_icon_1.QinIcon(qin_assets_1.QinAsset.FaceFolder));
-        this._qinChooser = new qin_chooser_1.QinChooser(nature, operation, descriptors);
+        this._qinChooser = new qin_chooser_1.QinChooser(nature, operation, descriptors, true);
         this._qinPath.install(this._qinMain);
         this.initAction();
     }

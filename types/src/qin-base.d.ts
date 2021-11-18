@@ -21,6 +21,7 @@ export declare abstract class QinBase {
     putAsBody(): void;
     putAsEdit(): void;
     putAsScroll(): void;
+    putAsDisabledSelection(): void;
     putAsCentered(): void;
     putAsDisplayInlineBlock(): void;
     putAsDisplayFlex(): void;

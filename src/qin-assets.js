@@ -190,8 +190,9 @@ var QinAsset;
     QinAsset["FrameStatusInfo"] = "frame-status-info.png";
     QinAsset["LoginKey"] = "login-key.png";
     QinAsset["MenuDevtools"] = "menu-devtools.ico";
-    QinAsset["Poppins"] = "poppins.ttf";
     QinAsset["Qinpel"] = "qinpel.png";
+    QinAsset["Sourcesanspro"] = "SourceSansPro.ttf";
+    QinAsset["Sourceserifpro"] = "SourceSerifPro.ttf";
 })(QinAsset = exports.QinAsset || (exports.QinAsset = {}));
 function qinAssetUrl(asset) {
     return "/run/app/qinpel-app/assets/" + asset;

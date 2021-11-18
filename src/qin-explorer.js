@@ -3,34 +3,94 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.QinExplorer = void 0;
 const qin_edit_1 = require("./qin-edit");
 const qinpel_res_1 = require("qinpel-res");
+const qin_panel_1 = require("./qin-panel");
 class QinExplorer extends qin_edit_1.QinEdit {
-    constructor(nature, extensions) {
+    constructor(nature, extensions, singleSelection = false) {
         super();
-        this._divMain = document.createElement("div");
+        this._qinMain = new qin_panel_1.QinPanel();
         this._folderActual = "";
         this._folderServer = "";
         this.items = [];
         this._nature = nature ? nature : qinpel_res_1.QinFilesNature.BOTH;
         this._extensions = extensions ? extensions : [];
+        this._singleSelection = singleSelection;
         this.initMain();
     }
     initMain() {
-        styles.applyOnDivBody(this._divMain);
-        qinpel_res_1.QinSoul.arm.addAction(this._divMain, (qe) => {
-            if (qe.fromPointing) {
+        styles.applyOnMain(this._qinMain.divMain);
+        this._qinMain.addAction(qinEvent => {
+            if (qinEvent.isPrimary()) {
                 this.cleanSelection();
             }
         });
-        qinpel_res_1.QinSoul.skin.disableSelection(this._divMain);
+        this._qinMain.putAsDisabledSelection();
+    }
+    updateSingleSelection() {
+        if (this._singleSelection) {
+            let alreadyHas = false;
+            for (const item of this.items) {
+                if (item.isSelected()) {
+                    if (alreadyHas) {
+                        item.unselect();
+                    }
+                    else {
+                        alreadyHas = true;
+                    }
+                }
+            }
+        }
     }
     getMain() {
-        return this._divMain;
+        return this._qinMain.divMain;
     }
     getData() {
         let result = [];
+        this.items.forEach(item => {
+            if (item.isSelected()) {
+                result.push(qinpel_res_1.QinSoul.foot.getPathJoin(this._folderServer, item.getName()));
+            }
+        });
         return result;
     }
     setData(data) {
+        this.clean();
+        if (data && data.length > 0) {
+            let folderRoot = qinpel_res_1.QinSoul.foot.getRoot(data[0]);
+            this.load(folderRoot, _ => {
+                for (const itemPath of data) {
+                    let itemRoot = qinpel_res_1.QinSoul.foot.getRoot(itemPath);
+                    let itemName = qinpel_res_1.QinSoul.foot.getStem(itemPath);
+                    if (itemRoot !== folderRoot) {
+                        qinpel_res_1.QinHead.logSupport(`The item '${itemPath}' is not on the root '${folderRoot}'.`, "{qinpel-cps}(ErrCode-000001)");
+                    }
+                    else {
+                        if (!this.select(itemName)) {
+                            qinpel_res_1.QinHead.logWarning(`Does not have the item '${itemName}' on the folder '${folderRoot}'`, "{qinpel-cps}(ErrCode-000002)");
+                        }
+                    }
+                }
+            });
+        }
+    }
+    select(itemName) {
+        let item = this.items.find(inside => inside.getName() == itemName);
+        if (item) {
+            item.select();
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    unselect(itemName) {
+        let item = this.items.find(inside => inside.getName() == itemName);
+        if (item) {
+            item.unselect();
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     newDir(name) {
         this.newItem(name, "explorer-dir.png");
@@ -39,8 +99,8 @@ class QinExplorer extends qin_edit_1.QinEdit {
         this.newItem(name, getIconName(extension));
     }
     newItem(name, icon) {
-        const item = new Item(name, icon);
-        item.install(this._divMain);
+        const item = new Item(this, name, icon);
+        item.install(this._qinMain.divMain);
         this.items.push(item);
     }
     load(folder, onLoad) {
@@ -53,19 +113,19 @@ class QinExplorer extends qin_edit_1.QinEdit {
                 if (!lineValue) {
                     continue;
                 }
-                if (line.indexOf("P: ") === 0) {
+                if (line.startsWith("P: ")) {
                     this._folderServer = lineValue;
                     if (onLoad) {
                         onLoad(lineValue);
                     }
                 }
-                else if (line.indexOf("D: ") === 0) {
+                else if (line.startsWith("D: ")) {
                     if (this._nature == qinpel_res_1.QinFilesNature.BOTH ||
                         this._nature == qinpel_res_1.QinFilesNature.DIRECTORIES) {
                         this.newDir(lineValue);
                     }
                 }
-                else if (line.indexOf("F: ") === 0) {
+                else if (line.startsWith("F: ")) {
                     if (this._nature == qinpel_res_1.QinFilesNature.BOTH ||
                         this._nature == qinpel_res_1.QinFilesNature.FILES) {
                         let extension = qinpel_res_1.QinSoul.foot.getFileExtension(lineValue);
@@ -81,11 +141,11 @@ class QinExplorer extends qin_edit_1.QinEdit {
             }
         })
             .catch(err => {
-            this._divMain.innerText = qinpel_res_1.QinSoul.head.getErrorMessage(err);
+            this._qinMain.divMain.innerText = qinpel_res_1.QinHead.getErrorMessage(err, "{qinpel-cps}(ErrCode-000003)");
         });
     }
     clean() {
-        this._divMain.innerHTML = "";
+        this._qinMain.divMain.innerHTML = "";
         this.items = [];
         this._folderActual = "";
         this._folderServer = "";
@@ -95,8 +155,8 @@ class QinExplorer extends qin_edit_1.QinEdit {
             item.unselect();
         }
     }
-    get divMain() {
-        return this._divMain;
+    get qinMain() {
+        return this._qinMain;
     }
     get nature() {
         return this._nature;
@@ -110,6 +170,13 @@ class QinExplorer extends qin_edit_1.QinEdit {
     set extensions(value) {
         this._extensions = value;
     }
+    get singleSelection() {
+        return this._singleSelection;
+    }
+    set singleSelection(value) {
+        this._singleSelection = value;
+        this.updateSingleSelection();
+    }
     get folderActual() {
         return this._folderActual;
     }
@@ -119,13 +186,14 @@ class QinExplorer extends qin_edit_1.QinEdit {
 }
 exports.QinExplorer = QinExplorer;
 class Item {
-    constructor(fileName, iconName) {
+    constructor(explorer, fileName, iconName) {
         this.divItem = document.createElement("div");
         this.divItemBody = document.createElement("div");
         this.spanIcon = document.createElement("span");
         this.imgIcon = document.createElement("img");
         this.spanText = document.createElement("span");
         this.selected = false;
+        this.explorer = explorer;
         this.fileName = fileName;
         this.iconName = iconName;
         this.initItem();
@@ -143,8 +211,7 @@ class Item {
         styles.applyOnSpanText(this.spanText);
         this.divItemBody.appendChild(this.spanText);
         qinpel_res_1.QinSoul.arm.addAction(this.divItem, (qinEvent) => {
-            if (qinEvent.fromPointing
-                || (qinEvent.fromTyping && qinEvent.isSpace)) {
+            if (qinEvent.isPrimary()) {
                 this.divItem.focus();
                 this.toggle();
                 qinEvent.stop();
@@ -163,11 +230,14 @@ class Item {
         this.selected = false;
     }
     toggle() {
-        if (!this.selected) {
-            this.select();
+        if (this.selected) {
+            this.unselect();
         }
         else {
-            this.unselect();
+            if (this.explorer.singleSelection) {
+                this.explorer.cleanSelection();
+            }
+            this.select();
         }
     }
     getName() {
@@ -206,11 +276,11 @@ function getIconName(fromExtension) {
     return result;
 }
 const styles = {
-    applyOnDivBody: (el) => {
+    applyOnMain: (el) => {
         qinpel_res_1.QinSoul.skin.styleAsEdit(el);
         el.style.overflow = "auto";
         el.style.minWidth = "160px";
-        el.style.minHeight = "80px";
+        el.style.minHeight = "160px";
         el.tabIndex = 0;
     },
     applyOnDivItem: (el) => {
@@ -222,8 +292,6 @@ const styles = {
         el.style.border = "1px solid #360045";
         el.style.borderRadius = "3px";
         el.style.color = "#270036";
-        el.style.fontFamily = "Poppins";
-        el.style.fontSize = "15px";
         el.addEventListener("focus", () => {
             el.style.outline = "none";
             el.style.border = "1px solid #ae0000";
@@ -246,10 +314,10 @@ const styles = {
         el.style.wordWrap = "break-word";
     },
     applyOnDivSelect: (el) => {
-        el.style.backgroundColor = "#6c00ff3d";
+        el.style.backgroundColor = "#faefff";
     },
     applyOnDivUnSelect: (el) => {
-        el.style.backgroundColor = "initial";
+        el.style.backgroundColor = "#ffffff";
     }
 };
 //# sourceMappingURL=qin-explorer.js.map

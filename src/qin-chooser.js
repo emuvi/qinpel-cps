@@ -13,12 +13,12 @@ const qin_icon_1 = require("./qin-icon");
 const qin_assets_1 = require("./qin-assets");
 const qin_panel_1 = require("./qin-panel");
 class QinChooser extends qin_edit_1.QinEdit {
-    constructor(nature, operation, descriptors) {
+    constructor(nature, operation, descriptors, singleSelection = false) {
         super();
         this._qinMain = new qin_column_1.QinColumn();
         this._qinUpper = new qin_line_1.QinLine();
         this._qinConfirm = new qin_button_1.QinButton(new qin_icon_1.QinIcon(qin_assets_1.QinAsset.FaceConfirm));
-        this._qinName = new qin_string_1.QinString();
+        this._qinFolder = new qin_string_1.QinString();
         this._qinExtensions = new qin_combo_1.QinCombo();
         this._qinSearch = new qin_button_1.QinButton(new qin_icon_1.QinIcon(qin_assets_1.QinAsset.FaceSearch));
         this._qinUnder = new qin_panel_1.QinPanel();
@@ -26,6 +26,7 @@ class QinChooser extends qin_edit_1.QinEdit {
         this._nature = nature ? nature : qinpel_res_1.QinFilesNature.BOTH;
         this._operation = operation ? operation : qinpel_res_1.QinFilesOperation.OPEN;
         this._descriptors = descriptors ? descriptors : [];
+        this._singleSelection = singleSelection;
         this.initMain();
         this.initUpper();
         this.initUnder();
@@ -37,16 +38,22 @@ class QinChooser extends qin_edit_1.QinEdit {
     initUpper() {
         this._qinUpper.putAsFlexMin();
         this._qinConfirm.install(this._qinUpper);
-        this._qinName.install(this._qinUpper);
-        qinpel_res_1.QinSoul.skin.styleFlexMax(this._qinName.getMain());
+        this._qinFolder.install(this._qinUpper);
+        this._qinFolder.putAsMinWidth(100);
+        this._qinFolder.putAsFlexMax();
+        this._qinFolder.addAction(qinEvent => {
+            if (qinEvent.isEnter) {
+                this.loadFolder();
+                qinEvent.stop();
+            }
+        });
         this._qinExtensions.install(this._qinUpper);
+        this._qinExtensions.putAsMinWidth(100);
         this.initExtensions();
         this._qinSearch.install(this._qinUpper);
         this._qinSearch.addAction((qinEvent) => {
             if (qinEvent.isPrimary()) {
-                this._qinExplorer.load(this._qinName.getData(), (loaded) => {
-                    this._qinName.setData(loaded);
-                });
+                this.loadFolder();
                 qinEvent.stop();
             }
         });
@@ -56,6 +63,7 @@ class QinChooser extends qin_edit_1.QinEdit {
         this._qinUnder.putAsFlexMax();
         this._qinExplorer.install(this._qinUnder);
         this._qinExplorer.nature = this._nature;
+        this._qinExplorer.singleSelection = this._singleSelection;
     }
     initExtensions() {
         if (this._descriptors.length == 0) {
@@ -69,6 +77,11 @@ class QinChooser extends qin_edit_1.QinEdit {
             }
             this._qinExplorer.extensions = this._descriptors[0].extensions;
         }
+    }
+    loadFolder() {
+        this._qinExplorer.load(this._qinFolder.getData(), (loaded) => {
+            this._qinFolder.setData(loaded);
+        });
     }
     getMain() {
         return this._qinMain.getMain();
@@ -88,8 +101,8 @@ class QinChooser extends qin_edit_1.QinEdit {
     get qinConfirm() {
         return this._qinConfirm;
     }
-    get qinName() {
-        return this._qinName;
+    get qinFolder() {
+        return this._qinFolder;
     }
     get qinExtensions() {
         return this._qinExtensions;
@@ -106,11 +119,28 @@ class QinChooser extends qin_edit_1.QinEdit {
     get nature() {
         return this._nature;
     }
+    set nature(value) {
+        this._nature = value;
+        this._qinExplorer.nature = value;
+    }
     get operation() {
         return this._operation;
     }
+    set operation(value) {
+        this._operation = value;
+    }
     get descriptors() {
         return this._descriptors;
+    }
+    set descriptors(value) {
+        this._descriptors = value;
+    }
+    get singleSelection() {
+        return this._singleSelection;
+    }
+    set singleSelection(value) {
+        this._singleSelection = value;
+        this._qinExplorer.singleSelection = value;
     }
 }
 exports.QinChooser = QinChooser;

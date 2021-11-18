@@ -19,7 +19,7 @@ export class QinPath extends QinEdit {
         operation?: QinFilesOperation,
         descriptors?: QinFilesDescriptor[]) {
         super();
-        this._qinChooser = new QinChooser(nature, operation, descriptors);
+        this._qinChooser = new QinChooser(nature, operation, descriptors, true);
         this._qinPath.install(this._qinMain);
         this.initAction();
     }

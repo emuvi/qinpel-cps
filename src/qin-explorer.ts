@@ -1,46 +1,108 @@
 import { QinEdit } from "./qin-edit";
 
-import { QinSoul, QinFilesNature } from "qinpel-res";
+import { QinSoul, QinFilesNature, QinHead } from "qinpel-res";
+import { QinPanel } from "./qin-panel";
 
 export class QinExplorer extends QinEdit {
 
-    private _divMain: HTMLDivElement = document.createElement("div");
+    private _qinMain: QinPanel = new QinPanel();
 
     private _nature: QinFilesNature;
     private _extensions: string[];
+    private _singleSelection: boolean;
 
     private _folderActual: string = "";
     private _folderServer: string = "";
 
     private items: Item[] = [];
 
-    public constructor(nature?: QinFilesNature, extensions?: string[]) {
+    public constructor(nature?: QinFilesNature, extensions?: string[], singleSelection: boolean = false) {
         super();
         this._nature = nature ? nature : QinFilesNature.BOTH;
         this._extensions = extensions ? extensions : [];
+        this._singleSelection = singleSelection;
         this.initMain();
     }
 
     private initMain() {
-        styles.applyOnDivBody(this._divMain);
-        QinSoul.arm.addAction(this._divMain, (qe) => {
-            if (qe.fromPointing) { this.cleanSelection(); }
+        styles.applyOnMain(this._qinMain.divMain);
+        this._qinMain.addAction(qinEvent => {
+            if (qinEvent.isPrimary()) {
+                this.cleanSelection();
+            }
         });
-        QinSoul.skin.disableSelection(this._divMain);
+        this._qinMain.putAsDisabledSelection();
+    }
+
+    private updateSingleSelection() {
+        if (this._singleSelection) {
+            let alreadyHas = false;
+            for (const item of this.items) {
+                if (item.isSelected()) {
+                    if (alreadyHas) {
+                        item.unselect();
+                    } else {
+                        alreadyHas = true;
+                    }
+                }
+            }
+        }
     }
 
     public getMain(): HTMLDivElement {
-        return this._divMain;
+        return this._qinMain.divMain;
     }
 
     public getData(): string[] {
         let result = [];
-        // TODO - Implement getData of QinExplorer
+        this.items.forEach(item => {
+            if (item.isSelected()) {
+                result.push(QinSoul.foot.getPathJoin(this._folderServer, item.getName()));
+            }
+        });
         return result;
     }
 
     public setData(data: string[]) {
-        // TODO - Implement setData of QinExplorer
+        this.clean();
+        if (data && data.length > 0) {
+            let folderRoot = QinSoul.foot.getRoot(data[0]);
+            this.load(folderRoot, _ => {
+                for (const itemPath of data) {
+                    let itemRoot = QinSoul.foot.getRoot(itemPath);
+                    let itemName = QinSoul.foot.getStem(itemPath);
+                    if (itemRoot !== folderRoot) {
+                        QinHead.logSupport(`The item '${itemPath}' is not on the root '${folderRoot}'.`,
+                            "{qinpel-cps}(ErrCode-000001)");
+                    } else {
+                        if (!this.select(itemName)) {
+                            QinHead.logWarning(`Does not have the item '${itemName}' on the folder '${folderRoot}'`,
+                                "{qinpel-cps}(ErrCode-000002)");
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    public select(itemName: string): boolean {
+        let item = this.items.find(inside => inside.getName() == itemName);
+        if (item) {
+            item.select();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public unselect(itemName: string): boolean {
+        let item = this.items.find(inside => inside.getName() == itemName);
+        if (item) {
+            item.unselect();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private newDir(name: string) {
@@ -52,8 +114,8 @@ export class QinExplorer extends QinEdit {
     }
 
     private newItem(name: string, icon: string) {
-        const item = new Item(name, icon);
-        item.install(this._divMain);
+        const item = new Item(this, name, icon);
+        item.install(this._qinMain.divMain);
         this.items.push(item);
     }
 
@@ -68,17 +130,17 @@ export class QinExplorer extends QinEdit {
                     if (!lineValue) {
                         continue;
                     }
-                    if (line.indexOf("P: ") === 0) {
+                    if (line.startsWith("P: ")) {
                         this._folderServer = lineValue;
                         if (onLoad) {
                             onLoad(lineValue);
                         }
-                    } else if (line.indexOf("D: ") === 0) {
+                    } else if (line.startsWith("D: ")) {
                         if (this._nature == QinFilesNature.BOTH ||
                             this._nature == QinFilesNature.DIRECTORIES) {
                             this.newDir(lineValue);
                         }
-                    } else if (line.indexOf("F: ") === 0) {
+                    } else if (line.startsWith("F: ")) {
                         if (this._nature == QinFilesNature.BOTH ||
                             this._nature == QinFilesNature.FILES) {
                             let extension = QinSoul.foot.getFileExtension(lineValue);
@@ -94,12 +156,12 @@ export class QinExplorer extends QinEdit {
                 }
             })
             .catch(err => {
-                this._divMain.innerText = QinSoul.head.getErrorMessage(err);
+                this._qinMain.divMain.innerText = QinHead.getErrorMessage(err, "{qinpel-cps}(ErrCode-000003)");
             });
     }
 
     public clean() {
-        this._divMain.innerHTML = "";
+        this._qinMain.divMain.innerHTML = "";
         this.items = [];
         this._folderActual = "";
         this._folderServer = "";
@@ -111,13 +173,12 @@ export class QinExplorer extends QinEdit {
         }
     }
 
-
     /**
-     * Getter divMain
-     * @return {HTMLDivElement }
+     * Getter qinMain
+     * @return {QinPanel }
      */
-    public get divMain(): HTMLDivElement {
-        return this._divMain;
+    public get qinMain(): QinPanel {
+        return this._qinMain;
     }
 
     /**
@@ -153,25 +214,44 @@ export class QinExplorer extends QinEdit {
     }
 
     /**
+     * Getter singleSelection
+     * @return {boolean}
+     */
+	public get singleSelection(): boolean {
+		return this._singleSelection;
+	}
+
+    /**
+     * Setter singleSelection
+     * @param {boolean} value
+     */
+	public set singleSelection(value: boolean) {
+		this._singleSelection = value;
+        this.updateSingleSelection();
+	}
+
+
+    /**
      * Getter folderActual
      * @return {string }
      */
-	public get folderActual(): string  {
-		return this._folderActual;
-	}
+    public get folderActual(): string {
+        return this._folderActual;
+    }
 
     /**
      * Getter folderServer
      * @return {string }
      */
-	public get folderServer(): string  {
-		return this._folderServer;
-	}
+    public get folderServer(): string {
+        return this._folderServer;
+    }
 
 }
 
 class Item {
 
+    private explorer: QinExplorer;
     private divItem = document.createElement("div");
     private divItemBody = document.createElement("div");
     private spanIcon = document.createElement("span");
@@ -181,7 +261,8 @@ class Item {
     private iconName: string;
     private selected: boolean = false;
 
-    public constructor(fileName: string, iconName: string) {
+    public constructor(explorer: QinExplorer, fileName: string, iconName: string) {
+        this.explorer = explorer;
         this.fileName = fileName;
         this.iconName = iconName;
         this.initItem();
@@ -200,8 +281,7 @@ class Item {
         styles.applyOnSpanText(this.spanText);
         this.divItemBody.appendChild(this.spanText);
         QinSoul.arm.addAction(this.divItem, (qinEvent) => {
-            if (qinEvent.fromPointing
-                || (qinEvent.fromTyping && qinEvent.isSpace)) {
+            if (qinEvent.isPrimary()) {
                 this.divItem.focus();
                 this.toggle();
                 qinEvent.stop();
@@ -224,10 +304,13 @@ class Item {
     }
 
     public toggle() {
-        if (!this.selected) {
-            this.select();
-        } else {
+        if (this.selected) {
             this.unselect();
+        } else {
+            if (this.explorer.singleSelection) {
+                this.explorer.cleanSelection();
+            }
+            this.select();
         }
     }
 
@@ -264,11 +347,11 @@ function getIconName(fromExtension: string): string {
 }
 
 const styles = {
-    applyOnDivBody: (el: HTMLDivElement) => {
+    applyOnMain: (el: HTMLDivElement) => {
         QinSoul.skin.styleAsEdit(el);
         el.style.overflow = "auto";
         el.style.minWidth = "160px";
-        el.style.minHeight = "80px";
+        el.style.minHeight = "160px";
         el.tabIndex = 0;
     },
     applyOnDivItem: (el: HTMLDivElement) => {
@@ -280,8 +363,6 @@ const styles = {
         el.style.border = "1px solid #360045";
         el.style.borderRadius = "3px";
         el.style.color = "#270036";
-        el.style.fontFamily = "Poppins";
-        el.style.fontSize = "15px";
         el.addEventListener("focus", () => {
             el.style.outline = "none";
             el.style.border = "1px solid #ae0000";
@@ -304,9 +385,9 @@ const styles = {
         el.style.wordWrap = "break-word";
     },
     applyOnDivSelect: (el: HTMLSpanElement) => {
-        el.style.backgroundColor = "#6c00ff3d";
+        el.style.backgroundColor = "#faefff";
     },
     applyOnDivUnSelect: (el: HTMLSpanElement) => {
-        el.style.backgroundColor = "initial";
+        el.style.backgroundColor = "#ffffff";
     }
 }

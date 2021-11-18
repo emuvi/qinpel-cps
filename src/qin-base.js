@@ -69,6 +69,9 @@ class QinBase {
     putAsScroll() {
         this.getMain().style.overflow = "auto";
     }
+    putAsDisabledSelection() {
+        qinpel_res_1.QinSoul.skin.disableSelection(this.getMain());
+    }
     putAsCentered() {
         this.getMain().style.textAlign = "center";
         this.getMain().style.alignItems = "center";

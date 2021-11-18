@@ -186,8 +186,9 @@ export enum QinAsset {
     FrameStatusInfo = "frame-status-info.png",
     LoginKey = "login-key.png",
     MenuDevtools = "menu-devtools.ico",
-    Poppins = "poppins.ttf",
     Qinpel = "qinpel.png",
+    Sourcesanspro = "SourceSansPro.ttf",
+    Sourceserifpro = "SourceSerifPro.ttf",
 }
 
 export function qinAssetUrl(asset: QinAsset) {
