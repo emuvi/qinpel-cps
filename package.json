@@ -1,7 +1,7 @@
 {
   "name": "qinpel-cps",
   "version": "0.1.0",
-  "description": "",
+  "description": "Qinpel Components - A wide set of graphical components available in the Qinpel platform.",
   "main": "./build/all.js",
   "types": "./types/all.d.ts",
   "scripts": {

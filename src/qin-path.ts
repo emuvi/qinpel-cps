@@ -1,3 +1,6 @@
+import { QinFilesDescriptor, QinFilesNature, QinFilesOperation } from "qinpel-res";
+import { QinFramePopup } from "qinpel-app/types/qin-frame";
+
 import { QinEdit } from "./qin-edit";
 import { QinLine } from "./qin-line";
 import { QinString } from "./qin-string";
@@ -5,7 +8,6 @@ import { QinButton } from "./qin-button";
 import { QinAsset } from "./qin-assets";
 import { QinIcon } from "./qin-icon";
 import { QinChooser } from "./qin-chooser";
-import { QinFilesDescriptor, QinFilesNature, QinFilesOperation } from "qinpel-res";
 
 export class QinPath extends QinEdit {
 
@@ -13,6 +15,7 @@ export class QinPath extends QinEdit {
     private _qinPath: QinString = new QinString();
     private _qinSearch: QinButton = new QinButton(new QinIcon(QinAsset.FaceFolder));
     private _qinChooser: QinChooser;
+    private _qinPopup: QinFramePopup;
 
     public constructor(
         nature?: QinFilesNature,
@@ -20,20 +23,22 @@ export class QinPath extends QinEdit {
         descriptors?: QinFilesDescriptor[]) {
         super();
         this._qinChooser = new QinChooser(nature, operation, descriptors, true);
+        this._qinPopup = this.qinpel().frame.newPopup(this._qinChooser.getMain());
         this._qinPath.install(this._qinMain);
-        this.initAction();
-    }
-
-    private initAction() {
         this._qinSearch.install(this._qinMain);
-        const popup = this.qinpel().frame.newPopup(this._qinChooser.getMain());
         this._qinSearch.addAction((qinEvent) => {
             if (qinEvent.isPrimary()) {
-                popup.show();
+                this._qinPopup.show();
                 const upperHeight = this._qinChooser.qinUpper.getMain().clientHeight;
-                const explorerMaxHeight = popup.maxHeight - (upperHeight + 12);
+                const explorerMaxHeight = this._qinPopup.maxHeight - (upperHeight + 12);
                 this._qinChooser.qinExplorer.putAsMaxHeight(explorerMaxHeight);
             }
+        });
+        this._qinChooser.addChosen(chosen => {
+            if (chosen && chosen.length > 0) {
+                this._qinPath.setData(chosen[0]);
+            }
+            this._qinPopup.close();
         });
     }
 
@@ -80,5 +85,13 @@ export class QinPath extends QinEdit {
     public get qinChooser(): QinChooser {
         return this._qinChooser;
     }
+
+    /**
+     * Getter qinPopup
+     * @return {QinFramePopup}
+     */
+	public get qinPopup(): QinFramePopup {
+		return this._qinPopup;
+	}
 
 }
