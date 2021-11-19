@@ -1,1 +1,0 @@
-{"version":3,"file":"qin-label.d.ts","sourceRoot":"","sources":["../../src/qin-label.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,YAAY,CAAC;AAErC,qBAAa,QAAS,SAAQ,OAAO;IAEjC,OAAO,CAAC,SAAS,CAAmD;gBAEjD,KAAK,CAAC,EAAE,MAAM;IAO1B,OAAO,IAAI,eAAe;IAI1B,QAAQ,CAAC,KAAK,EAAE,MAAM;IAItB,QAAQ,IAAI,MAAM;IAQ5B,IAAW,QAAQ,IAAI,eAAe,CAErC;CAED"}

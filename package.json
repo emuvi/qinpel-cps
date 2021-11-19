@@ -2,7 +2,8 @@
   "name": "qinpel-cps",
   "version": "0.1.0",
   "description": "",
-  "main": "all.js",
+  "main": "./build/all.js",
+  "types": "./types",
   "scripts": {
     "start": "bash -v test.sh"
   },
