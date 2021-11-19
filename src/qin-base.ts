@@ -17,15 +17,15 @@ export abstract class QinBase {
 
     public install(on: QinBase) {
         this.baseParent = on;
-        this.baseParent.append(this);
+        this.baseParent.appendChild(this);
     }
 
     public unInstall() {
-        this.baseParent.remove(this);
+        this.baseParent.removeChild(this);
     }
 
     public reInstall() {
-        this.baseParent.append(this);
+        this.baseParent.appendChild(this);
     }
 
     public unDisplay() {
@@ -50,12 +50,12 @@ export abstract class QinBase {
         this.getMain().style.visibility = this.baseVisibility;
     }
 
-    public append(child: QinBase) {
+    public appendChild(child: QinBase) {
         this.baseChildren.push(child);
         this.getMain().appendChild(child.getMain());
     }
 
-    public remove(child: QinBase) {
+    public removeChild(child: QinBase) {
         let index = this.baseChildren.indexOf(child);
         if (index > -1) {
             this.baseChildren.splice(index, 1);
@@ -65,6 +65,13 @@ export abstract class QinBase {
 
     public children(): QinBase[] {
         return this.baseChildren;
+    }
+
+    public clearChildren() {
+        for (const child of this.baseChildren) {
+            this.getMain().removeChild(child.getMain());
+        }
+        this.baseChildren = [];
     }
 
     public addAction(action: QinAction) {
