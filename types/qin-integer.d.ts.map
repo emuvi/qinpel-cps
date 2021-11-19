@@ -1,1 +1,0 @@
-{"version":3,"file":"qin-integer.d.ts","sourceRoot":"","sources":["../src/qin-integer.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,OAAO,EAAE,MAAM,YAAY,CAAC;AAErC,qBAAa,UAAW,SAAQ,OAAO;IAEnC,OAAO,CAAC,UAAU,CAAqD;;IAYhE,OAAO,IAAI,gBAAgB;IAI3B,OAAO,IAAI,MAAM;IASjB,OAAO,CAAC,IAAI,EAAE,MAAM;IAY3B,IAAW,SAAS,IAAI,gBAAgB,CAEvC;CAEJ"}
