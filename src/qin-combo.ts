@@ -22,7 +22,7 @@ export class QinCombo extends QinEdit {
         this._selectMain.value = data;
     }
 
-    public addOption(title: string, value: string, selected?: boolean) {
+    public addOption(title: string, value: string, selected?: boolean): QinCombo {
         const option = document.createElement("option");
         option.text = title;
         option.value = value;
@@ -30,6 +30,7 @@ export class QinCombo extends QinEdit {
             option.selected = selected;
         }
         this._selectMain.appendChild(option);
+        return this;
     }
 
     /**

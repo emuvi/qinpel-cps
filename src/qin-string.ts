@@ -5,9 +5,10 @@ export class QinString extends QinEdit {
     
     private _inputMain: HTMLInputElement = document.createElement("input");
 
-    public constructor() {
+    public constructor(initial: string = "") {
         super();
         this._inputMain.type = "text";
+        this._inputMain.value = initial;
         QinSoul.skin.styleAsEdit(this._inputMain);
     }
 
