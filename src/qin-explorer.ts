@@ -1,7 +1,9 @@
 import { QinEdit } from "./qin-edit";
 
-import { QinSoul, QinFilesNature, QinHead } from "qinpel-res";
+import { QinSoul, QinFilesNature, QinHead, QinFoot } from "qinpel-res";
 import { QinPanel } from "./qin-panel";
+
+type OnExplorerLoad = (loaded: string) => void;
 
 export class QinExplorer extends QinEdit {
 
@@ -85,42 +87,7 @@ export class QinExplorer extends QinEdit {
         }
     }
 
-    public select(itemName: string): boolean {
-        let item = this.items.find(inside => inside.getName() == itemName);
-        if (item) {
-            item.select();
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public unselect(itemName: string): boolean {
-        let item = this.items.find(inside => inside.getName() == itemName);
-        if (item) {
-            item.unselect();
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private newDir(name: string) {
-        this.newItem(name, "explorer-dir.png");
-    }
-
-    private newFile(name: string, extension: string) {
-        this.newItem(name, getIconName(extension));
-    }
-
-    private newItem(name: string, icon: string) {
-        const item = new Item(this, name, icon);
-        item.install(this._qinMain.divMain);
-        this.items.push(item);
-    }
-
-    public load(folder: string,
-        onLoad?: (loaded: string) => void) {
+    public load(folder: string, onLoad?: OnExplorerLoad) {
         this.clean();
         this.qinpel().post("/dir/list", { path: folder })
             .then(res => {
@@ -160,6 +127,13 @@ export class QinExplorer extends QinEdit {
             });
     }
 
+    public goFolderUp(onLoad?: OnExplorerLoad) {
+        let root = QinFoot.getRoot(this._folderServer);
+        if (root) {
+            this.load(root, onLoad);
+        }
+    }
+
     public clean() {
         this._qinMain.divMain.innerHTML = "";
         this.items = [];
@@ -171,6 +145,40 @@ export class QinExplorer extends QinEdit {
         for (const item of this.items) {
             item.unselect();
         }
+    }
+
+    public select(itemName: string): boolean {
+        let item = this.items.find(inside => inside.getName() == itemName);
+        if (item) {
+            item.select();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public unselect(itemName: string): boolean {
+        let item = this.items.find(inside => inside.getName() == itemName);
+        if (item) {
+            item.unselect();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private newDir(name: string) {
+        this.newItem(name, "explorer-dir.png");
+    }
+
+    private newFile(name: string, extension: string) {
+        this.newItem(name, getIconName(extension));
+    }
+
+    private newItem(name: string, icon: string) {
+        const item = new Item(this, name, icon);
+        item.install(this._qinMain.divMain);
+        this.items.push(item);
     }
 
     /**

@@ -2,7 +2,7 @@ import { QinSoul } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 
 export class QinString extends QinEdit {
-    
+
     private _inputMain: HTMLInputElement = document.createElement("input");
 
     public constructor(initial: string = "") {
@@ -24,12 +24,24 @@ export class QinString extends QinEdit {
         this._inputMain.value = data;
     }
 
+    public insertAtCursor(data: string) {
+        if (!data) return;
+        let startPos = this._inputMain.selectionStart;
+        let endPos = this._inputMain.selectionEnd;
+        let oldVal = this._inputMain.value;
+        let newVal = (startPos > 0 ? oldVal.substring(0, startPos) : "") + data
+            + (endPos < oldVal.length ? oldVal.substring(endPos) : "");
+        this._inputMain.value = newVal;
+        this._inputMain.selectionStart = startPos;
+        this._inputMain.selectionEnd = startPos + data.length;
+    }
+
     /**
      * Getter inputMain
      * @return {HTMLInputElement }
      */
-	public get inputMain(): HTMLInputElement  {
-		return this._inputMain;
-	}
+    public get inputMain(): HTMLInputElement {
+        return this._inputMain;
+    }
 
 }

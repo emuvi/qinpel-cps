@@ -83,6 +83,10 @@ export abstract class QinBase {
         QinSoul.skin.styleAsBody(this.getMain());
     }
 
+    public delAsBody() {
+        document.body.removeChild(this.getMain());
+    }
+
     public putAsEdit() {
         QinSoul.skin.styleAsEdit(this.getMain());
         this.getMain().tabIndex = 0;
