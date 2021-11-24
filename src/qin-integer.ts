@@ -5,7 +5,7 @@ export class QinInteger extends QinEdit {
 
     private _inputMain: HTMLInputElement = document.createElement("input");
 
-    public constructor() {
+    public constructor(initial?: number) {
         super();
         this._inputMain.type = "number";
         QinSoul.skin.styleAsEdit(this._inputMain);
@@ -13,6 +13,7 @@ export class QinInteger extends QinEdit {
         this._inputMain.addEventListener("focusout", () => {
             this.setData(this.getData());
         });
+        this.setData(initial);
     }
 
     public getMain(): HTMLInputElement {

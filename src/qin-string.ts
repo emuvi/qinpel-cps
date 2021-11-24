@@ -5,11 +5,17 @@ export class QinString extends QinEdit {
 
     private _inputMain: HTMLInputElement = document.createElement("input");
 
-    public constructor(initial: string = "") {
+    public constructor(initial?: string, maxLength?: number) {
         super();
         this._inputMain.type = "text";
-        this._inputMain.value = initial;
+        if (maxLength) {
+            this._inputMain.maxLength = maxLength;
+            let position = Math.min(Math.max(maxLength - 10, 0), 90);
+            let width = Math.floor(90 + (position * 7 / 3));
+            this._inputMain.style.width = width + "px";
+        }
         QinSoul.skin.styleAsEdit(this._inputMain);
+        this.setData(initial);
     }
 
     public getMain(): HTMLInputElement {

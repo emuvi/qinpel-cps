@@ -18,6 +18,7 @@ export class QinPath extends QinEdit {
     private _qinPopup: QinFramePopup;
 
     public constructor(
+        initial?: string,
         nature?: QinFilesNature,
         operation?: QinFilesOperation,
         descriptors?: QinFilesDescriptor[]) {
@@ -40,6 +41,7 @@ export class QinPath extends QinEdit {
             }
             this._qinPopup.close();
         });
+        this.setData(initial);
     }
 
     public getMain(): HTMLDivElement {
