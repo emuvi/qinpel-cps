@@ -1,15 +1,15 @@
 {
   "name": "qinpel-cps",
   "version": "0.1.0",
-  "description": "Qinpel Components - A wide set of graphical components available in the Qinpel platform.",
+  "description": "Qinpel Components - A wide set of graphical components available for the Qinpel (Quick Interface for Pointel) Platform.",
+  "repository": "https://github.com/emuvi/qinpel-cps",
+  "author": "Éverton M. Vieira",
+  "license": "LGPL-3.0-only",
   "main": "./build/all.js",
   "types": "./types/all.d.ts",
   "scripts": {
     "start": "bash -v test.sh"
   },
-  "keywords": [],
-  "author": "Éverton M. Vieira",
-  "license": "LGPL-3.0-only",
   "dependencies": {
     "qinpel-res": "file:../qinpel-res"
   },
