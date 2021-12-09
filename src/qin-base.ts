@@ -186,4 +186,12 @@ export abstract class QinBase {
         }
     }
 
+    public putAsForeground(foreground: string) {
+        this.getMain().style.color = foreground;
+    }
+
+    public putAsBackground(background: string) {
+        this.getMain().style.background = background;
+    }
+
 }

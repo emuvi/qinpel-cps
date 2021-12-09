@@ -25,7 +25,7 @@ export class QinBoolean extends QinEdit {
                 this.toggle();
             }
         });
-        if (options) {
+        if (options?.initial) {
             this.setData(options.initial);
         }
     }

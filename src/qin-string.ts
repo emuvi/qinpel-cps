@@ -15,7 +15,7 @@ export class QinString extends QinEdit {
             this._inputMain.style.width = width + "px";
         }
         QinSoul.skin.styleAsEdit(this._inputMain);
-        if (options) {
+        if (options?.initial) {
             this.setData(options.initial);
         }
     }

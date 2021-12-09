@@ -14,10 +14,14 @@ export class QinChooser extends QinEdit {
 
     private _qinMain: QinColumn = new QinColumn();
     private _qinUpper: QinLine = new QinLine();
-    private _qinConfirm: QinButton = new QinButton(new QinIcon(QinAsset.FaceConfirm));
+    private _qinConfirm: QinButton = new QinButton({
+        icon: new QinIcon(QinAsset.FaceConfirm)
+    });
     private _qinFolder: QinString = new QinString();
     private _qinExtensions: QinCombo = new QinCombo();
-    private _qinSearch: QinButton = new QinButton(new QinIcon(QinAsset.FaceSearch));
+    private _qinSearch: QinButton = new QinButton({
+        icon: new QinIcon(QinAsset.FaceSearch)
+    });
     private _qinUnder: QinPanel = new QinPanel();
     private _qinExplorer: QinExplorer = new QinExplorer();
 

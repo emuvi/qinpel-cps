@@ -4,9 +4,14 @@ export class QinColumn extends QinBase {
     
     private _divMain: HTMLDivElement = document.createElement("div");
 
-    public constructor() {
+    public constructor(options?: QinColumnOptions) {
         super();
         this.initPanel();
+        if (options?.initial) {
+            for (const viewer of options.initial) {
+                viewer.install(this);
+            }
+        }
     }
 
     private initPanel() {
@@ -26,6 +31,10 @@ export class QinColumn extends QinBase {
 	}
 
 }
+
+export type QinColumnOptions = {
+    initial?: QinBase[]
+};
 
 const styles = {
     applyOnPanel: (el: HTMLDivElement) => {

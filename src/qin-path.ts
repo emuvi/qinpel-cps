@@ -13,7 +13,9 @@ export class QinPath extends QinEdit {
 
     private _qinMain: QinLine = new QinLine();
     private _qinPath: QinString = new QinString();
-    private _qinSearch: QinButton = new QinButton(new QinIcon(QinAsset.FaceFolder));
+    private _qinSearch: QinButton = new QinButton({
+        icon: new QinIcon(QinAsset.FaceFolder)
+    });
     private _qinChooser: QinChooser;
     private _qinPopup: QinFramePopup;
 
@@ -42,7 +44,7 @@ export class QinPath extends QinEdit {
             }
             this._qinPopup.close();
         });
-        if (options) {
+        if (options?.initial) {
             this.setData(options.initial);
         }
     }

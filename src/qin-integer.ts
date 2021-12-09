@@ -13,7 +13,7 @@ export class QinInteger extends QinEdit {
         this._inputMain.addEventListener("focusout", () => {
             this.setData(this.getData());
         });
-        if (options) {
+        if (options?.initial) {
             this.setData(options.initial);
         }
     }
