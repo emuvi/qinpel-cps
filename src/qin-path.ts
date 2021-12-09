@@ -17,13 +17,14 @@ export class QinPath extends QinEdit {
     private _qinChooser: QinChooser;
     private _qinPopup: QinFramePopup;
 
-    public constructor(
-        initial?: string,
-        nature?: QinFilesNature,
-        operation?: QinFilesOperation,
-        descriptors?: QinFilesDescriptor[]) {
+    public constructor(options?: QinPathOptions) {
         super();
-        this._qinChooser = new QinChooser(nature, operation, descriptors, true);
+        this._qinChooser = new QinChooser({
+            nature: options?.nature,
+            operation: options?.operation,
+            descriptors: options?.descriptors,
+            singleSelection: true
+        });
         this._qinPopup = this.qinpel().frame.newPopup(this._qinChooser.getMain());
         this._qinPath.install(this._qinMain);
         this._qinSearch.install(this._qinMain);
@@ -41,7 +42,9 @@ export class QinPath extends QinEdit {
             }
             this._qinPopup.close();
         });
-        this.setData(initial);
+        if (options) {
+            this.setData(options.initial);
+        }
     }
 
     public getMain(): HTMLDivElement {
@@ -92,8 +95,15 @@ export class QinPath extends QinEdit {
      * Getter qinPopup
      * @return {QinFramePopup}
      */
-	public get qinPopup(): QinFramePopup {
-		return this._qinPopup;
-	}
+    public get qinPopup(): QinFramePopup {
+        return this._qinPopup;
+    }
 
 }
+
+export type QinPathOptions = {
+    initial?: string,
+    nature?: QinFilesNature,
+    operation?: QinFilesOperation,
+    descriptors?: QinFilesDescriptor[]
+};

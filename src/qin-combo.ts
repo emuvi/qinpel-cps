@@ -5,9 +5,17 @@ export class QinCombo extends QinEdit {
     
     private _selectMain: HTMLSelectElement = document.createElement("select");
 
-    public constructor() {
+    public constructor(options?: QinComboOptions) {
         super();
         QinSoul.skin.styleAsEdit(this._selectMain);
+        if (options?.items) {
+            for (let item of options.items) {
+                this.addItem(item);
+            }
+        }
+        if (options?.selected) {
+            this.setData(options.selected);
+        }
     }
 
     public getMain(): HTMLSelectElement {
@@ -22,12 +30,12 @@ export class QinCombo extends QinEdit {
         this._selectMain.value = data;
     }
 
-    public addOption(title: string, value: string, selected?: boolean): QinCombo {
+    public addItem(item: QinComboItem): QinCombo {
         const option = document.createElement("option");
-        option.text = title;
-        option.value = value;
-        if (selected != undefined && selected != null) {
-            option.selected = selected;
+        option.text = item.title;
+        option.value = item.value;
+        if (item.selected != undefined && item.selected != null) {
+            option.selected = item.selected;
         }
         this._selectMain.appendChild(option);
         return this;
@@ -42,3 +50,14 @@ export class QinCombo extends QinEdit {
 	}
 
 }
+
+export type QinComboOptions = {
+    items?: QinComboItem[]
+    selected?: string,
+}
+
+export type QinComboItem = {
+    title: string, 
+    value: string, 
+    selected?: boolean,
+};

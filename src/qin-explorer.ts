@@ -18,11 +18,11 @@ export class QinExplorer extends QinEdit {
 
     private items: Item[] = [];
 
-    public constructor(nature?: QinFilesNature, extensions?: string[], singleSelection: boolean = false) {
+    public constructor(options?: QinExplorerOptions) {
         super();
-        this._nature = nature ? nature : QinFilesNature.BOTH;
-        this._extensions = extensions ? extensions : [];
-        this._singleSelection = singleSelection;
+        this._nature = options?.nature ? options.nature : QinFilesNature.BOTH;
+        this._extensions = options?.extensions ? options.extensions : [];
+        this._singleSelection = options?.singleSelection ? options.singleSelection : false;
         this.initMain();
     }
 
@@ -225,18 +225,18 @@ export class QinExplorer extends QinEdit {
      * Getter singleSelection
      * @return {boolean}
      */
-	public get singleSelection(): boolean {
-		return this._singleSelection;
-	}
+    public get singleSelection(): boolean {
+        return this._singleSelection;
+    }
 
     /**
      * Setter singleSelection
      * @param {boolean} value
      */
-	public set singleSelection(value: boolean) {
-		this._singleSelection = value;
+    public set singleSelection(value: boolean) {
+        this._singleSelection = value;
         this.updateSingleSelection();
-	}
+    }
 
 
     /**
@@ -255,6 +255,12 @@ export class QinExplorer extends QinEdit {
         return this._folderServer;
     }
 
+}
+
+export type QinExplorerOptions = {
+    nature?: QinFilesNature,
+    extensions?: string[],
+    singleSelection: boolean,
 }
 
 class Item {

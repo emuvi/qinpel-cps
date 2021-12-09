@@ -13,7 +13,7 @@ export class QinBoolean extends QinEdit {
     private _qinIcon: QinIcon = new QinIcon(QinAsset.FaceCircle);
     private value: boolean = false;
 
-    public constructor(initial?: boolean) {
+    public constructor(options?: QinBooleanOptions) {
         super();
         this._qinSpan.install(this._qinMain);
         this._qinIcon.install(this._qinSpan);
@@ -25,7 +25,9 @@ export class QinBoolean extends QinEdit {
                 this.toggle();
             }
         });
-        this.setData(initial);
+        if (options) {
+            this.setData(options.initial);
+        }
     }
 
     public getMain(): HTMLDivElement {
@@ -55,3 +57,7 @@ export class QinBoolean extends QinEdit {
     }
 
 }
+
+export type QinBooleanOptions = {
+    initial?: boolean
+};

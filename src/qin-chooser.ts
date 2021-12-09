@@ -1,6 +1,4 @@
-import {
-    QinSoul, QinFilesNature, QinFilesOperation, QinFilesDescriptor, QinHead
-} from "qinpel-res";
+import { QinFilesNature, QinFilesOperation, QinFilesDescriptor } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 import { QinColumn } from "./qin-column";
 import { QinExplorer } from "./qin-explorer";
@@ -11,8 +9,6 @@ import { QinButton } from "./qin-button";
 import { QinIcon } from "./qin-icon";
 import { QinAsset } from "./qin-assets";
 import { QinPanel } from "./qin-panel";
-
-export type QinChosen = (chosen: string[]) => void;
 
 export class QinChooser extends QinEdit {
 
@@ -32,16 +28,12 @@ export class QinChooser extends QinEdit {
 
     private listeners: QinChosen[] = [];
 
-    public constructor(
-        nature?: QinFilesNature,
-        operation?: QinFilesOperation,
-        descriptors?: QinFilesDescriptor[],
-        singleSelection: boolean = false) {
+    public constructor(options?: QinChooserOptions) {
         super();
-        this._nature = nature ? nature : QinFilesNature.BOTH;
-        this._operation = operation ? operation : QinFilesOperation.OPEN;
-        this._descriptors = descriptors ? descriptors : [];
-        this._singleSelection = singleSelection;
+        this._nature = options?.nature ? options.nature : QinFilesNature.BOTH;
+        this._operation = options?.operation ? options.operation : QinFilesOperation.OPEN;
+        this._descriptors = options?.descriptors ? options.descriptors : [];
+        this._singleSelection = options?.singleSelection ? options?.singleSelection : false;
         this.initMain();
         this.initUpper();
         this.initUnder();
@@ -95,13 +87,20 @@ export class QinChooser extends QinEdit {
 
     private initExtensions() {
         if (this._descriptors.length == 0) {
-            this._qinExtensions.addOption("All Files (*.*)", "*", true);
+            this._qinExtensions.addItem({
+                title: "All Files (*.*)",
+                value: "*",
+                selected: true
+            });
             this._qinExplorer.extensions = [];
         } else {
             for (let index = 0; index < this._descriptors.length; index++) {
                 const descriptor = this._descriptors[index];
-                this._qinExtensions.addOption(descriptor.description,
-                    descriptor.extensions.join(";"), index == 0);
+                this._qinExtensions.addItem({
+                    title: descriptor.description,
+                    value: descriptor.extensions.join(";"),
+                    selected: index == 0
+                });
             }
             this._qinExplorer.extensions = this._descriptors[0].extensions;
         }
@@ -200,67 +199,75 @@ export class QinChooser extends QinEdit {
      * Getter nature
      * @return {QinFilesNature}
      */
-	public get nature(): QinFilesNature {
-		return this._nature;
-	}
+    public get nature(): QinFilesNature {
+        return this._nature;
+    }
 
     /**
      * Setter nature
      * @param {QinFilesNature} value
      */
-	public set nature(value: QinFilesNature) {
-		this._nature = value;
+    public set nature(value: QinFilesNature) {
+        this._nature = value;
         this._qinExplorer.nature = value;
-	}
+    }
 
     /**
      * Getter operation
      * @return {QinFilesOperation}
      */
-	public get operation(): QinFilesOperation {
-		return this._operation;
-	}
+    public get operation(): QinFilesOperation {
+        return this._operation;
+    }
 
     /**
      * Setter operation
      * @param {QinFilesOperation} value
      */
-	public set operation(value: QinFilesOperation) {
-		this._operation = value;
-	}
+    public set operation(value: QinFilesOperation) {
+        this._operation = value;
+    }
 
     /**
      * Getter descriptors
      * @return {QinFilesDescriptor[]}
      */
-	public get descriptors(): QinFilesDescriptor[] {
-		return this._descriptors;
-	}
+    public get descriptors(): QinFilesDescriptor[] {
+        return this._descriptors;
+    }
 
     /**
      * Setter descriptors
      * @param {QinFilesDescriptor[]} value
      */
-	public set descriptors(value: QinFilesDescriptor[]) {
-		this._descriptors = value;
-	}
+    public set descriptors(value: QinFilesDescriptor[]) {
+        this._descriptors = value;
+    }
 
     /**
      * Getter singleSelection
      * @return {boolean}
      */
-	public get singleSelection(): boolean {
-		return this._singleSelection;
-	}
+    public get singleSelection(): boolean {
+        return this._singleSelection;
+    }
 
     /**
      * Setter singleSelection
      * @param {boolean} value
      */
-	public set singleSelection(value: boolean) {
-		this._singleSelection = value;
+    public set singleSelection(value: boolean) {
+        this._singleSelection = value;
         this._qinExplorer.singleSelection = value;
-	}
-    
+    }
 
 }
+
+export type QinChooserOptions = {
+    nature?: QinFilesNature,
+    operation?: QinFilesOperation,
+    descriptors?: QinFilesDescriptor[],
+    singleSelection?: boolean,
+};
+
+export type QinChosen = (chosen: string[]) => void;
