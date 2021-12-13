@@ -1,13 +1,13 @@
-import { QinFilesDescriptor, QinFilesNature, QinFilesOperation } from "qinpel-res";
 import { QinFramePopup } from "qinpel-app/types/qin-frame";
-
+import { QinFilesDescriptor, QinFilesNature, QinFilesOperation } from "qinpel-res";
+import { QinAsset } from "./qin-assets";
+import { QinButton } from "./qin-button";
+import { QinChooser } from "./qin-chooser";
 import { QinEdit } from "./qin-edit";
+import { QinIcon } from "./qin-icon";
 import { QinLine } from "./qin-line";
 import { QinString } from "./qin-string";
-import { QinButton } from "./qin-button";
-import { QinAsset } from "./qin-assets";
-import { QinIcon } from "./qin-icon";
-import { QinChooser } from "./qin-chooser";
+
 
 export class QinPath extends QinEdit {
 

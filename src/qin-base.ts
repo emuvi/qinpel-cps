@@ -1,12 +1,8 @@
-import { QinSoul, QinAction } from "qinpel-res"
-import { Qinpel } from "qinpel-app/types/qinpel"
-const refQinpel = (window.frameElement as any).qinpel as Qinpel;
+import { Qinpel } from "qinpel-app/types/qinpel";
+import { QinAction, QinSoul } from "qinpel-res";
+import { QinTools } from "./qin-tools";
 
 export abstract class QinBase {
-
-    public qinpel(): Qinpel {
-        return refQinpel;
-    }
 
     public abstract getMain(): HTMLElement;
 
@@ -14,6 +10,10 @@ export abstract class QinBase {
     private baseChildren: QinBase[] = [];
     private baseDisplay: string = "initial";
     private baseVisibility: string = "initial";
+
+    public qinpel(): Qinpel {
+        return QinTools.qinpel();
+    }
 
     public install(on: QinBase) {
         this.baseParent = on;

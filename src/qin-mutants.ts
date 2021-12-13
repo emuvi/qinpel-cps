@@ -17,7 +17,7 @@ export enum QinMutants {
     STRING = "string",
 }
 
-function create(kind: QinMutants, options: any): QinEdit {
+function newEdit(kind: QinMutants, options: any): QinEdit {
     switch (kind) {
         case QinMutants.BOOLEAN:
             return new QinBoolean(options);
@@ -39,5 +39,5 @@ function create(kind: QinMutants, options: any): QinEdit {
 }
 
 export const QinMutantsArm = {
-    create
+    newEdit
 };
