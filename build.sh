@@ -1,3 +1,4 @@
+#!/bin/bash
 bash -v clean.sh
 npm install
 py src/qin-assets.py
