@@ -1,3 +1,3 @@
 # QinpelCps
 
-QinpelCps ( Qinpel Components ) is a library for applications with a wide set of graphical components available on Qinpel, the Quick Interface for Pointel platform.
+QinpelCps ( Qinpel Components ) is the library for user applications with a wide set of graphical components available on Qinpel, the Quick Interface for Pointel platform.
