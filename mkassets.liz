@@ -1,0 +1,24 @@
+function getIdentity(fromFileName)
+    local fileStem = liz.path_stem(fromFileName)
+    local result = ""
+    for _, part in pairs(liz.split(fileStem, "-")) do
+        result = result .. liz.tocapital(part)
+    end
+    return result
+end
+
+print("Making 'src/qin-assets.ts'...")
+source = "export enum QinAsset {\n"
+assets = liz.path_list("../qinpel-app/public/assets")
+for _, item in pairs(assets) do
+    local fileName = liz.path_name(item)
+    local identity = getIdentity(fileName)
+    source = source .. "    " .. identity .. " = \"" .. fileName .. "\",\n"
+end
+source = source .. "}\n"
+source = source .. "\n"
+source = source .. "export function qinAssetUrl(asset: QinAsset) {\n"
+source = source .. "    return \"/run/app/qinpel-app/assets/\" + asset;\n"
+source = source .. "}\n"
+liz.write("src/qin-assets.ts", source)
+print("Done Make 'src/qin-assets.ts'!")
