@@ -1,24 +1,24 @@
-function getIdentity(fromFileName)
-    local fileStem = liz.path_stem(fromFileName)
+function GetIdentity(fromFileName)
+    local fileStem = Liz.path_stem(fromFileName)
     local result = ""
-    for _, part in pairs(liz.split(fileStem, "-")) do
-        result = result .. liz.tocapital(part)
+    for _, part in pairs(Liz.split(fileStem, "-")) do
+        result = result .. Liz.tocapital(part)
     end
     return result
 end
 
 print("Making 'src/qin-assets.ts'...")
-source = "export enum QinAsset {\n"
-assets = liz.path_list("../qinpel-app/public/assets")
-for _, item in pairs(assets) do
-    local fileName = liz.path_name(item)
-    local identity = getIdentity(fileName)
-    source = source .. "    " .. identity .. " = \"" .. fileName .. "\",\n"
+Source = "export enum QinAsset {\n"
+Assets = Liz.path_list("../qinpel-app/public/assets")
+for _, item in pairs(Assets) do
+    local fileName = Liz.path_name(item)
+    local identity = GetIdentity(fileName)
+    Source = Source .. "    " .. identity .. " = \"" .. fileName .. "\",\n"
 end
-source = source .. "}\n"
-source = source .. "\n"
-source = source .. "export function qinAssetUrl(asset: QinAsset) {\n"
-source = source .. "    return \"/run/app/qinpel-app/assets/\" + asset;\n"
-source = source .. "}\n"
-liz.write("src/qin-assets.ts", source)
+Source = Source .. "}\n"
+Source = Source .. "\n"
+Source = Source .. "export function qinAssetUrl(asset: QinAsset) {\n"
+Source = Source .. "    return \"/run/app/qinpel-app/assets/\" + asset;\n"
+Source = Source .. "}\n"
+Liz.write("src/qin-assets.ts", Source)
 print("Done Make 'src/qin-assets.ts'!")
