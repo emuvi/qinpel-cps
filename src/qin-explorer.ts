@@ -289,7 +289,7 @@ class Item {
         this.divItem.appendChild(this.divItemBody);
         styles.applyOnSpanIcon(this.spanIcon);
         this.divItemBody.appendChild(this.spanIcon);
-        this.imgIcon.src = "/run/app/qinpel-app/assets/" + this.iconName;
+        this.imgIcon.src = "/app/qinpel-app/assets/" + this.iconName;
         this.spanIcon.appendChild(this.imgIcon);
         this.spanText.innerText = this.fileName;
         styles.applyOnSpanText(this.spanText);
