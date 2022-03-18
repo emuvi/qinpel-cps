@@ -71,10 +71,10 @@ export class QinExplorer extends QinEdit {
   public setData(data: string[]) {
     this.clean();
     if (data && data.length > 0) {
-      let folderRoot = QinSoul.foot.getRoot(data[0]);
+      let folderRoot = QinSoul.foot.getParent(data[0]);
       this.load(folderRoot, (_) => {
         for (const itemPath of data) {
-          let itemRoot = QinSoul.foot.getRoot(itemPath);
+          let itemRoot = QinSoul.foot.getParent(itemPath);
           let itemName = QinSoul.foot.getStem(itemPath);
           if (itemRoot !== folderRoot) {
             this.qinpel().frame.statusError(
@@ -143,9 +143,9 @@ export class QinExplorer extends QinEdit {
   }
 
   public goFolderUp(onLoad?: OnExplorerLoad) {
-    let root = QinFoot.getRoot(this._folderServer);
-    if (root) {
-      this.load(root, onLoad);
+    let parent = QinFoot.getParent(this._folderServer);
+    if (parent) {
+      this.load(parent, onLoad);
     }
   }
 
@@ -404,7 +404,7 @@ const styles = {
   applyOnDivItemBody: (el: HTMLDivElement) => {
     el.style.display = "flex";
     el.style.flexDirection = "column";
-    el.style.width = "120px";
+    el.style.width = "96px";
   },
   applyOnSpanIcon: (el: HTMLSpanElement) => {
     el.style.textAlign = "center";
