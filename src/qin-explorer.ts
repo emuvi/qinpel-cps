@@ -135,11 +135,12 @@ export class QinExplorer extends QinEdit {
         }
       })
       .catch((err) => {
-        this.qinpel().frame.statusError(
-          err,
-          "{qinpel-cps}(ErrCode-000003)"
-        );
+        this.qinpel().frame.statusError(err, "{qinpel-cps}(ErrCode-000003)");
       });
+  }
+
+  public reload(onLoad?: OnExplorerLoad) {
+    this.load(this._folderServer, onLoad);
   }
 
   public goFolderUp(onLoad?: OnExplorerLoad) {
@@ -196,75 +197,39 @@ export class QinExplorer extends QinEdit {
     this.items.push(item);
   }
 
-  /**
-   * Getter qinMain
-   * @return {QinPanel }
-   */
   public get qinMain(): QinPanel {
     return this._qinMain;
   }
 
-  /**
-   * Getter nature
-   * @return {QinFilesNature}
-   */
   public get nature(): QinFilesNature {
     return this._nature;
   }
 
-  /**
-   * Setter nature
-   * @param {QinFilesNature} value
-   */
   public set nature(value: QinFilesNature) {
     this._nature = value;
   }
 
-  /**
-   * Getter extensions
-   * @return {string[]}
-   */
   public get extensions(): string[] {
     return this._extensions;
   }
 
-  /**
-   * Setter extensions
-   * @param {string[]} value
-   */
   public set extensions(value: string[]) {
     this._extensions = value;
   }
 
-  /**
-   * Getter singleSelection
-   * @return {boolean}
-   */
   public get singleSelection(): boolean {
     return this._singleSelection;
   }
 
-  /**
-   * Setter singleSelection
-   * @param {boolean} value
-   */
   public set singleSelection(value: boolean) {
     this._singleSelection = value;
     this.updateSingleSelection();
   }
 
-  /**
-   * Getter folderActual
-   * @return {string }
-   */
   public get folderActual(): string {
     return this._folderActual;
   }
 
-  /**
-   * Getter folderServer
-   * @return {string }
-   */
   public get folderServer(): string {
     return this._folderServer;
   }
