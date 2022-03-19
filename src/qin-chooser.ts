@@ -49,7 +49,7 @@ export class QinChooser extends QinEdit {
     }
 
     private initUpper() {
-        this._qinUpper.putAsFlexMin();
+        this._qinUpper.style.putAsFlexMin();
         this._qinConfirm.install(this._qinUpper);
         this._qinConfirm.addAction(qinEvent => {
             if (qinEvent.isPrimary()) {
@@ -61,8 +61,8 @@ export class QinChooser extends QinEdit {
             }
         });
         this._qinFolder.install(this._qinUpper);
-        this._qinFolder.putAsMinWidth(100);
-        this._qinFolder.putAsFlexMax();
+        this._qinFolder.style.putAsMinWidth(100);
+        this._qinFolder.style.putAsFlexMax();
         this._qinFolder.addAction(qinEvent => {
             if (qinEvent.isEnter) {
                 this.loadFolder();
@@ -70,7 +70,7 @@ export class QinChooser extends QinEdit {
             }
         });
         this._qinExtensions.install(this._qinUpper);
-        this._qinExtensions.putAsMinWidth(100);
+        this._qinExtensions.style.putAsMinWidth(100);
         this.initExtensions();
         this._qinSearch.install(this._qinUpper);
         this._qinSearch.addAction((qinEvent) => {
@@ -82,8 +82,8 @@ export class QinChooser extends QinEdit {
     }
 
     private initUnder() {
-        this._qinUnder.putAsScroll();
-        this._qinUnder.putAsFlexMax();
+        this._qinUnder.style.putAsScroll();
+        this._qinUnder.style.putAsFlexMax();
         this._qinExplorer.install(this._qinUnder);
         this._qinExplorer.nature = this._nature;
         this._qinExplorer.singleSelection = this._singleSelection;
@@ -133,133 +133,67 @@ export class QinChooser extends QinEdit {
         return this;
     }
 
-    /**
-     * Getter qinMain
-     * @return {QinColumn }
-     */
     public get qinMain(): QinColumn {
         return this._qinMain;
     }
 
-    /**
-     * Getter qinUpper
-     * @return {QinLine }
-     */
     public get qinUpper(): QinLine {
         return this._qinUpper;
     }
 
-    /**
-     * Getter qinConfirm
-     * @return {QinButton }
-     */
     public get qinConfirm(): QinButton {
         return this._qinConfirm;
     }
 
-    /**
-     * Getter qinFolder
-     * @return {QinString }
-     */
     public get qinFolder(): QinString {
         return this._qinFolder;
     }
 
-    /**
-     * Getter qinExtensions
-     * @return {QinCombo }
-     */
     public get qinExtensions(): QinCombo {
         return this._qinExtensions;
     }
 
-    /**
-     * Getter qinSearch
-     * @return {QinButton }
-     */
     public get qinSearch(): QinButton {
         return this._qinSearch;
     }
 
-    /**
-     * Getter qinUnder
-     * @return {QinPanel }
-     */
     public get qinUnder(): QinPanel {
         return this._qinUnder;
     }
 
-    /**
-     * Getter qinExplorer
-     * @return {QinExplorer }
-     */
     public get qinExplorer(): QinExplorer {
         return this._qinExplorer;
     }
 
-
-
-    /**
-     * Getter nature
-     * @return {QinFilesNature}
-     */
     public get nature(): QinFilesNature {
         return this._nature;
     }
 
-    /**
-     * Setter nature
-     * @param {QinFilesNature} value
-     */
     public set nature(value: QinFilesNature) {
         this._nature = value;
         this._qinExplorer.nature = value;
     }
 
-    /**
-     * Getter operation
-     * @return {QinFilesOperation}
-     */
     public get operation(): QinFilesOperation {
         return this._operation;
     }
 
-    /**
-     * Setter operation
-     * @param {QinFilesOperation} value
-     */
     public set operation(value: QinFilesOperation) {
         this._operation = value;
     }
 
-    /**
-     * Getter descriptors
-     * @return {QinFilesDescriptor[]}
-     */
     public get descriptors(): QinFilesDescriptor[] {
         return this._descriptors;
     }
 
-    /**
-     * Setter descriptors
-     * @param {QinFilesDescriptor[]} value
-     */
     public set descriptors(value: QinFilesDescriptor[]) {
         this._descriptors = value;
     }
 
-    /**
-     * Getter singleSelection
-     * @return {boolean}
-     */
     public get singleSelection(): boolean {
         return this._singleSelection;
     }
 
-    /**
-     * Setter singleSelection
-     * @param {boolean} value
-     */
     public set singleSelection(value: boolean) {
         this._singleSelection = value;
         this._qinExplorer.singleSelection = value;

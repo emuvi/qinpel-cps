@@ -34,7 +34,7 @@ export class QinExplorer extends QinEdit {
         this.cleanSelection();
       }
     });
-    this._qinMain.putAsDisabledSelection();
+    this._qinMain.style.putAsDisabledSelection();
   }
 
   private updateSingleSelection() {
@@ -77,13 +77,13 @@ export class QinExplorer extends QinEdit {
           let itemRoot = QinSoul.foot.getParent(itemPath);
           let itemName = QinSoul.foot.getStem(itemPath);
           if (itemRoot !== folderRoot) {
-            this.qinpel().frame.statusError(
+            this.qinpel.frame.statusError(
               `The item '${itemPath}' is not on the root '${folderRoot}'.`,
               "{qinpel-cps}(ErrCode-000001)"
             );
           } else {
             if (!this.select(itemName)) {
-              this.qinpel().frame.statusError(
+              this.qinpel.frame.statusError(
                 `Does not have the item '${itemName}' on the folder '${folderRoot}'`,
                 "{qinpel-cps}(ErrCode-000002)"
               );
@@ -96,7 +96,7 @@ export class QinExplorer extends QinEdit {
 
   public load(folder: string, onLoad?: OnExplorerLoad) {
     this.clean();
-    this.qinpel()
+    this.qinpel
       .post("/dir/list", { path: folder })
       .then((res) => {
         this._folderActual = folder;
@@ -135,7 +135,7 @@ export class QinExplorer extends QinEdit {
         }
       })
       .catch((err) => {
-        this.qinpel().frame.statusError(err, "{qinpel-cps}(ErrCode-000003)");
+        this.qinpel.frame.statusError(err, "{qinpel-cps}(ErrCode-000003)");
       });
   }
 

@@ -12,11 +12,7 @@ export class QinPanel extends QinBase {
         return this._divMain;
     }
 
-    /**
-     * Getter divMain
-     * @return {HTMLDivElement }
-     */
-	public get divMain(): HTMLDivElement  {
+    public get divMain(): HTMLDivElement  {
 		return this._divMain;
 	}
 

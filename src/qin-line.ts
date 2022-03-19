@@ -8,7 +8,7 @@ export class QinLine extends QinBase {
         super();
         this.initPanel();
         if (options?.initial) {
-            for (const viewer of options.initial) {
+            for (let viewer of options.initial) {
                 viewer.install(this);
             }
         }

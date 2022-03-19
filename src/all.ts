@@ -1,5 +1,6 @@
 export { QinAsset } from './qin-assets';
 export { qinAssetUrl } from './qin-assets';
+export { QinBaseStyle } from './qin-base-style';
 export { QinBase } from './qin-base';
 export { QinBoolean } from './qin-boolean';
 export { QinBooleanOptions } from './qin-boolean';
@@ -23,6 +24,9 @@ export { QinIntegerOptions } from './qin-integer';
 export { QinLabel } from './qin-label';
 export { QinLine } from './qin-line';
 export { QinLineOptions } from './qin-line';
+export { QinMenu } from './qin-menu';
+export { QinMenuItem } from './qin-menu';
+export { QinMenuOptions } from './qin-menu';
 export { QinMutants } from './qin-mutants';
 export { QinMutantsArm } from './qin-mutants';
 export { QinPanel } from './qin-panel';

@@ -1,4 +1,5 @@
 export enum QinAsset {
+    BackTiny01 = "back-tiny-01.png",
     BackgroundDark0 = "background-dark-0.png",
     BackgroundDark1 = "background-dark-1.png",
     BackgroundDark10 = "background-dark-10.png",

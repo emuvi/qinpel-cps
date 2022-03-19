@@ -7,7 +7,7 @@ export class QinCombo extends QinEdit {
 
     public constructor(options?: QinComboOptions) {
         super();
-        QinSoul.skin.styleAsEdit(this._selectMain);
+        this.style.putAsEdit();
         if (options?.items) {
             for (let item of options.items) {
                 this.addItem(item);
@@ -41,11 +41,7 @@ export class QinCombo extends QinEdit {
         return this;
     }
 
-    /**
-     * Getter selectMain
-     * @return {HTMLSelectElement }
-     */
-	public get selectMain(): HTMLSelectElement  {
+    public get selectMain(): HTMLSelectElement  {
 		return this._selectMain;
 	}
 

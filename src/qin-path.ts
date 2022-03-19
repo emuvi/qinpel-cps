@@ -27,7 +27,7 @@ export class QinPath extends QinEdit {
             descriptors: options?.descriptors,
             singleSelection: true
         });
-        this._qinPopup = this.qinpel().frame.newPopup(this._qinChooser.getMain());
+        this._qinPopup = this.qinpel.frame.newPopup(this._qinChooser.getMain());
         this._qinPath.install(this._qinMain);
         this._qinSearch.install(this._qinMain);
         this._qinSearch.addAction((qinEvent) => {
@@ -35,7 +35,7 @@ export class QinPath extends QinEdit {
                 this._qinPopup.show();
                 const upperHeight = this._qinChooser.qinUpper.getMain().clientHeight;
                 const explorerMaxHeight = this._qinPopup.maxHeight - (upperHeight + 12);
-                this._qinChooser.qinExplorer.putAsMaxHeight(explorerMaxHeight);
+                this._qinChooser.qinExplorer.style.putAsMaxHeight(explorerMaxHeight);
             }
         });
         this._qinChooser.addChosen(chosen => {
@@ -61,42 +61,22 @@ export class QinPath extends QinEdit {
         this._qinPath.setData(data);
     }
 
-    /**
-     * Getter qinMain
-     * @return {QinLine }
-     */
     public get qinMain(): QinLine {
         return this._qinMain;
     }
 
-    /**
-     * Getter qinPath
-     * @return {QinString }
-     */
     public get qinPath(): QinString {
         return this._qinPath;
     }
 
-    /**
-     * Getter qinSearch
-     * @return {QinButton }
-     */
     public get qinSearch(): QinButton {
         return this._qinSearch;
     }
 
-    /**
-     * Getter qinChooser
-     * @return {QinChooser }
-     */
     public get qinChooser(): QinChooser {
         return this._qinChooser;
     }
 
-    /**
-     * Getter qinPopup
-     * @return {QinFramePopup}
-     */
     public get qinPopup(): QinFramePopup {
         return this._qinPopup;
     }

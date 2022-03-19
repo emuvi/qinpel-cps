@@ -1,6 +1,7 @@
 import { Qinpel } from "qinpel-app/types/qinpel";
 import { QinAction, QinSoul } from "qinpel-res";
 import { QinTools } from "./qin-tools";
+import { QinBaseStyle } from "./qin-base-style"
 
 export abstract class QinBase {
 
@@ -11,12 +12,21 @@ export abstract class QinBase {
     private baseDisplay: string = "initial";
     private baseVisibility: string = "initial";
 
-    public qinpel(): Qinpel {
+    private _style = null;
+
+    public get qinpel(): Qinpel {
         return QinTools.qinpel();
     }
 
-    public install(on: QinBase) {
-        this.baseParent = on;
+    public get style(): QinBaseStyle {
+        if (this._style == null) {
+            this._style = new QinBaseStyle(this.getMain());
+        }
+        return this._style;
+    }
+
+    public install(onBase: QinBase) {
+        this.baseParent = onBase;
         this.baseParent.appendChild(this);
     }
 
@@ -78,120 +88,8 @@ export abstract class QinBase {
         QinSoul.arm.addAction(this.getMain(), action);
     }
 
-    public putAsBody() {
-        document.body.appendChild(this.getMain());
-        QinSoul.skin.styleAsBody(this.getMain());
-    }
-
-    public delAsBody() {
-        document.body.removeChild(this.getMain());
-    }
-
-    public putAsEdit() {
-        QinSoul.skin.styleAsEdit(this.getMain());
-        this.getMain().tabIndex = 0;
-    }
-
-    public putAsScroll() {
-        this.getMain().style.overflow = "auto";
-    }
-
-    public putAsDisabledSelection() {
-        QinSoul.skin.disableSelection(this.getMain());
-    }
-
-    public putAsCentered() {
-        this.getMain().style.textAlign = "center";
-        this.getMain().style.alignItems = "center";
-        this.getMain().style.alignContent = "center";
-        this.getMain().style.verticalAlign = "middle";
-    }
-
-    public putAsDisplayInlineBlock() {
-        this.getMain().style.display = "inline-block";
-    }
-
-    public putAsDisplayFlex() {
-        this.getMain().style.display = "flex";
-    }
-
-    public putAsFlexMin() {
-        this.getMain().style.flex = "none";
-    }
-
-    public putAsFlexMax() {
-        this.getMain().style.flex = "auto";
-    }
-
-    public putAsWidth(width: number) {
-        if (width != null && width != undefined) {
-            this.getMain().style.width = width + "px";
-        }
-    }
-
-    public putAsHeight(height: number) {
-        if (height != null && height != undefined) {
-            this.getMain().style.height = height + "px";
-        }
-    }
-
-    public putAsSize(width: number, height: number) {
-        if (width != null && width != undefined) {
-            this.getMain().style.width = width + "px";
-        }
-        if (height != null && height != undefined) {
-            this.getMain().style.height = height + "px";
-        }
-    }
-
-    public putAsMinWidth(width: number) {
-        if (width != null && width != undefined) {
-            this.getMain().style.minWidth = width + "px";
-        }
-    }
-
-    public putAsMinHeight(height: number) {
-        if (height != null && height != undefined) {
-            this.getMain().style.minHeight = height + "px";
-        }
-    }
-
-    public putAsMinSize(width: number, height: number) {
-        if (width != null && width != undefined) {
-            this.getMain().style.minWidth = width + "px";
-        }
-        if (height != null && height != undefined) {
-            this.getMain().style.minHeight = height + "px";
-        }
-    }
-
-    public putAsMaxWidth(width: number) {
-        if (width != null && width != undefined) {
-            this.getMain().style.maxWidth = width + "px";
-        }
-    }
-
-    public putAsMaxHeight(height: number) {
-        if (height != null && height != undefined) {
-            this.getMain().style.maxHeight = height + "px";
-        }
-    }
-
-    public putAsMaxSize(width: number, height: number) {
-        if (width != null && width != undefined) {
-            this.getMain().style.maxWidth = width + "px";
-        }
-        if (height != null && height != undefined) {
-            this.getMain().style.maxHeight = height + "px";
-        }
-    }
-
-    public putAsForeground(foreground: string) {
-        this.getMain().style.color = foreground;
-    }
-
-    public putAsBackground(background: string) {
-        this.getMain().style.background = background;
+    public putTabIndex(index?: number) {
+        this.getMain().tabIndex = index ? index : 0;
     }
 
 }

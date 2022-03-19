@@ -1,3 +1,5 @@
+import { QinSoul } from "qinpel-res";
+import { QinAsset } from "./qin-assets";
 import { QinColumn } from "./qin-column";
 import { QinEdit } from "./qin-edit";
 import { QinIcon } from "./qin-icon";
@@ -7,38 +9,92 @@ import { QinPanel } from "./qin-panel";
 export class QinMenu extends QinEdit {
   private _qinMain: QinPanel = new QinPanel();
 
-  private items: QinMenuItem[] = [];
+  public constructor(options?: QinMenuOptions) {
+    super();
+    this._qinMain.style.putAsEdit();
+    this._qinMain.style.putAsScroll();
+    // this._qinMain.style.putAsDisplayFlex();
+    // this._qinMain.style.putAsFlexDirectionRow();
+    // this._qinMain.style.putAsFlexWrap();
+    if (options?.items) {
+      this.setData(options.items);
+    }
+  }
 
   public getMain(): HTMLDivElement {
-    return this._qinMain.divMain;
+    return this._qinMain.getMain();
   }
 
   public getData(): QinMenuItem[] {
-    return this.items;
+    let result: QinMenuItem[] = [];
+    for (let child of this.children()) {
+      if (child instanceof QinMenuItem) {
+        result.push(child);
+      }
+    }
+    return result;
   }
 
   public setData(data: QinMenuItem[]) {
-    this.items = data;
+    this.clearChildren();
+    for (let item of data) {
+      item.install(this);
+    }
+  }
+
+  public putItem(item: QinMenuItem) {
+    item.install(this);
   }
 }
 
-export class QinMenuItem extends QinColumn {
-  private icon: QinIcon;
-  private label: QinLabel;
+export class QinMenuItem extends QinPanel {
+  private _face = new QinPanel();
+  private _body = new QinColumn();
+  private _icon: QinIcon;
+  private _label: QinLabel;
+
+  private _selected = false;
 
   public constructor(icon?: QinIcon, label?: QinLabel) {
-    super()
-    this.icon = icon;
-    this.label = label;
-    if (this.icon) {
-        this.icon.install(this);
+    super();
+    this._face.install(this);
+    this._body.install(this._face);
+    this._icon = icon;
+    if (this._icon) {
+      this._icon.install(this._body);
     }
-    if (this.label) {
-        this.label.install(this);
+    this._label = label;
+    if (this._label) {
+      this._label.install(this._body);
+    }
+    this.putTabIndex();
+    this.style.putAsEdit();
+    this.style.putAsMargin(3);
+    this.style.putAsPadding(6);
+    this.style.putAsDisplayInlineBlock();
+    this.style.putAsMaxWidth(96);
+    this._body.style.putAsAllCentered();
+  }
+
+  public select() {
+    this._face.style.putAsBackAsset(QinAsset.BackTiny01);
+    this._selected = true;
+  }
+
+  public unSelect() {
+    this._face.style.putAsBackInitial();
+    this._selected = false;
+  }
+
+  public swapSelect() {
+    if (this._selected) {
+      this.unSelect();
+    } else {
+      this.select();
     }
   }
 }
 
-const styles = {
-    
-}
+export type QinMenuOptions = {
+  items?: QinMenuItem[];
+};

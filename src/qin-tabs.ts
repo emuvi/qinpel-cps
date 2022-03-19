@@ -26,7 +26,7 @@ export class QinTabs extends QinColumn {
 
     public addTab(tab: QinTab) {
         const button = new QinButton({label: new QinLabel(tab.title)});
-        button.putAsBackground(QinSkin.styles.ColorInactive);
+        button.style.putAsBackground(QinSkin.styles.ColorInactive);
         button.addAction(qinEvent => {
             if (qinEvent.isPrimary()) {
                 this.showViewer(tab.viewer);
@@ -59,26 +59,18 @@ export class QinTabs extends QinColumn {
         viewer.install(this._qinPanel);
         for (const tab of this.tabs) {
             if (tab.viewer == viewer) {
-                tab.button.putAsBackground(QinSkin.styles.ColorActive);
+                tab.button.style.putAsBackground(QinSkin.styles.ColorActive);
             } else {
-                tab.button.putAsBackground(QinSkin.styles.ColorInactive);
+                tab.button.style.putAsBackground(QinSkin.styles.ColorInactive);
             }
         }
     }
 
-    /**
-     * Getter qinTabs
-     * @return {QinLine }
-     */
-	public get qinTabs(): QinLine  {
+    public get qinTabs(): QinLine  {
 		return this._qinTabs;
 	}
 
-    /**
-     * Getter qinPanel
-     * @return {QinPanel }
-     */
-	public get qinPanel(): QinPanel  {
+    public get qinPanel(): QinPanel  {
 		return this._qinPanel;
 	}
 

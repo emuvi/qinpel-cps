@@ -17,9 +17,9 @@ export class QinBoolean extends QinEdit {
         super();
         this._qinSpan.install(this._qinMain);
         this._qinIcon.install(this._qinSpan);
-        this._qinSpan.putAsEdit();
-        this._qinSpan.putAsDisplayFlex();
-        this._qinSpan.putAsCentered();
+        this._qinSpan.style.putAsEdit();
+        this._qinSpan.style.putAsDisplayFlex();
+        this._qinSpan.style.putAsAllCentered();
         this._qinSpan.addAction(qinEvent => {
             if (qinEvent.isPrimary()) {
                 this.toggle();
