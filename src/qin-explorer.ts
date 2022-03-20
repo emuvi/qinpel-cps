@@ -30,7 +30,7 @@ export class QinExplorer extends QinEdit {
   private initMain() {
     styles.applyOnMain(this._qinMain.divMain);
     this._qinMain.addAction((qinEvent) => {
-      if (qinEvent.isPrimary()) {
+      if (qinEvent.isPrimary) {
         this.cleanSelection();
       }
     });
@@ -276,10 +276,10 @@ class Item {
     styles.applyOnSpanText(this.spanText);
     this.divItemBody.appendChild(this.spanText);
     QinSoul.arm.addAction(this.divItem, (qinEvent) => {
-      if (qinEvent.isPrimary()) {
+      if (qinEvent.isPrimary) {
         this.divItem.focus();
         this.toggle();
-        qinEvent.stop();
+        qinEvent.consumed();
       }
     });
   }

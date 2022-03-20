@@ -52,12 +52,12 @@ export class QinChooser extends QinEdit {
         this._qinUpper.style.putAsFlexMin();
         this._qinConfirm.install(this._qinUpper);
         this._qinConfirm.addAction(qinEvent => {
-            if (qinEvent.isPrimary()) {
+            if (qinEvent.isPrimary) {
                 let data = this.getData();
                 for (const chosen of this.listeners) {
                     chosen(data);
                 }
-                qinEvent.stop();
+                qinEvent.consumed();
             }
         });
         this._qinFolder.install(this._qinUpper);
@@ -66,7 +66,7 @@ export class QinChooser extends QinEdit {
         this._qinFolder.addAction(qinEvent => {
             if (qinEvent.isEnter) {
                 this.loadFolder();
-                qinEvent.stop();
+                qinEvent.consumed();
             }
         });
         this._qinExtensions.install(this._qinUpper);
@@ -74,9 +74,9 @@ export class QinChooser extends QinEdit {
         this.initExtensions();
         this._qinSearch.install(this._qinUpper);
         this._qinSearch.addAction((qinEvent) => {
-            if (qinEvent.isPrimary()) {
+            if (qinEvent.isPrimary) {
                 this.loadFolder();
-                qinEvent.stop();
+                qinEvent.consumed();
             }
         });
     }
