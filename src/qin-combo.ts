@@ -1,59 +1,52 @@
-import { QinSoul } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 
 export class QinCombo extends QinEdit {
-    
-    private _selectMain: HTMLSelectElement = document.createElement("select");
+  private _elMain = document.createElement("select");
 
-    public constructor(options?: QinComboOptions) {
-        super();
-        this.style.putAsEdit();
-        if (options?.items) {
-            for (let item of options.items) {
-                this.addItem(item);
-            }
-        }
-        if (options?.selected) {
-            this.setData(options.selected);
-        }
+  public constructor(options?: QinComboSet) {
+    super();
+    this.style.putAsEdit();
+    if (options?.items) {
+      for (let item of options.items) {
+        this.addItem(item);
+      }
     }
-
-    public getMain(): HTMLSelectElement {
-        return this._selectMain;
+    if (options?.selected) {
+      this.setData(options.selected);
     }
+  }
 
-    public getData(): string {
-        return this._selectMain.value;
+  public getMain(): HTMLSelectElement {
+    return this._elMain;
+  }
+
+  public getData(): string {
+    return this._elMain.value;
+  }
+
+  public setData(data: string) {
+    this._elMain.value = data;
+  }
+
+  public addItem(item: QinComboItem): QinCombo {
+    const option = document.createElement("option");
+    option.text = item.title;
+    option.value = item.value;
+    if (item.selected != undefined && item.selected != null) {
+      option.selected = item.selected;
     }
-
-    public setData(data: string) {
-        this._selectMain.value = data;
-    }
-
-    public addItem(item: QinComboItem): QinCombo {
-        const option = document.createElement("option");
-        option.text = item.title;
-        option.value = item.value;
-        if (item.selected != undefined && item.selected != null) {
-            option.selected = item.selected;
-        }
-        this._selectMain.appendChild(option);
-        return this;
-    }
-
-    public get selectMain(): HTMLSelectElement  {
-		return this._selectMain;
-	}
-
+    this._elMain.appendChild(option);
+    return this;
+  }
 }
 
-export type QinComboOptions = {
-    items?: QinComboItem[]
-    selected?: string,
-}
+export type QinComboSet = {
+  items?: QinComboItem[];
+  selected?: string;
+};
 
 export type QinComboItem = {
-    title: string, 
-    value: string, 
-    selected?: boolean,
+  title: string;
+  value: string;
+  selected?: boolean;
 };

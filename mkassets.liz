@@ -13,12 +13,12 @@ Assets = Liz.path_list("../qinpel-app/public/assets")
 for _, item in pairs(Assets) do
     local fileName = Liz.path_name(item)
     local identity = GetIdentity(fileName)
-    Source = Source .. "    " .. identity .. " = \"" .. fileName .. "\",\n"
+    Source = Source .. "  " .. identity .. " = \"" .. fileName .. "\",\n"
 end
 Source = Source .. "}\n"
 Source = Source .. "\n"
 Source = Source .. "export function qinAssetUrl(asset: QinAsset) {\n"
-Source = Source .. "    return \"/app/qinpel-app/assets/\" + asset;\n"
+Source = Source .. "  return \"/app/qinpel-app/assets/\" + asset;\n"
 Source = Source .. "}\n"
 Liz.write("src/qin-assets.ts", Source)
 print("Done Make 'src/qin-assets.ts'!")

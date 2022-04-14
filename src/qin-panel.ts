@@ -1,19 +1,13 @@
 import { QinBase } from "./qin-base";
 
 export class QinPanel extends QinBase {
-    
-    private _divMain: HTMLDivElement = document.createElement("div");
+  private _elMain = document.createElement("div");
 
-    public constructor() {
-        super();
-    }
+  public constructor() {
+    super();
+  }
 
-    public getMain(): HTMLDivElement {
-        return this._divMain;
-    }
-
-    public get divMain(): HTMLDivElement  {
-		return this._divMain;
-	}
-
+  public getMain(): HTMLDivElement {
+    return this._elMain;
+  }
 }

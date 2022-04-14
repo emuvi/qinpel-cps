@@ -2,59 +2,51 @@ import { QinSoul } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 
 export class QinString extends QinEdit {
+  private _elMain = document.createElement("input");
 
-    private _inputMain: HTMLInputElement = document.createElement("input");
-
-    public constructor(options?: QinStringOptions) {
-        super();
-        this._inputMain.type = "text";
-        if (options?.maxLength) {
-            this._inputMain.maxLength = options.maxLength;
-            let position = Math.min(Math.max(options.maxLength - 10, 0), 90);
-            let width = Math.floor(90 + (position * 7 / 3));
-            this._inputMain.style.width = width + "px";
-        }
-        QinSoul.skin.styleAsEdit(this._inputMain);
-        if (options?.initial) {
-            this.setData(options.initial);
-        }
+  public constructor(options?: QinStringSet) {
+    super();
+    this._elMain.type = "text";
+    if (options?.maxLength) {
+      this._elMain.maxLength = options.maxLength;
+      let position = Math.min(Math.max(options.maxLength - 10, 0), 90);
+      let width = Math.floor(90 + (position * 7) / 3);
+      this._elMain.style.width = width + "px";
     }
-
-    public getMain(): HTMLInputElement {
-        return this._inputMain;
+    QinSoul.skin.styleAsEdit(this._elMain);
+    if (options?.initial) {
+      this.setData(options.initial);
     }
+  }
 
-    public getData(): string {
-        return this._inputMain.value;
-    }
+  public getMain(): HTMLInputElement {
+    return this._elMain;
+  }
 
-    public setData(data: string) {
-        this._inputMain.value = data;
-    }
+  public getData(): string {
+    return this._elMain.value;
+  }
 
-    public insertAtCursor(data: string) {
-        if (!data) return;
-        let startPos = this._inputMain.selectionStart;
-        let endPos = this._inputMain.selectionEnd;
-        let oldVal = this._inputMain.value;
-        let newVal = (startPos > 0 ? oldVal.substring(0, startPos) : "") + data
-            + (endPos < oldVal.length ? oldVal.substring(endPos) : "");
-        this._inputMain.value = newVal;
-        this._inputMain.selectionStart = startPos;
-        this._inputMain.selectionEnd = startPos + data.length;
-    }
+  public setData(data: string) {
+    this._elMain.value = data;
+  }
 
-    /**
-     * Getter inputMain
-     * @return {HTMLInputElement }
-     */
-    public get inputMain(): HTMLInputElement {
-        return this._inputMain;
-    }
-
+  public insertAtCursor(data: string) {
+    if (!data) return;
+    let startPos = this._elMain.selectionStart;
+    let endPos = this._elMain.selectionEnd;
+    let oldVal = this._elMain.value;
+    let newVal =
+      (startPos > 0 ? oldVal.substring(0, startPos) : "") +
+      data +
+      (endPos < oldVal.length ? oldVal.substring(endPos) : "");
+    this._elMain.value = newVal;
+    this._elMain.selectionStart = startPos;
+    this._elMain.selectionEnd = startPos + data.length;
+  }
 }
 
-export type QinStringOptions = {
-    initial?: string,
-    maxLength?: number
+export type QinStringSet = {
+  initial?: string;
+  maxLength?: number;
 };

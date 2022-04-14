@@ -1,4 +1,3 @@
-import { QinSoul } from "qinpel-res";
 import { QinAsset } from "./qin-assets";
 import { QinColumn } from "./qin-column";
 import { QinEdit } from "./qin-edit";
@@ -9,7 +8,7 @@ import { QinPanel } from "./qin-panel";
 export class QinMenu extends QinEdit {
   private _qinMain: QinPanel = new QinPanel();
 
-  public constructor(options?: QinMenuOptions) {
+  public constructor(options?: QinMenuSet) {
     super();
     this._qinMain.style.putAsEdit();
     this._qinMain.style.putAsScroll();
@@ -67,7 +66,7 @@ export class QinMenuItem extends QinPanel {
     if (this._label) {
       this._label.install(this._body);
     }
-    this.putTabIndex();
+    this.putTabIndex(0);
     this.style.putAsEdit();
     this.style.putAsMargin(3);
     this.style.putAsPadding(6);
@@ -95,6 +94,6 @@ export class QinMenuItem extends QinPanel {
   }
 }
 
-export type QinMenuOptions = {
+export type QinMenuSet = {
   items?: QinMenuItem[];
 };

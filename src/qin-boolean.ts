@@ -1,63 +1,81 @@
-import { QinSoul } from "qinpel-res";
 import { QinAsset } from "./qin-assets";
-import { QinColumn } from "./qin-column";
 import { QinEdit } from "./qin-edit";
 import { QinIcon } from "./qin-icon";
 import { QinLabel } from "./qin-label";
 import { QinLine } from "./qin-line";
+import { QinPanel } from "./qin-panel";
 
 export class QinBoolean extends QinEdit {
-    
-    private _qinMain: QinLine = new QinLine();
-    private _qinSpan: QinLabel = new QinLabel();
-    private _qinIcon: QinIcon = new QinIcon(QinAsset.FaceCircle);
-    private value: boolean = false;
+  private _qinMain = new QinLine();
+  private _qinSpan = new QinLabel();
+  private _qinIcon = new QinIcon(QinAsset.FaceCircle);
+  private _value = false;
 
-    public constructor(options?: QinBooleanOptions) {
-        super();
-        this._qinSpan.install(this._qinMain);
-        this._qinIcon.install(this._qinSpan);
-        this._qinSpan.style.putAsEdit();
-        this._qinSpan.style.putAsDisplayFlex();
-        this._qinSpan.style.putAsAllCentered();
-        this._qinSpan.addAction(qinEvent => {
-            if (qinEvent.isPrimary) {
-                this.toggle();
-            }
-        });
-        if (options?.initial) {
-            this.setData(options.initial);
-        }
+  public constructor(options?: QinBooleanSet) {
+    super();
+    this._qinSpan.install(this._qinMain);
+    this._qinIcon.install(this._qinSpan);
+    this._qinSpan.style.putAsEdit();
+    this._qinSpan.style.putAsDisplayFlex();
+    this._qinSpan.style.putAsAllCentered();
+    this._qinSpan.addAction((qinEvent) => {
+      if (qinEvent.isPrimary) {
+        this.toggle();
+      }
+    });
+    if (options?.initial) {
+      this.setData(options.initial);
     }
+  }
 
-    public getMain(): HTMLDivElement {
-        return this._qinMain.getMain();
+  public getMain(): HTMLDivElement {
+    return this._qinMain.getMain();
+  }
+
+  public getData(): boolean {
+    return this._value;
+  }
+
+  public setData(data: boolean) {
+    this._value = data;
+    this.updateIcon();
+  }
+
+  public get qinMain(): QinLine {
+    return this._qinMain;
+  }
+
+  public get qinSpan(): QinLabel {
+    return this._qinSpan;
+  }
+
+  public get qinIcon(): QinIcon {
+    return this._qinIcon;
+  }
+
+  public get value(): boolean {
+    return this._value;
+  }
+
+  public set value(value: boolean) {
+    this._value = value;
+    this.updateIcon();
+  }
+
+  private updateIcon() {
+    if (this._value) {
+      this._qinIcon.change(QinAsset.FaceConfirm);
+    } else {
+      this._qinIcon.change(QinAsset.FaceCircle);
     }
+  }
 
-    public getData(): boolean {
-        return this.value;
-    }
-
-    public setData(data: boolean) {
-        this.value = data;
-        this.updateIcon();
-    }
-
-    private updateIcon() {
-        if (this.value) {
-            this._qinIcon.change(QinAsset.FaceConfirm);
-        } else {
-            this._qinIcon.change(QinAsset.FaceCircle);
-        }
-    }
-
-    public toggle() {
-        this.value = !this.value;
-        this.updateIcon();
-    }
-
+  public toggle() {
+    this._value = !this._value;
+    this.updateIcon();
+  }
 }
 
-export type QinBooleanOptions = {
-    initial?: boolean
+export type QinBooleanSet = {
+  initial?: boolean;
 };

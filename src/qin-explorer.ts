@@ -1,12 +1,11 @@
+import { QinFilesNature, QinFoot, QinSoul } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
-
-import { QinSoul, QinFilesNature, QinHead, QinFoot } from "qinpel-res";
 import { QinPanel } from "./qin-panel";
 
 type OnExplorerLoad = (loaded: string) => void;
 
 export class QinExplorer extends QinEdit {
-  private _qinMain: QinPanel = new QinPanel();
+  private _qinMain = new QinPanel();
 
   private _nature: QinFilesNature;
   private _extensions: string[];
@@ -15,20 +14,18 @@ export class QinExplorer extends QinEdit {
   private _folderActual: string = "";
   private _folderServer: string = "";
 
-  private items: Item[] = [];
+  private _items: Item[] = [];
 
-  public constructor(options?: QinExplorerOptions) {
+  public constructor(options?: QinExplorerSet) {
     super();
     this._nature = options?.nature ? options.nature : QinFilesNature.BOTH;
     this._extensions = options?.extensions ? options.extensions : [];
-    this._singleSelection = options?.singleSelection
-      ? options.singleSelection
-      : false;
+    this._singleSelection = options?.singleSelection ? options.singleSelection : false;
     this.initMain();
   }
 
   private initMain() {
-    styles.applyOnMain(this._qinMain.divMain);
+    styles.applyOnMain(this._qinMain.getMain());
     this._qinMain.addAction((qinEvent) => {
       if (qinEvent.isPrimary) {
         this.cleanSelection();
@@ -37,32 +34,15 @@ export class QinExplorer extends QinEdit {
     this._qinMain.style.putAsDisabledSelection();
   }
 
-  private updateSingleSelection() {
-    if (this._singleSelection) {
-      let alreadyHas = false;
-      for (const item of this.items) {
-        if (item.isSelected()) {
-          if (alreadyHas) {
-            item.unselect();
-          } else {
-            alreadyHas = true;
-          }
-        }
-      }
-    }
-  }
-
   public getMain(): HTMLDivElement {
-    return this._qinMain.divMain;
+    return this._qinMain.getMain();
   }
 
   public getData(): string[] {
     let result = [];
-    this.items.forEach((item) => {
+    this._items.forEach((item) => {
       if (item.isSelected()) {
-        result.push(
-          QinSoul.foot.getPathJoin(this._folderServer, item.getName())
-        );
+        result.push(QinSoul.foot.getPathJoin(this._folderServer, item.getName()));
       }
     });
     return result;
@@ -91,6 +71,58 @@ export class QinExplorer extends QinEdit {
           }
         }
       });
+    }
+  }
+
+  public get qinMain(): QinPanel {
+    return this._qinMain;
+  }
+
+  public get nature(): QinFilesNature {
+    return this._nature;
+  }
+
+  public set nature(value: QinFilesNature) {
+    this._nature = value;
+  }
+
+  public get extensions(): string[] {
+    return this._extensions;
+  }
+
+  public set extensions(value: string[]) {
+    this._extensions = value;
+  }
+
+  public get singleSelection(): boolean {
+    return this._singleSelection;
+  }
+
+  public set singleSelection(value: boolean) {
+    this._singleSelection = value;
+    this.updateSingleSelection();
+  }
+
+  public get folderActual(): string {
+    return this._folderActual;
+  }
+
+  public get folderServer(): string {
+    return this._folderServer;
+  }
+
+  private updateSingleSelection() {
+    if (this._singleSelection) {
+      let alreadyHas = false;
+      for (const item of this._items) {
+        if (item.isSelected()) {
+          if (alreadyHas) {
+            item.unselect();
+          } else {
+            alreadyHas = true;
+          }
+        }
+      }
     }
   }
 
@@ -151,20 +183,20 @@ export class QinExplorer extends QinEdit {
   }
 
   public clean() {
-    this._qinMain.divMain.innerHTML = "";
-    this.items = [];
+    this._qinMain.getMain().innerHTML = "";
+    this._items = [];
     this._folderActual = "";
     this._folderServer = "";
   }
 
   public cleanSelection() {
-    for (const item of this.items) {
+    for (const item of this._items) {
       item.unselect();
     }
   }
 
   public select(itemName: string): boolean {
-    let item = this.items.find((inside) => inside.getName() == itemName);
+    let item = this._items.find((inside) => inside.getName() == itemName);
     if (item) {
       item.select();
       return true;
@@ -174,7 +206,7 @@ export class QinExplorer extends QinEdit {
   }
 
   public unselect(itemName: string): boolean {
-    let item = this.items.find((inside) => inside.getName() == itemName);
+    let item = this._items.find((inside) => inside.getName() == itemName);
     if (item) {
       item.unselect();
       return true;
@@ -193,49 +225,12 @@ export class QinExplorer extends QinEdit {
 
   private newItem(name: string, icon: string) {
     const item = new Item(this, name, icon);
-    item.install(this._qinMain.divMain);
-    this.items.push(item);
-  }
-
-  public get qinMain(): QinPanel {
-    return this._qinMain;
-  }
-
-  public get nature(): QinFilesNature {
-    return this._nature;
-  }
-
-  public set nature(value: QinFilesNature) {
-    this._nature = value;
-  }
-
-  public get extensions(): string[] {
-    return this._extensions;
-  }
-
-  public set extensions(value: string[]) {
-    this._extensions = value;
-  }
-
-  public get singleSelection(): boolean {
-    return this._singleSelection;
-  }
-
-  public set singleSelection(value: boolean) {
-    this._singleSelection = value;
-    this.updateSingleSelection();
-  }
-
-  public get folderActual(): string {
-    return this._folderActual;
-  }
-
-  public get folderServer(): string {
-    return this._folderServer;
+    item.install(this._qinMain.getMain());
+    this._items.push(item);
   }
 }
 
-export type QinExplorerOptions = {
+export type QinExplorerSet = {
   nature?: QinFilesNature;
   extensions?: string[];
   singleSelection: boolean;
@@ -252,11 +247,7 @@ class Item {
   private iconName: string;
   private selected: boolean = false;
 
-  public constructor(
-    explorer: QinExplorer,
-    fileName: string,
-    iconName: string
-  ) {
+  public constructor(explorer: QinExplorer, fileName: string, iconName: string) {
     this.explorer = explorer;
     this.fileName = fileName;
     this.iconName = iconName;

@@ -1,10 +1,10 @@
-import { Qinpel } from "qinpel-app/types/qinpel"
+import { Qinpel } from "qinpel-app/types/qinpel";
 const refQinpel = (window.frameElement as any).qinpel as Qinpel;
 
 function qinpel(): Qinpel {
-    return refQinpel;
+  return refQinpel;
 }
 
 export const QinTools = {
-    qinpel
+  qinpel,
 };
