@@ -35,6 +35,7 @@ export { QinPathSet } from './qin-path';
 export { QinStack } from './qin-stack';
 export { QinString } from './qin-string';
 export { QinStringSet } from './qin-string';
+export { QinTable } from './qin-table';
 export { QinTabs } from './qin-tabs';
 export { QinTabsSet } from './qin-tabs';
 export { QinTab } from './qin-tabs';
