@@ -17,8 +17,13 @@ for _, item in pairs(Assets) do
 end
 Source = Source .. "}\n"
 Source = Source .. "\n"
-Source = Source .. "export function qinAssetUrl(asset: QinAsset) {\n"
+Source = Source .. "export function qinAssetUrl(asset: QinAsset): string {\n"
 Source = Source .. "  return \"/app/qinpel-app/assets/\" + asset;\n"
+Source = Source .. "}\n"
+Source = Source .. "\n"
+Source = Source .. "export function qinUrlAsset(url: string): QinAsset {\n"
+Source = Source .. "  const asset = url.substring(url.lastIndexOf(\"/\") + 1);\n"
+Source = Source .. "  return asset as QinAsset;\n"
 Source = Source .. "}\n"
 Liz.write("src/qin-assets.ts", Source)
 print("Done Make 'src/qin-assets.ts'!")

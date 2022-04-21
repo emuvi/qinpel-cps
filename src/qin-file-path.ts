@@ -2,24 +2,24 @@ import { QinFramePopup } from "qinpel-app/types/qin-frame";
 import { QinFilesDescriptor, QinFilesNature, QinFilesOperation } from "qinpel-res";
 import { QinAsset } from "./qin-assets";
 import { QinButton } from "./qin-button";
-import { QinChooser } from "./qin-chooser";
+import { QinFileChooser } from "./qin-file-chooser";
 import { QinEdit } from "./qin-edit";
 import { QinIcon } from "./qin-icon";
 import { QinLine } from "./qin-line";
 import { QinString } from "./qin-string";
 
-export class QinPath extends QinEdit {
+export class QinFilePath extends QinEdit {
   private _qinMain = new QinLine();
   private _qinPath = new QinString();
   private _qinSearch = new QinButton({
     icon: new QinIcon(QinAsset.FaceFolder),
   });
-  private _qinChooser: QinChooser;
+  private _qinChooser: QinFileChooser;
   private _qinPopup: QinFramePopup;
 
-  public constructor(options?: QinPathSet) {
+  public constructor(options?: QinFilePathSet) {
     super();
-    this._qinChooser = new QinChooser({
+    this._qinChooser = new QinFileChooser({
       nature: options?.nature,
       operation: options?.operation,
       descriptors: options?.descriptors,
@@ -71,7 +71,7 @@ export class QinPath extends QinEdit {
     return this._qinSearch;
   }
 
-  public get qinChooser(): QinChooser {
+  public get qinChooser(): QinFileChooser {
     return this._qinChooser;
   }
 
@@ -80,7 +80,7 @@ export class QinPath extends QinEdit {
   }
 }
 
-export type QinPathSet = {
+export type QinFilePathSet = {
   initial?: string;
   nature?: QinFilesNature;
   operation?: QinFilesOperation;

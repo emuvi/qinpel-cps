@@ -64,9 +64,9 @@ export class QinBoolean extends QinEdit {
 
   private updateIcon() {
     if (this._value) {
-      this._qinIcon.change(QinAsset.FaceConfirm);
+      this._qinIcon.asset = QinAsset.FaceConfirm;
     } else {
-      this._qinIcon.change(QinAsset.FaceCircle);
+      this._qinIcon.asset = QinAsset.FaceCircle;
     }
   }
 

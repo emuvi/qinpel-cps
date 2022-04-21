@@ -4,13 +4,13 @@ import { QinButton } from "./qin-button";
 import { QinColumn } from "./qin-column";
 import { QinCombo } from "./qin-combo";
 import { QinEdit } from "./qin-edit";
-import { QinExplorer } from "./qin-explorer";
+import { QinFileExplorer } from "./qin-file-explorer";
 import { QinIcon } from "./qin-icon";
 import { QinLine } from "./qin-line";
 import { QinPanel } from "./qin-panel";
 import { QinString } from "./qin-string";
 
-export class QinChooser extends QinEdit {
+export class QinFileChooser extends QinEdit {
   private _qinMain = new QinColumn();
   private _qinUpper = new QinLine();
   private _qinConfirm = new QinButton({
@@ -22,16 +22,16 @@ export class QinChooser extends QinEdit {
     icon: new QinIcon(QinAsset.FaceSearch),
   });
   private _qinUnder = new QinPanel();
-  private _qinExplorer = new QinExplorer();
+  private _qinExplorer = new QinFileExplorer();
 
   private _nature: QinFilesNature;
   private _operation: QinFilesOperation;
   private _descriptors: QinFilesDescriptor[];
   private _singleSelection: boolean;
 
-  private _listeners: QinChosen[] = [];
+  private _listeners: QinFileChosen[] = [];
 
-  public constructor(options?: QinChooserSet) {
+  public constructor(options?: QinFileChooserSet) {
     super();
     this._nature = options?.nature ? options.nature : QinFilesNature.BOTH;
     this._operation = options?.operation ? options.operation : QinFilesOperation.OPEN;
@@ -149,7 +149,7 @@ export class QinChooser extends QinEdit {
     return this._qinUnder;
   }
 
-  public get qinExplorer(): QinExplorer {
+  public get qinExplorer(): QinFileExplorer {
     return this._qinExplorer;
   }
 
@@ -193,17 +193,17 @@ export class QinChooser extends QinEdit {
     });
   }
 
-  public addChosen(chosen: QinChosen): QinChooser {
+  public addChosen(chosen: QinFileChosen): QinFileChooser {
     this._listeners.push(chosen);
     return this;
   }
 }
 
-export type QinChooserSet = {
+export type QinFileChooserSet = {
   nature?: QinFilesNature;
   operation?: QinFilesOperation;
   descriptors?: QinFilesDescriptor[];
   singleSelection?: boolean;
 };
 
-export type QinChosen = (chosen: string[]) => void;
+export type QinFileChosen = (chosen: string[]) => void;

@@ -1,20 +1,21 @@
 import { QinBase } from "./qin-base";
 import { QinPanel } from "./qin-panel";
 
-export class QinStack extends QinBase {
-  private _elMain = document.createElement("div");
-
-  public constructor() {
-    super();
+export class QinStack extends QinPanel {
+  public stack(qinComp: QinBase) {
+    this.children().forEach((child) => {
+      child.unDisplay();
+    });
+    qinComp.install(this);
   }
 
-  public getMain(): HTMLDivElement {
-    return this._elMain;
-  }
-
-  public add(panel: QinPanel) {
-    panel.install(this);
-    panel.style.putAsWhole();
-    panel.style.putAsZIndex(this.children().length + 1);
+  public show(qinComp: QinBase) {
+    this.children().forEach((child) => {
+      if (child === qinComp) {
+        child.reDisplay();
+      } else {
+        child.unDisplay();
+      }
+    });
   }
 }

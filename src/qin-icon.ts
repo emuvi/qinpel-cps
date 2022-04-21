@@ -1,5 +1,5 @@
-import { QinDimension, QinGrandeur, QinSoul } from "qinpel-res";
-import { QinAsset, qinAssetUrl } from "./qin-assets";
+import { QinDimension, QinGrandeur, QinSkin } from "qinpel-res";
+import { QinAsset, qinAssetUrl, qinUrlAsset } from "./qin-assets";
 import { QinBase } from "./qin-base";
 
 export class QinIcon extends QinBase {
@@ -11,14 +11,22 @@ export class QinIcon extends QinBase {
   ) {
     super();
     this._elMain.src = qinAssetUrl(asset);
-    QinSoul.skin.styleSize(this._elMain, size);
+    QinSkin.styleSize(this._elMain, size);
   }
 
   public getMain(): HTMLImageElement {
     return this._elMain;
   }
 
-  public change(asset: QinAsset) {
+  public get asset(): QinAsset {
+    return qinUrlAsset(this._elMain.src);
+  }
+
+  public set asset(asset: QinAsset) {
     this._elMain.src = qinAssetUrl(asset);
+  }
+
+  public get size(): QinDimension {
+    return QinSkin.getDimension(this._elMain);
   }
 }

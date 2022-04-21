@@ -1,10 +1,10 @@
 import { QinBoolean } from "./qin-boolean";
-import { QinChooser } from "./qin-chooser";
+import { QinFileChooser } from "./qin-file-chooser";
 import { QinCombo } from "./qin-combo";
 import { QinEdit } from "./qin-edit";
-import { QinExplorer } from "./qin-explorer";
+import { QinFileExplorer } from "./qin-file-explorer";
 import { QinInteger } from "./qin-integer";
-import { QinPath } from "./qin-path";
+import { QinFilePath } from "./qin-file-path";
 import { QinString } from "./qin-string";
 
 export enum QinMutants {
@@ -22,15 +22,15 @@ function newEdit(kind: QinMutants, options: any): QinEdit {
     case QinMutants.BOOLEAN:
       return new QinBoolean(options);
     case QinMutants.CHOOSER:
-      return new QinChooser(options);
+      return new QinFileChooser(options);
     case QinMutants.COMBO:
       return new QinCombo(options);
     case QinMutants.EXPLORER:
-      return new QinExplorer(options);
+      return new QinFileExplorer(options);
     case QinMutants.INTEGER:
       return new QinInteger(options);
     case QinMutants.PATH:
-      return new QinPath(options);
+      return new QinFilePath(options);
     case QinMutants.STRING:
       return new QinString(options);
     default:

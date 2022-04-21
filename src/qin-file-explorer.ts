@@ -4,7 +4,7 @@ import { QinPanel } from "./qin-panel";
 
 type OnExplorerLoad = (loaded: string) => void;
 
-export class QinExplorer extends QinEdit {
+export class QinFileExplorer extends QinEdit {
   private _qinMain = new QinPanel();
 
   private _nature: QinFilesNature;
@@ -16,7 +16,7 @@ export class QinExplorer extends QinEdit {
 
   private _items: Item[] = [];
 
-  public constructor(options?: QinExplorerSet) {
+  public constructor(options?: QinFileExplorerSet) {
     super();
     this._nature = options?.nature ? options.nature : QinFilesNature.BOTH;
     this._extensions = options?.extensions ? options.extensions : [];
@@ -230,14 +230,14 @@ export class QinExplorer extends QinEdit {
   }
 }
 
-export type QinExplorerSet = {
+export type QinFileExplorerSet = {
   nature?: QinFilesNature;
   extensions?: string[];
   singleSelection: boolean;
 };
 
 class Item {
-  private explorer: QinExplorer;
+  private explorer: QinFileExplorer;
   private divItem = document.createElement("div");
   private divItemBody = document.createElement("div");
   private spanIcon = document.createElement("span");
@@ -247,7 +247,7 @@ class Item {
   private iconName: string;
   private selected: boolean = false;
 
-  public constructor(explorer: QinExplorer, fileName: string, iconName: string) {
+  public constructor(explorer: QinFileExplorer, fileName: string, iconName: string) {
     this.explorer = explorer;
     this.fileName = fileName;
     this.iconName = iconName;

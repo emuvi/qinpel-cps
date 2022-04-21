@@ -45,6 +45,20 @@ export class QinTable extends QinEdit {
     }
   }
 
+  public getHead(): string[] {
+    let result = [];
+    this._elTHead.querySelectorAll("th").forEach((th) => {
+      result.push(th.innerText);
+    });
+    return result;
+  }
+
+  public addHead(head: string): void {
+    let th = document.createElement("th");
+    th.innerText = head;
+    this._elTHead.appendChild(th);
+  }
+
   public addLine(line: any[]): void {
     let tr = document.createElement("tr");
     for (const cell of line) {

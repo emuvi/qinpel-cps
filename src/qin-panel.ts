@@ -5,6 +5,7 @@ export class QinPanel extends QinBase {
 
   public constructor() {
     super();
+    this._elMain.style.display = "flex";
   }
 
   public getMain(): HTMLDivElement {

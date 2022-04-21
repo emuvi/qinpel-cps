@@ -1,4 +1,4 @@
-import { QinSoul } from "qinpel-res";
+import { QinSkin } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 
 export class QinString extends QinEdit {
@@ -13,7 +13,7 @@ export class QinString extends QinEdit {
       let width = Math.floor(90 + (position * 7) / 3);
       this._elMain.style.width = width + "px";
     }
-    QinSoul.skin.styleAsEdit(this._elMain);
+    QinSkin.styleAsEdit(this._elMain);
     if (options?.initial) {
       this.setData(options.initial);
     }

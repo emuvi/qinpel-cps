@@ -193,6 +193,11 @@ export enum QinAsset {
   SourceSerifPro = "source-serif-pro.ttf",
 }
 
-export function qinAssetUrl(asset: QinAsset) {
+export function qinAssetUrl(asset: QinAsset): string {
   return "/app/qinpel-app/assets/" + asset;
+}
+
+export function qinUrlAsset(url: string): QinAsset {
+  const asset = url.substring(url.lastIndexOf("/") + 1);
+  return asset as QinAsset;
 }
