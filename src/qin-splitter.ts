@@ -14,8 +14,8 @@ export class QinSplitter extends QinBase {
     super();
     this._elMain.appendChild(this._elSideA);
     this._elMain.appendChild(this._elMover);
-    this._elMover.appendChild(this._elGrowB);
     this._elMover.appendChild(this._elGrowA);
+    this._elMover.appendChild(this._elGrowB);
     this._elMain.appendChild(this._elSideB);
     this._elMain.style.display = "flex";
     this._elMain.style.flexWrap = "nowrap";
@@ -24,8 +24,8 @@ export class QinSplitter extends QinBase {
     this._elSideA.style.overflow = "auto";
     this._elMover.style.display = "flex";
     this._elMover.style.flexWrap = "nowrap";
-    this._elMover.style.borderRadius = "9px";
-    this._elMover.style.border = "1px solid rgba(245,245,245,0.1)";
+    this._elMover.style.borderRadius = "12px";
+    this._elMover.style.border = "1px solid rgba(255,250,239,0.1)";
     this._elMover.style.overflow = "hidden";	
     this._elMover.style.flex = "0";
     this._elGrowA.style.flex = "1";
@@ -56,7 +56,7 @@ export class QinSplitter extends QinBase {
       }
     }
 
-    this.setVertical();
+    this.setHorizontal();
   }
 
   public getMain(): HTMLDivElement {
@@ -70,14 +70,14 @@ export class QinSplitter extends QinBase {
     this._elSideA.style.height = "100%";
     this._elSideB.style.width = "50%";
     this._elSideB.style.height = "100%";
-    this._elMover.style.minWidth = "18px";
-    this._elMover.style.maxWidth = "18px";
+    this._elMover.style.minWidth = "24px";
+    this._elMover.style.maxWidth = "24px";
     this._elMover.style.minHeight = "initial";
     this._elMover.style.maxHeight = "initial";
-    this._elMover.style.width = "18px";
+    this._elMover.style.width = "24px";
     this._elMover.style.height = "100%";
-    this._elGrowA.style.background = "linear-gradient(270deg, rgba(245,255,245,0.1) 0%, rgba(24,0,39,0.8) 100%)"; 
-    this._elGrowB.style.background = "linear-gradient(90deg, rgba(245,245,245,0.1) 0%, rgba(24,0,39,0.8) 100%)"; 
+    this._elGrowA.style.background = "linear-gradient(90deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
+    this._elGrowB.style.background = "linear-gradient(270deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
     this._isHorizontal = true;
   }
 
@@ -90,12 +90,12 @@ export class QinSplitter extends QinBase {
     this._elSideB.style.height = "50%";
     this._elMover.style.minWidth = "initial";
     this._elMover.style.maxWidth = "initial";
-    this._elMover.style.minHeight = "18px";
-    this._elMover.style.maxHeight = "18px";
+    this._elMover.style.minHeight = "24px";
+    this._elMover.style.maxHeight = "24px";
     this._elMover.style.width = "100%";
-    this._elMover.style.height = "18px";
-    this._elGrowA.style.background = "linear-gradient(0deg, rgba(245,245,245,0.1) 0%, rgba(24,0,39,0.8) 100%)"; 
-    this._elGrowB.style.background = "linear-gradient(180deg, rgba(245,245,245,0.1) 0%, rgba(24,0,39,0.8) 100%)"; 
+    this._elMover.style.height = "24px";
+    this._elGrowA.style.background = "linear-gradient(180deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
+    this._elGrowB.style.background = "linear-gradient(0deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
     this._isHorizontal = false;
   }
 

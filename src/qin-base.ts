@@ -83,11 +83,15 @@ export abstract class QinBase {
     this._baseChildren = [];
   }
 
+  public putTabIndex(index?: number) {
+    this.getMain().tabIndex = index;
+  }
+
   public addAction(action: QinAction) {
     QinArm.addAction(this.getMain(), action);
   }
 
-  public putTabIndex(index?: number) {
-    this.getMain().tabIndex = index;
+  public addActionPrimary(action: QinAction) {
+    QinArm.addActionPrimary(this.getMain(), action);
   }
 }
