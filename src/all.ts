@@ -35,6 +35,8 @@ export { QinMenuSet } from './qin-menu';
 export { QinMutants } from './qin-mutants';
 export { QinMutantsArm } from './qin-mutants';
 export { QinPanel } from './qin-panel';
+export { QinSplitter } from './qin-splitter';
+export { QinSplitterSet } from './qin-splitter';
 export { QinStack } from './qin-stack';
 export { QinString } from './qin-string';
 export { QinStringSet } from './qin-string';
