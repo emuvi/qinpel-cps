@@ -29,7 +29,7 @@ export class QinFilePath extends QinEdit {
     this._qinPath.install(this._qinMain);
     this._qinSearch.install(this._qinMain);
     this._qinSearch.addAction((qinEvent) => {
-      if (qinEvent.isPrimary) {
+      if (qinEvent.isMain) {
         this._qinPopup.show();
         const upperHeight = this._qinChooser.qinUpper.getMain().clientHeight;
         const explorerMaxHeight = this._qinPopup.maxHeight - (upperHeight + 12);

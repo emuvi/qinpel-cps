@@ -1,35 +1,24 @@
 import { QinBase } from "./qin-base";
+import { QinPanel } from "./qin-panel";
 
-export class QinLine extends QinBase {
-  private _elMain = document.createElement("div");
-
+export class QinLine extends QinPanel {
   public constructor(options?: QinLineSet) {
     super();
-    this.initPanel();
-    if (options?.initial) {
-      for (let viewer of options.initial) {
-        viewer.install(this);
+    this.style.putAsFlexDirectionRow();
+    this.style.putAsFlexWrap();
+    if (options?.items) {
+      for (const item of options.items) {
+        item.install(this);
       }
     }
   }
 
-  private initPanel() {
-    styles.applyOnPanel(this._elMain);
-  }
-
-  public getMain(): HTMLDivElement {
-    return this._elMain;
+  public put(item: QinBase): QinLine {
+    item.install(this);
+    return this;
   }
 }
 
 export type QinLineSet = {
-  initial?: QinBase[];
-};
-
-const styles = {
-  applyOnPanel: (el: HTMLDivElement) => {
-    el.style.display = "flex";
-    el.style.flexDirection = "row";
-    el.style.flexWrap = "wrap";
-  },
+  items?: QinBase[];
 };

@@ -27,7 +27,7 @@ export class QinFileExplorer extends QinEdit {
   private initMain() {
     styles.applyOnMain(this._qinMain.getMain());
     this._qinMain.addAction((qinEvent) => {
-      if (qinEvent.isPrimary) {
+      if (qinEvent.isMain) {
         this.cleanSelection();
       }
     });
@@ -267,7 +267,7 @@ class Item {
     styles.applyOnSpanText(this.spanText);
     this.divItemBody.appendChild(this.spanText);
     QinSoul.arm.addAction(this.divItem, (qinEvent) => {
-      if (qinEvent.isPrimary) {
+      if (qinEvent.isMain) {
         this.divItem.focus();
         this.toggle();
         qinEvent.consumed();

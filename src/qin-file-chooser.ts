@@ -51,7 +51,7 @@ export class QinFileChooser extends QinEdit {
     this._qinUpper.style.putAsFlexMin();
     this._qinConfirm.install(this._qinUpper);
     this._qinConfirm.addAction((qinEvent) => {
-      if (qinEvent.isPrimary) {
+      if (qinEvent.isMain) {
         let data = this.getData();
         for (const chosen of this._listeners) {
           chosen(data);
@@ -73,7 +73,7 @@ export class QinFileChooser extends QinEdit {
     this.initExtensions();
     this._qinSearch.install(this._qinUpper);
     this._qinSearch.addAction((qinEvent) => {
-      if (qinEvent.isPrimary) {
+      if (qinEvent.isMain) {
         this.loadFolder();
         qinEvent.consumed();
       }

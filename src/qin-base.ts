@@ -24,6 +24,11 @@ export abstract class QinBase {
     return this._style;
   }
 
+  public put(item: QinBase): QinBase {
+    item.install(this);
+    return this;
+  }
+
   public install(onBase: QinBase) {
     this._baseParent = onBase;
     this._baseParent.appendChild(this);
@@ -91,7 +96,15 @@ export abstract class QinBase {
     QinArm.addAction(this.getMain(), action);
   }
 
-  public addActionPrimary(action: QinAction) {
-    QinArm.addActionPrimary(this.getMain(), action);
+  public addActionMain(action: QinAction) {
+    QinArm.addActionMain(this.getMain(), action);
+  }
+
+  public addActionMainKey(action: QinAction) {
+    QinArm.addActionMainKey(this.getMain(), action);
+  }
+
+  public addActionMainPoint(action: QinAction) {
+    QinArm.addActionMainPoint(this.getMain(), action);
   }
 }

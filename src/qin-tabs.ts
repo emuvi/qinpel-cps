@@ -35,7 +35,7 @@ export class QinTabs extends QinColumn {
     const button = new QinButton({ label: new QinLabel(tab.title) });
     button.style.putAsBackground(QinSkin.styles.ColorInactive);
     button.addAction((qinEvent) => {
-      if (qinEvent.isPrimary) {
+      if (qinEvent.isMain) {
         this.showViewer(tab.viewer);
       }
     });
