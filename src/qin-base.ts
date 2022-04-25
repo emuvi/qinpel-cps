@@ -7,6 +7,7 @@ export abstract class QinBase {
   public abstract getMain(): HTMLElement;
 
   private _baseParent: QinBase = null;
+  private _pastParent: QinBase = null;
   private _baseChildren: QinBase[] = [];
   private _baseDisplay: string = "initial";
   private _baseVisibility: string = "initial";
@@ -30,16 +31,25 @@ export abstract class QinBase {
   }
 
   public install(onBase: QinBase) {
+    this.unInstall();
     this._baseParent = onBase;
     this._baseParent.appendChild(this);
   }
 
   public unInstall() {
-    this._baseParent.removeChild(this);
+    if (this._baseParent != null) {
+      this._baseParent.removeChild(this);
+      this._pastParent = this._baseParent;
+      this._baseParent = null;
+    }
   }
 
   public reInstall() {
-    this._baseParent.appendChild(this);
+    this.unInstall();
+    if (this._pastParent != null) {
+      this._pastParent.appendChild(this);
+      this._baseParent = this._pastParent;
+    }
   }
 
   public unDisplay() {

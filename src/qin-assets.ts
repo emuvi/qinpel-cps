@@ -300,6 +300,7 @@ export enum QinAsset {
   FaceSpinnerAlt = "face-spinner-alt.png",
   FaceSpinnerTwo = "face-spinner-two.png",
   FaceSpinner = "face-spinner.png",
+  FaceSplitNotView = "face-split-not-view.png",
   FaceSplitViewHorizontal = "face-split-view-horizontal.png",
   FaceSplitViewVertical = "face-split-view-vertical.png",
   FaceSplitView = "face-split-view.png",
