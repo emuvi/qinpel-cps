@@ -1,3 +1,4 @@
+import { QinSkin } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 
 export class QinCombo extends QinEdit {
@@ -30,6 +31,7 @@ export class QinCombo extends QinEdit {
 
   public addItem(item: QinComboItem): QinCombo {
     const option = document.createElement("option");
+    QinSkin.styleAsBase(option);
     option.text = item.title;
     option.value = item.value;
     if (item.selected != undefined && item.selected != null) {

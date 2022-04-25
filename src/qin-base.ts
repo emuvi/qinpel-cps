@@ -6,13 +6,13 @@ import { QinTools } from "./qin-tools";
 export abstract class QinBase {
   public abstract getMain(): HTMLElement;
 
-  private _baseParent: QinBase = null;
-  private _pastParent: QinBase = null;
-  private _baseChildren: QinBase[] = [];
-  private _baseDisplay: string = "initial";
-  private _baseVisibility: string = "initial";
+  protected _baseParent: QinBase = null;
+  protected _pastParent: QinBase = null;
+  protected _baseChildren: QinBase[] = [];
+  protected _baseDisplay: string = "initial";
+  protected _baseVisibility: string = "initial";
 
-  private _style: QinBaseStyle = null;
+  protected _style: QinBaseStyle = null;
 
   public get qinpel(): Qinpel {
     return QinTools.qinpel();

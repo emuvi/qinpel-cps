@@ -10,6 +10,9 @@ export class QinSplitter extends QinBase {
 
   private _isHorizontal = true;
 
+  private _qinSideA: QinBase = null;
+  private _qinSideB: QinBase = null;
+
   public constructor(options?: QinSplitterSet) {
     super();
     this._elMain.appendChild(this._elSideA);
@@ -33,7 +36,6 @@ export class QinSplitter extends QinBase {
     this._elSideB.style.display = "flex";
     this._elSideB.style.flexWrap = "nowrap";
     this._elSideB.style.overflow = "auto";
-
     let balance = (grow: HTMLDivElement, fall: HTMLDivElement) => {
       let related = this._isHorizontal ? "width" : "height";
       let growAt = parseInt(grow.style[related]);
@@ -46,21 +48,52 @@ export class QinSplitter extends QinBase {
     this._elGrowA.addEventListener("touchstart", (_) => balance(this._elSideA, this._elSideB));
     this._elGrowB.addEventListener("mousedown", (_) => balance(this._elSideB, this._elSideA));
     this._elGrowB.addEventListener("touchstart", (_) => balance(this._elSideB, this._elSideA));
-
     if (options) {
       if (options.sideA) {
-        this._elSideA.appendChild(options.sideA.getMain());
+        this.setSideA(options.sideA);
       }
       if (options.sideB) {
-        this._elSideB.appendChild(options.sideB.getMain());
+        this.setSideB(options.sideB);
       }
     }
-
-    this.setHorizontal();
+    if (options?.horizontal) {
+      this.setHorizontal();
+    } else {
+      this.setVertical();
+    }
   }
 
   public getMain(): HTMLDivElement {
     return this._elMain;
+  }
+
+  public appendChild(child: QinBase) {
+    if (this._qinSideA === null) {
+      this._qinSideA = child;
+      this._elSideA.appendChild(child.getMain());
+    } else {
+      if (this._qinSideB !== null) {
+        this._qinSideB.unInstall();
+        this._qinSideB = null;
+      }
+      this._qinSideB = child;
+      this._elSideB.appendChild(child.getMain());
+    }
+    this._baseChildren.push(child);
+  }
+
+  public removeChild(child: QinBase) {
+    let index = this._baseChildren.indexOf(child);
+    if (index > -1) {
+      this._baseChildren.splice(index, 1);
+    }
+    if (this._qinSideA === child) {
+      this._elSideA.removeChild(child.getMain());
+      this._qinSideA = null;
+    } else if (this._qinSideB === child) {
+      this._elSideB.removeChild(child.getMain());
+      this._qinSideB = null;
+    }
   }
 
   public setHorizontal() {
@@ -100,17 +133,28 @@ export class QinSplitter extends QinBase {
   }
 
   public setSideA(side: QinBase) {
-    this._elSideA.innerHTML = "";
+    if (this._qinSideA !== null) {
+      this._qinSideA.unInstall();
+      this._qinSideA = null;
+    }
+    this._qinSideA = side;
     this._elSideA.appendChild(side.getMain());
   }
 
   public setSideB(side: QinBase) {
-    this._elSideB.innerHTML = "";
+    if (this._qinSideB !== null) {
+      this._qinSideB.unInstall();
+      this._qinSideB = null;
+    }
+    this._qinSideB = side;
     this._elSideB.appendChild(side.getMain());
   }
+
+  
 }
 
 export type QinSplitterSet = {
   sideA?: QinBase;
   sideB?: QinBase;
+  horizontal?: boolean;
 };
