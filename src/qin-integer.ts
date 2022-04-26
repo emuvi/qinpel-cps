@@ -17,11 +17,11 @@ export class QinInteger extends QinEdit {
     }
   }
 
-  public getMain(): HTMLInputElement {
+  public override getMain(): HTMLInputElement {
     return this._elMain;
   }
 
-  public getData(): number {
+  public override getData(): number {
     const value = this._elMain.value;
     if (value == null || value == undefined || value.length == 0) {
       return null;
@@ -30,7 +30,7 @@ export class QinInteger extends QinEdit {
     }
   }
 
-  public setData(data: number) {
+  public override setData(data: number) {
     if (data == null || data == undefined) {
       this._elMain.value = "";
     } else {

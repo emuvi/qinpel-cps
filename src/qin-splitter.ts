@@ -29,7 +29,7 @@ export class QinSplitter extends QinBase {
     this._elMover.style.flexWrap = "nowrap";
     this._elMover.style.borderRadius = "12px";
     this._elMover.style.border = "1px solid rgba(255,250,239,0.1)";
-    this._elMover.style.overflow = "hidden";	
+    this._elMover.style.overflow = "hidden";
     this._elMover.style.flex = "0";
     this._elGrowA.style.flex = "1";
     this._elGrowB.style.flex = "1";
@@ -41,13 +41,21 @@ export class QinSplitter extends QinBase {
       let growAt = parseInt(grow.style[related]);
       let fallAt = parseInt(fall.style[related]);
       if (fallAt <= 10) return;
-      grow.style[related] = (growAt + 10) + "%";
-      fall.style[related] = (fallAt - 10) + "%";
+      grow.style[related] = growAt + 10 + "%";
+      fall.style[related] = fallAt - 10 + "%";
     };
-    this._elGrowA.addEventListener("mousedown", (_) => balance(this._elSideA, this._elSideB));
-    this._elGrowA.addEventListener("touchstart", (_) => balance(this._elSideA, this._elSideB));
-    this._elGrowB.addEventListener("mousedown", (_) => balance(this._elSideB, this._elSideA));
-    this._elGrowB.addEventListener("touchstart", (_) => balance(this._elSideB, this._elSideA));
+    this._elGrowA.addEventListener("mousedown", (_) =>
+      balance(this._elSideA, this._elSideB)
+    );
+    this._elGrowA.addEventListener("touchstart", (_) =>
+      balance(this._elSideA, this._elSideB)
+    );
+    this._elGrowB.addEventListener("mousedown", (_) =>
+      balance(this._elSideB, this._elSideA)
+    );
+    this._elGrowB.addEventListener("touchstart", (_) =>
+      balance(this._elSideB, this._elSideA)
+    );
     if (options) {
       if (options.sideA) {
         this.setSideA(options.sideA);
@@ -63,11 +71,11 @@ export class QinSplitter extends QinBase {
     }
   }
 
-  public getMain(): HTMLDivElement {
+  public override getMain(): HTMLDivElement {
     return this._elMain;
   }
 
-  public appendChild(child: QinBase) {
+  public override addChild(child: QinBase) {
     if (this._qinSideA === null) {
       this._qinSideA = child;
       this._elSideA.appendChild(child.getMain());
@@ -82,7 +90,7 @@ export class QinSplitter extends QinBase {
     this._baseChildren.push(child);
   }
 
-  public removeChild(child: QinBase) {
+  public override delChild(child: QinBase) {
     let index = this._baseChildren.indexOf(child);
     if (index > -1) {
       this._baseChildren.splice(index, 1);
@@ -109,8 +117,10 @@ export class QinSplitter extends QinBase {
     this._elMover.style.maxHeight = "initial";
     this._elMover.style.width = "24px";
     this._elMover.style.height = "100%";
-    this._elGrowA.style.background = "linear-gradient(90deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
-    this._elGrowB.style.background = "linear-gradient(270deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
+    this._elGrowA.style.background =
+      "linear-gradient(90deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
+    this._elGrowB.style.background =
+      "linear-gradient(270deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
     this._isHorizontal = true;
   }
 
@@ -127,8 +137,10 @@ export class QinSplitter extends QinBase {
     this._elMover.style.maxHeight = "24px";
     this._elMover.style.width = "100%";
     this._elMover.style.height = "24px";
-    this._elGrowA.style.background = "linear-gradient(180deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
-    this._elGrowB.style.background = "linear-gradient(0deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
+    this._elGrowA.style.background =
+      "linear-gradient(180deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
+    this._elGrowB.style.background =
+      "linear-gradient(0deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
     this._isHorizontal = false;
   }
 
@@ -149,8 +161,6 @@ export class QinSplitter extends QinBase {
     this._qinSideB = side;
     this._elSideB.appendChild(side.getMain());
   }
-
-  
 }
 
 export type QinSplitterSet = {

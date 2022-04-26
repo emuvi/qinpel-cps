@@ -21,7 +21,7 @@ export class QinButton extends QinBase {
     }
   }
 
-  public getMain(): HTMLButtonElement {
+  public override getMain(): HTMLButtonElement {
     return this._elMain;
   }
 
@@ -31,6 +31,22 @@ export class QinButton extends QinBase {
 
   public get qinLabel(): QinLabel {
     return this._qinLabel;
+  }
+
+  public putAsRow() {
+    this.style.putAsFlexDirectionRow();
+  }
+
+  public putAsRowReverse() {
+    this.style.putAsFlexDirectionRowReverse();
+  }
+
+  public putAsColumn() {
+    this.style.putAsFlexDirectionColumn();
+  }
+
+  public putAsColumnReverse() {
+    this.style.putAsFlexDirectionColumnReverse();
   }
 }
 
@@ -45,5 +61,6 @@ const styles = {
     el.style.display = "flex";
     el.style.flexDirection = "row";
     el.style.alignItems = "center";
+    el.style.justifyContent = "center";
   },
 };

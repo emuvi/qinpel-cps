@@ -33,12 +33,12 @@ export abstract class QinBase {
   public install(onBase: QinBase) {
     this.unInstall();
     this._baseParent = onBase;
-    this._baseParent.appendChild(this);
+    this._baseParent.addChild(this);
   }
 
   public unInstall() {
     if (this._baseParent != null) {
-      this._baseParent.removeChild(this);
+      this._baseParent.delChild(this);
       this._pastParent = this._baseParent;
       this._baseParent = null;
     }
@@ -47,13 +47,13 @@ export abstract class QinBase {
   public reInstall() {
     this.unInstall();
     if (this._pastParent != null) {
-      this._pastParent.appendChild(this);
+      this._pastParent.addChild(this);
       this._baseParent = this._pastParent;
     }
   }
 
   public unInstallChildren() {
-    for (let i = this._baseChildren.length -1; i >= 0; i--) {
+    for (let i = this._baseChildren.length - 1; i >= 0; i--) {
       this._baseChildren[i].unInstall();
     }
   }
@@ -80,12 +80,12 @@ export abstract class QinBase {
     this.getMain().style.visibility = this._baseVisibility;
   }
 
-  public appendChild(child: QinBase) {
+  public addChild(child: QinBase) {
     this._baseChildren.push(child);
     this.getMain().appendChild(child.getMain());
   }
 
-  public removeChild(child: QinBase) {
+  public delChild(child: QinBase) {
     let index = this._baseChildren.indexOf(child);
     if (index > -1) {
       this._baseChildren.splice(index, 1);

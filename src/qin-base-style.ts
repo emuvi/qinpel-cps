@@ -2,19 +2,19 @@ import { QinSkin } from "qinpel-res";
 import { QinAsset } from "./qin-assets";
 
 export class QinBaseStyle {
-  private element: HTMLElement;
+  private _el: HTMLElement;
 
   public constructor(element: HTMLElement) {
-    this.element = element;
+    this._el = element;
   }
 
   public putAsBody() {
-    document.body.appendChild(this.element);
-    QinSkin.styleAsBody(this.element);
+    document.body.appendChild(this._el);
+    QinSkin.styleAsBody(this._el);
   }
 
   public delAsBody() {
-    document.body.removeChild(this.element);
+    document.body.removeChild(this._el);
   }
 
   public putAsWhole() {
@@ -23,205 +23,205 @@ export class QinBaseStyle {
   }
 
   public putAsEdit() {
-    QinSkin.styleAsEdit(this.element);
-    this.element.tabIndex = 0;
+    QinSkin.styleAsEdit(this._el);
+    this._el.tabIndex = 0;
   }
 
   public putAsScroll() {
-    this.element.style.overflow = "auto";
+    this._el.style.overflow = "auto";
   }
 
   public putAsMargin(margin?: number) {
-    this.element.style.margin = this.getPixelsOrInitial(margin);
+    this._el.style.margin = this.getPixelsOrInitial(margin);
   }
 
   public putAsMarginTop(margin?: number) {
-    this.element.style.marginTop = this.getPixelsOrInitial(margin);
+    this._el.style.marginTop = this.getPixelsOrInitial(margin);
   }
 
   public putAsMarginBottom(margin?: number) {
-    this.element.style.marginBottom = this.getPixelsOrInitial(margin);
+    this._el.style.marginBottom = this.getPixelsOrInitial(margin);
   }
 
   public putAsMarginLeft(margin?: number) {
-    this.element.style.marginLeft = this.getPixelsOrInitial(margin);
+    this._el.style.marginLeft = this.getPixelsOrInitial(margin);
   }
 
   public putAsMarginRight(margin?: number) {
-    this.element.style.marginRight = this.getPixelsOrInitial(margin);
+    this._el.style.marginRight = this.getPixelsOrInitial(margin);
   }
 
   public putAsPadding(padding?: number) {
-    this.element.style.padding = this.getPixelsOrInitial(padding);
+    this._el.style.padding = this.getPixelsOrInitial(padding);
   }
 
   public putAsPaddingTop(padding?: number) {
-    this.element.style.paddingTop = this.getPixelsOrInitial(padding);
+    this._el.style.paddingTop = this.getPixelsOrInitial(padding);
   }
 
   public putAsPaddingBottom(padding?: number) {
-    this.element.style.paddingBottom = this.getPixelsOrInitial(padding);
+    this._el.style.paddingBottom = this.getPixelsOrInitial(padding);
   }
 
   public putAsPaddingLeft(padding?: number) {
-    this.element.style.paddingLeft = this.getPixelsOrInitial(padding);
+    this._el.style.paddingLeft = this.getPixelsOrInitial(padding);
   }
 
   public putAsPaddingRight(padding?: number) {
-    this.element.style.paddingRight = this.getPixelsOrInitial(padding);
+    this._el.style.paddingRight = this.getPixelsOrInitial(padding);
   }
 
   public putAsBounds(top: number, right: number, bottom: number, left: number) {
-    this.element.style.top = this.getPixelsOrInitial(top);
-    this.element.style.right = this.getPixelsOrInitial(right);
-    this.element.style.bottom = this.getPixelsOrInitial(bottom);
-    this.element.style.left = this.getPixelsOrInitial(left);
+    this._el.style.top = this.getPixelsOrInitial(top);
+    this._el.style.right = this.getPixelsOrInitial(right);
+    this._el.style.bottom = this.getPixelsOrInitial(bottom);
+    this._el.style.left = this.getPixelsOrInitial(left);
   }
 
   public putAsAllCentered() {
-    this.element.style.textAlign = "center";
-    this.element.style.alignItems = "center";
-    this.element.style.alignContent = "center";
-    this.element.style.verticalAlign = "middle";
+    this._el.style.textAlign = "center";
+    this._el.style.alignItems = "center";
+    this._el.style.alignContent = "center";
+    this._el.style.verticalAlign = "middle";
   }
 
   public putAsDisplayFlex() {
-    this.element.style.display = "flex";
+    this._el.style.display = "flex";
   }
 
   public putAsDisplayInline() {
-    this.element.style.display = "inline";
+    this._el.style.display = "inline";
   }
 
   public putAsDisplayInlineBlock() {
-    this.element.style.display = "inline-block";
+    this._el.style.display = "inline-block";
   }
 
   public putAsPositionStatic() {
-    this.element.style.position = "static";
+    this._el.style.position = "static";
   }
 
   public putAsPositionAbsolute() {
-    this.element.style.position = "absolute";
+    this._el.style.position = "absolute";
   }
 
   public putAsPositionFixed() {
-    this.element.style.position = "fixed";
+    this._el.style.position = "fixed";
   }
 
   public putAsPositionRelative() {
-    this.element.style.position = "relative";
+    this._el.style.position = "relative";
   }
 
   public putAsPositionSticky() {
-    this.element.style.position = "sticky";
+    this._el.style.position = "sticky";
   }
 
   public putAsPositionInitial() {
-    this.element.style.position = "initial";
+    this._el.style.position = "initial";
   }
 
   public putAsFlexDirectionRow() {
-    this.element.style.flexDirection = "row";
+    this._el.style.flexDirection = "row";
   }
 
   public putAsFlexDirectionRowReverse() {
-    this.element.style.flexDirection = "row-reverse";
+    this._el.style.flexDirection = "row-reverse";
   }
 
   public putAsFlexDirectionColumn() {
-    this.element.style.flexDirection = "column";
+    this._el.style.flexDirection = "column";
   }
 
   public putAsFlexDirectionColumnReverse() {
-    this.element.style.flexDirection = "column-reverse";
+    this._el.style.flexDirection = "column-reverse";
   }
 
   public putAsFlexWrap() {
-    this.element.style.flexWrap = "wrap";
+    this._el.style.flexWrap = "wrap";
   }
 
   public putAsFlexWrapNot() {
-    this.element.style.flexWrap = "nowrap";
+    this._el.style.flexWrap = "nowrap";
   }
 
   public putAsFlexWrapReverse() {
-    this.element.style.flexWrap = "wrap-reverse";
+    this._el.style.flexWrap = "wrap-reverse";
   }
 
   public putAsFlexMin() {
-    this.element.style.flex = "none";
+    this._el.style.flex = "none";
   }
 
   public putAsFlexMax() {
-    this.element.style.flex = "auto";
+    this._el.style.flex = "auto";
   }
 
   public putAsWidth(width: number) {
-    this.element.style.width = this.getPixelsOrInitial(width);
+    this._el.style.width = this.getPixelsOrInitial(width);
   }
 
   public putAsHeight(height: number) {
-    this.element.style.height = this.getPixelsOrInitial(height);
+    this._el.style.height = this.getPixelsOrInitial(height);
   }
 
   public putAsSize(width: number, height: number) {
-    this.element.style.width = this.getPixelsOrInitial(width);
-    this.element.style.height = this.getPixelsOrInitial(height);
+    this._el.style.width = this.getPixelsOrInitial(width);
+    this._el.style.height = this.getPixelsOrInitial(height);
   }
 
   public putAsMinWidth(width: number) {
-    this.element.style.minWidth = this.getPixelsOrInitial(width);
+    this._el.style.minWidth = this.getPixelsOrInitial(width);
   }
 
   public putAsMinHeight(height: number) {
-    this.element.style.minHeight = this.getPixelsOrInitial(height);
+    this._el.style.minHeight = this.getPixelsOrInitial(height);
   }
 
   public putAsMinSize(width: number, height: number) {
-    this.element.style.minWidth = this.getPixelsOrInitial(width);
-    this.element.style.minHeight = this.getPixelsOrInitial(height);
+    this._el.style.minWidth = this.getPixelsOrInitial(width);
+    this._el.style.minHeight = this.getPixelsOrInitial(height);
   }
 
   public putAsMaxWidth(width: number) {
-    this.element.style.maxWidth = this.getPixelsOrInitial(width);
+    this._el.style.maxWidth = this.getPixelsOrInitial(width);
   }
 
   public putAsMaxHeight(height: number) {
-    this.element.style.maxHeight = this.getPixelsOrInitial(height);
+    this._el.style.maxHeight = this.getPixelsOrInitial(height);
   }
 
   public putAsMaxSize(width: number, height: number) {
-    this.element.style.maxWidth = this.getPixelsOrInitial(width);
-    this.element.style.maxHeight = this.getPixelsOrInitial(height);
+    this._el.style.maxWidth = this.getPixelsOrInitial(width);
+    this._el.style.maxHeight = this.getPixelsOrInitial(height);
   }
 
   public putAsForeground(foreground: string) {
-    this.element.style.color = foreground;
+    this._el.style.color = foreground;
   }
 
   public putAsBackground(background: string) {
-    this.element.style.background = background;
+    this._el.style.background = background;
   }
 
   public putAsBackAsset(asset: QinAsset) {
-    this.element.style.backgroundImage = "url('/app/qinpel-app/assets/" + asset + "')";
+    this._el.style.backgroundImage = "url('/app/qinpel-app/assets/" + asset + "')";
   }
 
   public putAsBackInitial() {
-    this.element.style.backgroundImage = "initial";
+    this._el.style.backgroundImage = "initial";
   }
 
   public putAsZIndex(index: number) {
     if (index == null || index == undefined) {
-      this.element.style.zIndex = "initial";
+      this._el.style.zIndex = "initial";
     } else {
-      this.element.style.zIndex = index.toString();
+      this._el.style.zIndex = index.toString();
     }
   }
 
   public putAsDisabledSelection() {
-    QinSkin.disableSelection(this.element);
+    QinSkin.disableSelection(this._el);
   }
 
   private getPixelsOrInitial(value: number): string {

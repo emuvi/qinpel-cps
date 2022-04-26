@@ -18,15 +18,15 @@ export class QinCombo extends QinEdit {
     }
   }
 
-  public getMain(): HTMLSelectElement {
+  public override getMain(): HTMLSelectElement {
     return this._elMain;
   }
 
-  public getData(): string {
+  public override getData(): string {
     return this._elMain.value;
   }
 
-  public setData(data: string) {
+  public override setData(data: string) {
     this._elMain.value = data;
   }
 

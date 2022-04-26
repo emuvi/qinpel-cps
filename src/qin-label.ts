@@ -10,15 +10,15 @@ export class QinLabel extends QinBase {
     }
   }
 
-  public getMain(): HTMLSpanElement {
+  public override getMain(): HTMLSpanElement {
     return this._elMain;
   }
 
-  public setTitle(title: string) {
-    this._elMain.textContent = title;
+  public get title(): string {
+    return this._elMain.textContent;
   }
 
-  public getTitle(): string {
-    return this._elMain.textContent;
+  public set title(title: string) {
+    this._elMain.textContent = title;
   }
 }

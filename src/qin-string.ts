@@ -19,15 +19,15 @@ export class QinString extends QinEdit {
     }
   }
 
-  public getMain(): HTMLInputElement {
+  public override getMain(): HTMLInputElement {
     return this._elMain;
   }
 
-  public getData(): string {
+  public override getData(): string {
     return this._elMain.value;
   }
 
-  public setData(data: string) {
+  public override setData(data: string) {
     this._elMain.value = data;
   }
 

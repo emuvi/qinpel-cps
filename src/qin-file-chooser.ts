@@ -109,15 +109,15 @@ export class QinFileChooser extends QinEdit {
     }
   }
 
-  public getMain(): HTMLDivElement {
+  public override getMain(): HTMLDivElement {
     return this._qinMain.getMain();
   }
 
-  public getData(): string[] {
+  public override getData(): string[] {
     return this._qinExplorer.getData();
   }
 
-  public setData(data: string[]) {
+  public override setData(data: string[]) {
     this._qinExplorer.setData(data);
   }
 

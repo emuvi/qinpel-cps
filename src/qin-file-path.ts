@@ -2,8 +2,8 @@ import { QinFramePopup } from "qinpel-app/types/qin-frame";
 import { QinFilesDescriptor, QinFilesNature, QinFilesOperation } from "qinpel-res";
 import { QinAsset } from "./qin-assets";
 import { QinButton } from "./qin-button";
-import { QinFileChooser } from "./qin-file-chooser";
 import { QinEdit } from "./qin-edit";
+import { QinFileChooser } from "./qin-file-chooser";
 import { QinIcon } from "./qin-icon";
 import { QinLine } from "./qin-line";
 import { QinString } from "./qin-string";
@@ -47,15 +47,15 @@ export class QinFilePath extends QinEdit {
     }
   }
 
-  public getMain(): HTMLDivElement {
+  public override getMain(): HTMLDivElement {
     return this._qinMain.getMain();
   }
 
-  public getData(): string {
+  public override getData(): string {
     return this._qinPath.getData();
   }
 
-  public setData(data: string) {
+  public override setData(data: string) {
     this._qinPath.setData(data);
   }
 

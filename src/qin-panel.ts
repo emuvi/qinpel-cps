@@ -13,11 +13,11 @@ export class QinPanel extends QinBase {
     }
   }
 
-  public getMain(): HTMLDivElement {
+  public override getMain(): HTMLDivElement {
     return this._elMain;
   }
 
-  public put(item: QinBase): QinPanel {
+  public override put(item: QinBase): QinPanel {
     item.install(this);
     return this;
   }

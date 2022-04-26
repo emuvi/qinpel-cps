@@ -9,23 +9,22 @@ export class QinField extends QinEdit {
 
   public constructor(title: string, edit: QinEdit) {
     super();
-    this._qinLabel.setTitle(title);
+    this._qinLabel.title = title;
     this._qinLabel.install(this._qinMain);
     this._qinEdit = edit;
     this._qinEdit.install(this._qinMain);
-    this._qinMain.getMain().style.marginRight = "5px";
-    this._qinMain.getMain().style.marginBottom = "5px";
+    this._qinMain.style.putAsMargin(3);
   }
 
-  public getMain(): HTMLDivElement {
+  public override getMain(): HTMLDivElement {
     return this._qinMain.getMain();
   }
 
-  public getData() {
+  public override getData() {
     return this._qinEdit.getData();
   }
 
-  public setData(data: any) {
+  public override setData(data: any) {
     this._qinEdit.setData(data);
   }
 

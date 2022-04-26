@@ -1,10 +1,10 @@
 import { QinBoolean } from "./qin-boolean";
-import { QinFileChooser } from "./qin-file-chooser";
 import { QinCombo } from "./qin-combo";
 import { QinEdit } from "./qin-edit";
+import { QinFileChooser } from "./qin-file-chooser";
 import { QinFileExplorer } from "./qin-file-explorer";
-import { QinInteger } from "./qin-integer";
 import { QinFilePath } from "./qin-file-path";
+import { QinInteger } from "./qin-integer";
 import { QinString } from "./qin-string";
 
 export enum QinMutants {

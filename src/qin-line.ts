@@ -8,7 +8,7 @@ export class QinLine extends QinPanel {
     this.style.putAsFlexWrap();
   }
 
-  public put(item: QinBase): QinLine {
+  public override put(item: QinBase): QinLine {
     item.install(this);
     return this;
   }

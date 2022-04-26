@@ -34,11 +34,11 @@ export class QinFileExplorer extends QinEdit {
     this._qinMain.style.putAsDisabledSelection();
   }
 
-  public getMain(): HTMLDivElement {
+  public override getMain(): HTMLDivElement {
     return this._qinMain.getMain();
   }
 
-  public getData(): string[] {
+  public override getData(): string[] {
     let result = [];
     this._items.forEach((item) => {
       if (item.isSelected()) {
@@ -48,7 +48,7 @@ export class QinFileExplorer extends QinEdit {
     return result;
   }
 
-  public setData(data: string[]) {
+  public override setData(data: string[]) {
     this.clean();
     if (data && data.length > 0) {
       let folderRoot = QinSoul.foot.getParent(data[0]);

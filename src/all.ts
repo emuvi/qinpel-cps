@@ -43,4 +43,6 @@ export { QinTable } from './qin-table';
 export { QinTabs } from './qin-tabs';
 export { QinTabsSet } from './qin-tabs';
 export { QinTab } from './qin-tabs';
+export { QinTitled } from './qin-titled';
+export { QinTitledSet } from './qin-titled';
 export { QinTools } from './qin-tools';

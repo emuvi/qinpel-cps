@@ -14,7 +14,7 @@ export class QinIcon extends QinBase {
     QinSkin.styleSize(this._elMain, size);
   }
 
-  public getMain(): HTMLImageElement {
+  public override getMain(): HTMLImageElement {
     return this._elMain;
   }
 

@@ -1,20 +1,35 @@
 import { QinBase } from "./qin-base";
-import { QinPanel } from "./qin-panel";
+import { QinPanel, QinPanelSet } from "./qin-panel";
 
 export class QinStack extends QinPanel {
-  public stack(qinComp: QinBase) {
-    this.children().forEach((child) => {
-      child.unDisplay();
-    });
-    qinComp.install(this);
+  public constructor(options?: QinPanelSet) {
+    super(options);
+    this.style.putAsFlexDirectionRow();
+    this.style.putAsFlexWrapNot();
   }
 
-  public show(qinComp: QinBase) {
-    this.children().forEach((child) => {
-      if (child === qinComp) {
-        child.reDisplay();
+  public override put(item: QinBase): QinStack {
+    item.install(this);
+    return this;
+  }
+
+  public override addChild(child: QinBase): void {
+    this.children().forEach((inChild) => {
+      inChild.unDisplay();
+    });
+    super.addChild(child);
+  }
+
+  public stack(child: QinBase): QinStack {
+    return this.put(child);
+  }
+
+  public show(child: QinBase) {
+    this.children().forEach((inChild) => {
+      if (inChild === child) {
+        inChild.reDisplay();
       } else {
-        child.unDisplay();
+        inChild.unDisplay();
       }
     });
   }

@@ -1,5 +1,4 @@
 import { QinEdit } from "./qin-edit";
-import { QinSkin } from "qinpel-res";
 
 export class QinTable extends QinEdit {
   private _elMain = document.createElement("div");
@@ -21,11 +20,11 @@ export class QinTable extends QinEdit {
     styles.applyOnBody(this._elTBody);
   }
 
-  public getMain(): HTMLDivElement {
+  public override getMain(): HTMLDivElement {
     return this._elMain;
   }
 
-  public getData(): any[][] {
+  public override getData(): any[][] {
     let result = [];
     this._elTBody.querySelectorAll("tr").forEach((tr) => {
       let line = [];
@@ -37,7 +36,7 @@ export class QinTable extends QinEdit {
     return result;
   }
 
-  public setData(data: any[][]): void {
+  public override setData(data: any[][]): void {
     this.delLines();
     for (const line of data) {
       this.addLine(line);
@@ -105,7 +104,7 @@ const styles = {
   applyOnHeadRow: (el: HTMLTableRowElement) => {
     el.style.margin = "0px";
     el.style.padding = "0px";
-    el.style.backgroundColor = "#56cd6436"
+    el.style.backgroundColor = "#56cd6436";
   },
   applyOnHeadCol: (el: HTMLTableCellElement) => {
     el.style.margin = "0px";
@@ -120,12 +119,12 @@ const styles = {
   applyOnBodyRow: (el: HTMLTableRowElement) => {
     el.style.margin = "0px";
     el.style.padding = "0px";
-    el.style.backgroundColor = "#5664cd36"
+    el.style.backgroundColor = "#5664cd36";
   },
   applyOnBodyRowOdd: (el: HTMLTableRowElement) => {
     el.style.margin = "0px";
     el.style.padding = "0px";
-    el.style.backgroundColor = "#cda95636"
+    el.style.backgroundColor = "#cda95636";
   },
   applyOnBodyCol: (el: HTMLTableCellElement) => {
     el.style.margin = "0px";

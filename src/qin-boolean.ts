@@ -3,7 +3,6 @@ import { QinEdit } from "./qin-edit";
 import { QinIcon } from "./qin-icon";
 import { QinLabel } from "./qin-label";
 import { QinLine } from "./qin-line";
-import { QinPanel } from "./qin-panel";
 
 export class QinBoolean extends QinEdit {
   private _qinMain = new QinLine();
@@ -28,15 +27,15 @@ export class QinBoolean extends QinEdit {
     }
   }
 
-  public getMain(): HTMLDivElement {
+  public override getMain(): HTMLDivElement {
     return this._qinMain.getMain();
   }
 
-  public getData(): boolean {
+  public override getData(): boolean {
     return this._value;
   }
 
-  public setData(data: boolean) {
+  public override setData(data: boolean) {
     this._value = data;
     this.updateIcon();
   }
