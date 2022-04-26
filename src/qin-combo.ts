@@ -3,6 +3,7 @@ import { QinEdit } from "./qin-edit";
 
 export class QinCombo extends QinEdit {
   private _elMain = document.createElement("select");
+  private _elGroups = new Array<HTMLOptGroupElement>();
 
   public constructor(options?: QinComboSet) {
     super();
@@ -31,14 +32,36 @@ export class QinCombo extends QinEdit {
 
   public addItem(item: QinComboItem): QinCombo {
     const option = document.createElement("option");
-    QinSkin.styleAsBase(option);
     option.text = item.title;
     option.value = item.value;
     if (item.selected != undefined && item.selected != null) {
       option.selected = item.selected;
     }
-    this._elMain.appendChild(option);
+    let group = this.getGroup(item.group);
+    if (group) {
+      group.appendChild(option);
+    } else {
+      QinSkin.styleAsBase(option);
+      this._elMain.appendChild(option);
+    }
     return this;
+  }
+
+  private getGroup(label: string): HTMLOptGroupElement {
+    if (!label) {
+      return null;
+    }
+    for (let group of this._elGroups) {
+      if (group.label == label) {
+        return group;
+      }
+    }
+    let newGroup = document.createElement("optgroup");
+    newGroup.label = label;
+    QinSkin.styleAsBase(newGroup);
+    this._elGroups.push(newGroup);
+    this._elMain.appendChild(newGroup);
+    return newGroup;
   }
 }
 
@@ -48,6 +71,7 @@ export type QinComboSet = {
 };
 
 export type QinComboItem = {
+  group?: string;
   title: string;
   value: string;
   selected?: boolean;

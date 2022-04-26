@@ -52,6 +52,12 @@ export abstract class QinBase {
     }
   }
 
+  public unInstallChildren() {
+    for (let i = this._baseChildren.length -1; i >= 0; i--) {
+      this._baseChildren[i].unInstall();
+    }
+  }
+
   public unDisplay() {
     if (this.getMain().style.display !== "none") {
       this._baseDisplay = this.getMain().style.display;
@@ -91,13 +97,6 @@ export abstract class QinBase {
     return this._baseChildren;
   }
 
-  public clearChildren() {
-    for (const child of this._baseChildren) {
-      this.getMain().removeChild(child.getMain());
-    }
-    this._baseChildren = [];
-  }
-
   public putTabIndex(index?: number) {
     this.getMain().tabIndex = index;
   }
@@ -114,7 +113,55 @@ export abstract class QinBase {
     QinArm.addActionMainKey(this.getMain(), action);
   }
 
+  public addActionMainMouse(action: QinAction) {
+    QinArm.addActionMainMouse(this.getMain(), action);
+  }
+
+  public addActionMainTouch(action: QinAction) {
+    QinArm.addActionMainTouch(this.getMain(), action);
+  }
+
   public addActionMainPoint(action: QinAction) {
     QinArm.addActionMainPoint(this.getMain(), action);
+  }
+
+  public addActionMidi(action: QinAction) {
+    QinArm.addActionMidi(this.getMain(), action);
+  }
+
+  public addActionMidiKey(action: QinAction) {
+    QinArm.addActionMidiKey(this.getMain(), action);
+  }
+
+  public addActionMidiMouse(action: QinAction) {
+    QinArm.addActionMidiMouse(this.getMain(), action);
+  }
+
+  public addActionMidiTouch(action: QinAction) {
+    QinArm.addActionMidiTouch(this.getMain(), action);
+  }
+
+  public addActionMidiPoint(action: QinAction) {
+    QinArm.addActionMidiPoint(this.getMain(), action);
+  }
+
+  public addActionMenu(action: QinAction) {
+    QinArm.addActionMenu(this.getMain(), action);
+  }
+
+  public addActionMenuKey(action: QinAction) {
+    QinArm.addActionMenuKey(this.getMain(), action);
+  }
+
+  public addActionMenuMouse(action: QinAction) {
+    QinArm.addActionMenuMouse(this.getMain(), action);
+  }
+
+  public addActionMenuTouch(action: QinAction) {
+    QinArm.addActionMenuTouch(this.getMain(), action);
+  }
+
+  public addActionMenuPoint(action: QinAction) {
+    QinArm.addActionMenuPoint(this.getMain(), action);
   }
 }

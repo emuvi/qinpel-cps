@@ -62,7 +62,7 @@ export class QinTabs extends QinColumn {
   }
 
   public showViewer(viewer: QinBase) {
-    this._qinPanel.clearChildren();
+    this._qinPanel.unInstallChildren();
     viewer.install(this._qinPanel);
     for (const tab of this._tabs) {
       if (tab.viewer == viewer) {
