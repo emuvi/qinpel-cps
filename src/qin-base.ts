@@ -122,6 +122,10 @@ export abstract class QinBase {
     this.getMain().tabIndex = index;
   }
 
+  public focus() {
+    this.getMain().focus();
+  }
+
   public addAction(action: QinAction) {
     QinArm.addAction(this.getMain(), action);
   }

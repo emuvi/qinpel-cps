@@ -14,6 +14,16 @@ export class QinIconPick extends QinEdit {
     if (options?.initial) {
       this.setData(options?.initial);
     }
+    if (options?.icons) {
+      for (const icon of options.icons) {
+        this.addIcon(icon);
+      }
+    }
+    if (options?.cells) {
+      for (const cell of options.cells) {
+        this.addCell(cell);
+      }
+    }
   }
 
   public override getMain(): HTMLElement {
@@ -56,11 +66,13 @@ export class QinIconPick extends QinEdit {
     option.install(this._qinMain);
   }
 
-  public addOption(option: QinIconCell) {
+  public addCell(option: QinIconCell) {
     option.install(this._qinMain);
   }
 }
 
 export type QinIconPickSet = {
   initial?: QinAsset;
+  icons?: QinIcon[];
+  cells?: QinIconCell[];
 };
