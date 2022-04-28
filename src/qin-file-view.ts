@@ -1,10 +1,10 @@
-import { QinFilesNature, QinFoot, QinSoul } from "qinpel-res";
+import { QinFilesNature, QinFoot, QinNature, QinSoul } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 import { QinPanel } from "./qin-panel";
 
 type OnExplorerLoad = (loaded: string) => void;
 
-export class QinFileExplorer extends QinEdit {
+export class QinFileView extends QinEdit {
   private _qinMain = new QinPanel();
 
   private _nature: QinFilesNature;
@@ -36,6 +36,10 @@ export class QinFileExplorer extends QinEdit {
 
   public override getMain(): HTMLDivElement {
     return this._qinMain.getMain();
+  }
+
+  public getNature(): QinNature {
+    return QinNature.CHARS;
   }
 
   public override getData(): string[] {
@@ -237,7 +241,7 @@ export type QinFileExplorerSet = {
 };
 
 class Item {
-  private explorer: QinFileExplorer;
+  private explorer: QinFileView;
   private divItem = document.createElement("div");
   private divItemBody = document.createElement("div");
   private spanIcon = document.createElement("span");
@@ -247,7 +251,7 @@ class Item {
   private iconName: string;
   private selected: boolean = false;
 
-  public constructor(explorer: QinFileExplorer, fileName: string, iconName: string) {
+  public constructor(explorer: QinFileView, fileName: string, iconName: string) {
     this.explorer = explorer;
     this.fileName = fileName;
     this.iconName = iconName;

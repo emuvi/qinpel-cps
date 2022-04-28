@@ -1,16 +1,21 @@
-import { QinFilesDescriptor, QinFilesNature, QinFilesOperation } from "qinpel-res";
+import {
+  QinFilesDescriptor,
+  QinFilesNature,
+  QinFilesOperation,
+  QinNature,
+} from "qinpel-res";
 import { QinAsset } from "./qin-assets";
 import { QinButton } from "./qin-button";
 import { QinColumn } from "./qin-column";
 import { QinCombo } from "./qin-combo";
 import { QinEdit } from "./qin-edit";
-import { QinFileExplorer } from "./qin-file-explorer";
+import { QinFileView } from "./qin-file-view";
 import { QinIcon } from "./qin-icon";
 import { QinLine } from "./qin-line";
 import { QinPanel } from "./qin-panel";
 import { QinString } from "./qin-string";
 
-export class QinFileChooser extends QinEdit {
+export class QinFilePick extends QinEdit {
   private _qinMain = new QinColumn();
   private _qinUpper = new QinLine();
   private _qinConfirm = new QinButton({
@@ -22,7 +27,7 @@ export class QinFileChooser extends QinEdit {
     icon: new QinIcon(QinAsset.FaceSearch),
   });
   private _qinUnder = new QinPanel();
-  private _qinExplorer = new QinFileExplorer();
+  private _qinExplorer = new QinFileView();
 
   private _nature: QinFilesNature;
   private _operation: QinFilesOperation;
@@ -113,6 +118,10 @@ export class QinFileChooser extends QinEdit {
     return this._qinMain.getMain();
   }
 
+  public getNature(): QinNature {
+    return QinNature.CHARS;
+  }
+
   public override getData(): string[] {
     return this._qinExplorer.getData();
   }
@@ -149,7 +158,7 @@ export class QinFileChooser extends QinEdit {
     return this._qinUnder;
   }
 
-  public get qinExplorer(): QinFileExplorer {
+  public get qinExplorer(): QinFileView {
     return this._qinExplorer;
   }
 
@@ -193,7 +202,7 @@ export class QinFileChooser extends QinEdit {
     });
   }
 
-  public addChosen(chosen: QinFileChosen): QinFileChooser {
+  public addChosen(chosen: QinFileChosen): QinFilePick {
     this._listeners.push(chosen);
     return this;
   }

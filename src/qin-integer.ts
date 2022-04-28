@@ -1,4 +1,4 @@
-import { QinSoul } from "qinpel-res";
+import { QinNature, QinSoul } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 
 export class QinInteger extends QinEdit {
@@ -15,6 +15,10 @@ export class QinInteger extends QinEdit {
     if (options?.initial) {
       this.setData(options.initial);
     }
+  }
+
+  public override getNature(): QinNature {
+    return QinNature.INT;
   }
 
   public override getMain(): HTMLInputElement {

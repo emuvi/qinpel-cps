@@ -1,6 +1,6 @@
-import { QinEdit } from "./qin-edit";
+import { QinBase } from "./qin-base";
 
-export class QinTable extends QinEdit {
+export class QinTable extends QinBase {
   private _elMain = document.createElement("div");
   private _elTable = document.createElement("table");
   private _elTHead = document.createElement("thead");
@@ -24,7 +24,7 @@ export class QinTable extends QinEdit {
     return this._elMain;
   }
 
-  public override getData(): any[][] {
+  public getLines(): string[][] {
     let result = [];
     this._elTBody.querySelectorAll("tr").forEach((tr) => {
       let line = [];
@@ -36,9 +36,9 @@ export class QinTable extends QinEdit {
     return result;
   }
 
-  public override setData(data: any[][]): void {
+  public addLines(lines: string[][]): void {
     this.delLines();
-    for (const line of data) {
+    for (const line of lines) {
       this.addLine(line);
     }
   }

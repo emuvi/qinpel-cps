@@ -1,4 +1,4 @@
-import { QinSkin } from "qinpel-res";
+import { QinNature, QinSkin } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 
 export class QinString extends QinEdit {
@@ -21,6 +21,10 @@ export class QinString extends QinEdit {
 
   public override getMain(): HTMLInputElement {
     return this._elMain;
+  }
+
+  public override getNature(): QinNature {
+    return QinNature.CHARS;
   }
 
   public override getData(): string {

@@ -1,3 +1,4 @@
+import { QinNature } from "qinpel-res";
 import { QinAsset } from "./qin-assets";
 import { QinEdit } from "./qin-edit";
 import { QinIcon } from "./qin-icon";
@@ -25,6 +26,10 @@ export class QinBoolean extends QinEdit {
     if (options?.initial) {
       this.setData(options.initial);
     }
+  }
+
+  public getNature(): QinNature {
+    return QinNature.BOOL;
   }
 
   public override getMain(): HTMLDivElement {

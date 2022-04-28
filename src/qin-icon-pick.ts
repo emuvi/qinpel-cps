@@ -1,24 +1,32 @@
+import { QinNature } from "qinpel-res";
 import { QinAsset } from "./qin-assets";
 import { QinEdit } from "./qin-edit";
 import { QinIcon } from "./qin-icon";
-import { QinIconOption } from "./qin-icon-option";
+import { QinIconCell } from "./qin-icon-cell";
 import { QinLine } from "./qin-line";
 
 export class QinIconPick extends QinEdit {
   private _qinMain = new QinLine();
 
-  public constructor() {
+  public constructor(options?: QinIconPickSet) {
     super();
     this._qinMain.style.putAsEdit();
+    if (options?.initial) {
+      this.setData(options?.initial);
+    }
   }
 
   public override getMain(): HTMLElement {
     return this._qinMain.getMain();
   }
 
+  public override getNature(): QinNature {
+    return QinNature.CHARS;
+  }
+
   public override getData(): QinAsset {
     for (let child of this.children()) {
-      if (child instanceof QinIconOption) {
+      if (child instanceof QinIconCell) {
         if (child.selected) {
           return child.qinIcon.asset;
         }
@@ -29,7 +37,7 @@ export class QinIconPick extends QinEdit {
 
   public override setData(asset: QinAsset) {
     for (let child of this._qinMain.children()) {
-      if (child instanceof QinIconOption) {
+      if (child instanceof QinIconCell) {
         if (child.qinIcon.asset == asset) {
           child.selected = true;
         } else {
@@ -44,11 +52,15 @@ export class QinIconPick extends QinEdit {
   }
 
   public addIcon(icon: QinIcon) {
-    let option = new QinIconOption(icon);
+    let option = new QinIconCell(icon);
     option.install(this._qinMain);
   }
 
-  public addOption(option: QinIconOption) {
+  public addOption(option: QinIconCell) {
     option.install(this._qinMain);
   }
 }
+
+export type QinIconPickSet = {
+  initial?: QinAsset;
+};

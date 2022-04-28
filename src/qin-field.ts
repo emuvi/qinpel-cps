@@ -1,3 +1,4 @@
+import { QinNature } from "qinpel-res";
 import { QinColumn } from "./qin-column";
 import { QinEdit } from "./qin-edit";
 import { QinLabel } from "./qin-label";
@@ -13,11 +14,16 @@ export class QinField extends QinEdit {
     this._qinLabel.install(this._qinMain);
     this._qinEdit = edit;
     this._qinEdit.install(this._qinMain);
+    this._qinLabel.qinLink(this._qinEdit);
     this._qinMain.style.putAsMargin(3);
   }
 
   public override getMain(): HTMLDivElement {
     return this._qinMain.getMain();
+  }
+
+  public override getNature(): QinNature {
+    return this._qinEdit.getNature();
   }
 
   public override getData() {

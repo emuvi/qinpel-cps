@@ -1,5 +1,5 @@
 import { Qinpel } from "qinpel-app/types/qinpel";
-import { QinAction, QinArm } from "qinpel-res";
+import { QinAction, QinArm, QinBody } from "qinpel-res";
 import { QinBaseStyle } from "./qin-base-style";
 import { QinTools } from "./qin-tools";
 
@@ -97,7 +97,28 @@ export abstract class QinBase {
     return this._baseChildren;
   }
 
-  public putTabIndex(index?: number) {
+  public mustId(): string {
+    var result = this.id;
+    if (!result) {
+      result = QinBody.makeQinUID();
+      this.id = result;
+    }
+    return result;
+  }
+
+  public get id(): string {
+    return this.getMain().id;
+  }
+
+  public set id(id: string) {
+    this.getMain().id = id;
+  }
+
+  public get tabIndex(): number {
+    return this.getMain().tabIndex;
+  }
+
+  public set tabIndex(index: number) {
     this.getMain().tabIndex = index;
   }
 
