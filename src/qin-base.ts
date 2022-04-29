@@ -9,8 +9,8 @@ export abstract class QinBase {
   protected _baseParent: QinBase = null;
   protected _pastParent: QinBase = null;
   protected _baseChildren: QinBase[] = [];
-  protected _baseDisplay: string = "initial";
-  protected _baseVisibility: string = "initial";
+  protected _baseDisplay: string = null;
+  protected _baseVisibility: string = null;
 
   protected _style: QinBaseStyle = null;
 
@@ -66,7 +66,9 @@ export abstract class QinBase {
   }
 
   public reDisplay() {
-    this.getMain().style.display = this._baseDisplay;
+    if (this._baseDisplay != null) {
+      this.getMain().style.display = this._baseDisplay;
+    }
   }
 
   public unVisible() {
@@ -77,7 +79,9 @@ export abstract class QinBase {
   }
 
   public reVisible() {
-    this.getMain().style.visibility = this._baseVisibility;
+    if (this._baseVisibility != null) {
+      this.getMain().style.visibility = this._baseVisibility;
+    }
   }
 
   public addChild(child: QinBase) {

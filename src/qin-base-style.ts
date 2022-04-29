@@ -71,18 +71,64 @@ export class QinBaseStyle {
     this._el.style.paddingRight = this.getPixelsOrInitial(padding);
   }
 
-  public putAsBounds(top: number, right: number, bottom: number, left: number) {
-    this._el.style.top = this.getPixelsOrInitial(top);
-    this._el.style.right = this.getPixelsOrInitial(right);
-    this._el.style.bottom = this.getPixelsOrInitial(bottom);
-    this._el.style.left = this.getPixelsOrInitial(left);
+  public putAsBorder(
+    thick: number,
+    color: string = QinSkin.styles.ColorForeground,
+    style: string = "solid"
+  ) {
+    if (thick) {
+      this._el.style.border = thick + "px " + style + " " + color;
+    } else {
+      this._el.style.border = "none";
+    }
   }
 
-  public putAsAllCentered() {
-    this._el.style.textAlign = "center";
-    this._el.style.alignItems = "center";
-    this._el.style.alignContent = "center";
-    this._el.style.verticalAlign = "middle";
+  public putAsBorderTop(
+    thick: number,
+    color: string = QinSkin.styles.ColorForeground,
+    style: string = "solid"
+  ) {
+    if (thick) {
+      this._el.style.borderTop = thick + "px " + style + " " + color;
+    } else {
+      this._el.style.borderTop = "none";
+    }
+  }
+
+  public putAsBorderBottom(
+    thick: number,
+    color: string = QinSkin.styles.ColorForeground,
+    style: string = "solid"
+  ) {
+    if (thick) {
+      this._el.style.borderBottom = thick + "px " + style + " " + color;
+    } else {
+      this._el.style.borderBottom = "none";
+    }
+  }
+
+  public putAsBorderLeft(
+    thick: number,
+    color: string = QinSkin.styles.ColorForeground,
+    style: string = "solid"
+  ) {
+    if (thick) {
+      this._el.style.borderLeft = thick + "px " + style + " " + color;
+    } else {
+      this._el.style.borderLeft = "none";
+    }
+  }
+
+  public putAsBorderRight(
+    thick: number,
+    color: string = QinSkin.styles.ColorForeground,
+    style: string = "solid"
+  ) {
+    if (thick) {
+      this._el.style.borderRight = thick + "px " + style + " " + color;
+    } else {
+      this._el.style.borderRight = "none";
+    }
   }
 
   public putAsDisplayFlex() {
@@ -113,8 +159,8 @@ export class QinBaseStyle {
     this._el.style.position = "relative";
   }
 
-  public putAsPositionSticky() {
-    this._el.style.position = "sticky";
+  public putAsPositionSthicky() {
+    this._el.style.position = "sthicky";
   }
 
   public putAsPositionInitial() {
@@ -155,6 +201,20 @@ export class QinBaseStyle {
 
   public putAsFlexMax() {
     this._el.style.flex = "auto";
+  }
+
+  public putAsAllCentered() {
+    this._el.style.textAlign = "center";
+    this._el.style.alignItems = "center";
+    this._el.style.alignContent = "center";
+    this._el.style.verticalAlign = "middle";
+  }
+
+  public putAsBounds(top: number, right: number, bottom: number, left: number) {
+    this._el.style.top = this.getPixelsOrInitial(top);
+    this._el.style.right = this.getPixelsOrInitial(right);
+    this._el.style.bottom = this.getPixelsOrInitial(bottom);
+    this._el.style.left = this.getPixelsOrInitial(left);
   }
 
   public putAsWidth(width: number) {

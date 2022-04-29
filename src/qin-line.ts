@@ -6,6 +6,8 @@ export class QinLine extends QinPanel {
     super(options);
     this.style.putAsFlexDirectionRow();
     this.style.putAsFlexWrap();
+    this.getMain().style.minWidth = "min-content";
+    this.getMain().style.minHeight = "min-content";
   }
 
   public override put(item: QinBase): QinLine {
