@@ -132,7 +132,7 @@ export class QinFileView extends QinEdit {
 
   public load(folder: string, onLoad?: OnExplorerLoad) {
     this.clean();
-    this.qinpel
+    this.qinpel.talk
       .post("/dir/list", { path: folder })
       .then((res) => {
         this._folderActual = folder;
