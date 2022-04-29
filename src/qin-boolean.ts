@@ -8,7 +8,7 @@ import { QinLine } from "./qin-line";
 export class QinBoolean extends QinEdit {
   private _qinMain = new QinLine();
   private _qinSpan = new QinLabel();
-  private _qinIcon = new QinIcon(QinAsset.FaceCircle);
+  private _qinIcon = new QinIcon(QinAsset.FaceCheckRadio);
   private _value = false;
 
   public constructor(options?: QinBooleanSet) {
@@ -68,9 +68,9 @@ export class QinBoolean extends QinEdit {
 
   private updateIcon() {
     if (this._value) {
-      this._qinIcon.asset = QinAsset.FaceConfirm;
+      this._qinIcon.asset = QinAsset.FaceCheckedRadio;
     } else {
-      this._qinIcon.asset = QinAsset.FaceCircle;
+      this._qinIcon.asset = QinAsset.FaceCheckRadio;
     }
   }
 
