@@ -61,13 +61,13 @@ export class QinFileView extends QinEdit {
           let itemRoot = QinSoul.foot.getParent(itemPath);
           let itemName = QinSoul.foot.getStem(itemPath);
           if (itemRoot !== folderRoot) {
-            this.qinpel.frame.statusError(
+            this.qinpel.jobbed.statusError(
               `The item '${itemPath}' is not on the root '${folderRoot}'.`,
               "{qinpel-cps}(ErrCode-000001)"
             );
           } else {
             if (!this.select(itemName)) {
-              this.qinpel.frame.statusError(
+              this.qinpel.jobbed.statusError(
                 `Does not have the item '${itemName}' on the folder '${folderRoot}'`,
                 "{qinpel-cps}(ErrCode-000002)"
               );
@@ -171,7 +171,7 @@ export class QinFileView extends QinEdit {
         }
       })
       .catch((err) => {
-        this.qinpel.frame.statusError(err, "{qinpel-cps}(ErrCode-000003)");
+        this.qinpel.jobbed.statusError(err, "{qinpel-cps}(ErrCode-000003)");
       });
   }
 

@@ -1,4 +1,4 @@
-import { QinFramePopup } from "qinpel-app/types/qin-frame";
+import { QinJobberPopup } from "qinpel-app/types/qin-jobber-popup";
 import {
   QinFilesDescriptor,
   QinFilesNature,
@@ -20,7 +20,7 @@ export class QinFilePath extends QinEdit {
     icon: new QinIcon(QinAsset.FaceFolder),
   });
   private _qinChooser: QinFilePick;
-  private _qinPopup: QinFramePopup;
+  private _qinPopup: QinJobberPopup;
 
   public constructor(options?: QinFilePathSet) {
     super();
@@ -30,7 +30,7 @@ export class QinFilePath extends QinEdit {
       descriptors: options?.descriptors,
       singleSelection: true,
     });
-    this._qinPopup = this.qinpel.frame.newPopup(this._qinChooser.getMain());
+    this._qinPopup = this.qinpel.jobbed.newPopup(this._qinChooser.getMain());
     this._qinPath.install(this._qinMain);
     this._qinSearch.install(this._qinMain);
     this._qinSearch.addAction((qinEvent) => {
@@ -84,7 +84,7 @@ export class QinFilePath extends QinEdit {
     return this._qinChooser;
   }
 
-  public get qinPopup(): QinFramePopup {
+  public get qinPopup(): QinJobberPopup {
     return this._qinPopup;
   }
 }
