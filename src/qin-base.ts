@@ -1,7 +1,7 @@
 import { Qinpel } from "qinpel-app/types/qinpel";
 import { QinAction, QinArm, QinBody } from "qinpel-res";
 import { QinBaseStyle } from "./qin-base-style";
-import { QinTools } from "./qin-tools";
+import { QinTool } from "./qin-tool";
 
 export abstract class QinBase {
   public abstract getMain(): HTMLElement;
@@ -15,7 +15,7 @@ export abstract class QinBase {
   protected _style: QinBaseStyle = null;
 
   public get qinpel(): Qinpel {
-    return QinTools.qinpel();
+    return QinTool.qinpel;
   }
 
   public get style(): QinBaseStyle {
