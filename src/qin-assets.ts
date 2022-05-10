@@ -397,7 +397,6 @@ export enum QinAsset {
   JobberStatusInfo = "jobber-status-info.png",
   LoginKey = "login-key.png",
   MenuDevtools = "menu-devtools.ico",
-  Qinpel48 = "qinpel-48.png",
   Qinpel = "qinpel.png",
   SourceSansPro = "source-sans-pro.ttf",
   SourceSerifPro = "source-serif-pro.ttf",

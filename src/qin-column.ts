@@ -6,8 +6,6 @@ export class QinColumn extends QinPanel {
     super(options, (isQindred ? isQindred + "_" : "") + "column");
     this.style.putAsFlexDirectionColumn();
     this.style.putAsFlexWrapNot();
-    this.qinedHTML.style.minWidth = "min-content";
-    this.qinedHTML.style.minHeight = "min-content";
   }
 
   public override put(item: QinBase): QinColumn {

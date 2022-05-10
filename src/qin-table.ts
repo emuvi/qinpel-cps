@@ -17,6 +17,14 @@ export class QinTable extends QinBase {
     styles.applyOnHead(this._elTHead);
     styles.applyOnHeadRow(this._elTHeadRow);
     styles.applyOnBody(this._elTBody);
+    if (options) {
+      if (options.head) {
+        this.setHead(options.head);
+      }
+      if (options.lines) {
+        this.setLines(options.lines);
+      }
+    }
   }
 
   public override castedQine(): HTMLDivElement {
@@ -35,7 +43,7 @@ export class QinTable extends QinBase {
     return result;
   }
 
-  public addLines(lines: string[][]): void {
+  public setLines(lines: string[][]): void {
     this.delLines();
     for (const line of lines) {
       this.addLine(line);
@@ -90,7 +98,10 @@ export class QinTable extends QinBase {
   }
 }
 
-export type QinTableSet = {};
+export type QinTableSet = {
+  head?: string[];
+  lines?: string[][];
+};
 
 const styles = {
   applyOnTable: (el: HTMLElement) => {
@@ -121,11 +132,23 @@ const styles = {
     el.style.margin = "0px";
     el.style.padding = "0px";
     el.style.backgroundColor = "#5664cd36";
+    el.addEventListener("mouseenter", () => {
+      el.style.backgroundColor = "#cd566436";
+    });
+    el.addEventListener("mouseleave", () => {
+      el.style.backgroundColor = "#5664cd36";
+    });
   },
   applyOnBodyRowOdd: (el: HTMLElement) => {
     el.style.margin = "0px";
     el.style.padding = "0px";
     el.style.backgroundColor = "#cda95636";
+    el.addEventListener("mouseenter", () => {
+      el.style.backgroundColor = "#cd566436";
+    });
+    el.addEventListener("mouseleave", () => {
+      el.style.backgroundColor = "#cda95636";
+    });
   },
   applyOnBodyCol: (el: HTMLElement) => {
     el.style.margin = "0px";
