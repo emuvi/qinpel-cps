@@ -8,8 +8,8 @@ export class QinTitled extends QinColumn {
   private _qinHead = new QinLine({ items: [this._qinTitle] });
   private _qinBody = new QinLine();
 
-  public constructor(options?: QinTitledSet) {
-    super();
+  public constructor(options?: QinTitledSet, isQindred?: string) {
+    super(null, (isQindred ? isQindred + "_" : "") + "titled");
     if (options?.title) {
       this._qinTitle.title = options.title;
     }

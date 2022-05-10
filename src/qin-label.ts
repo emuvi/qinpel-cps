@@ -1,33 +1,31 @@
 import { QinBase } from "./qin-base";
 
 export class QinLabel extends QinBase {
-  private _elMain = document.createElement("label");
-
-  public constructor(title?: string) {
-    super();
+  public constructor(title?: string, isQindred?: string) {
+    super((isQindred ? isQindred + "_" : "") + "label", document.createElement("label"));
     if (title) {
-      this._elMain.textContent = title;
+      this.qinedHTML.textContent = title;
     }
   }
 
-  public override getMain(): HTMLLabelElement {
-    return this._elMain;
+  public override castedQine(): HTMLLabelElement {
+    return this.qinedHTML as HTMLLabelElement;
   }
 
   public get title(): string {
-    return this._elMain.textContent;
+    return this.qinedHTML.textContent;
   }
 
   public set title(title: string) {
-    this._elMain.textContent = title;
+    this.qinedHTML.textContent = title;
   }
 
   public get link(): string {
-    return this._elMain.getAttribute("for");
+    return this.qinedHTML.getAttribute("for");
   }
 
   public set link(name: string) {
-    this._elMain.setAttribute("for", name);
+    this.qinedHTML.setAttribute("for", name);
   }
 
   public qinLink(qinComp: QinBase) {

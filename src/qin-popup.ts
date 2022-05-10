@@ -8,7 +8,7 @@ export class QinPopup {
   private _qinMain: QinJobberPopup;
 
   public constructor(contents: QinPanel) {
-    this._qinMain = QinTool.qinpel.jobbed.newPopup(contents.getMain());
+    this._qinMain = QinTool.qinpel.jobbed.newPopup(contents.castedQine());
   }
 
   public show() {
@@ -16,7 +16,7 @@ export class QinPopup {
   }
 
   public showOnParent(parent: QinBase) {
-    this._qinMain.showOnParent(parent.getMain());
+    this._qinMain.showOnParent(parent.qinedHTML);
   }
 
   public showOnBounds(bounds: QinBounds) {

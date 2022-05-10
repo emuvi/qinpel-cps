@@ -1,16 +1,15 @@
 import { QinBase } from "./qin-base";
 
 export class QinTable extends QinBase {
-  private _elMain = document.createElement("div");
   private _elTable = document.createElement("table");
   private _elTHead = document.createElement("thead");
   private _elTHeadRow = document.createElement("tr");
   private _elTBody = document.createElement("tbody");
   private _linesSize = 0;
 
-  public constructor() {
-    super();
-    this._elMain.appendChild(this._elTable);
+  public constructor(options?: QinTableSet, isQindred?: string) {
+    super((isQindred ? isQindred + "_" : "") + "table", document.createElement("div"));
+    this.qinedHTML.appendChild(this._elTable);
     this._elTable.appendChild(this._elTHead);
     this._elTHead.appendChild(this._elTHeadRow);
     this._elTable.appendChild(this._elTBody);
@@ -20,8 +19,8 @@ export class QinTable extends QinBase {
     styles.applyOnBody(this._elTBody);
   }
 
-  public override getMain(): HTMLDivElement {
-    return this._elMain;
+  public override castedQine(): HTMLDivElement {
+    return this.qinedHTML as HTMLDivElement;
   }
 
   public getLines(): string[][] {
@@ -91,42 +90,44 @@ export class QinTable extends QinBase {
   }
 }
 
+export type QinTableSet = {};
+
 const styles = {
-  applyOnTable: (el: HTMLTableElement) => {
+  applyOnTable: (el: HTMLElement) => {
     el.style.margin = "0px";
     el.style.padding = "0px";
     el.style.border = "1px solid #9e9e9e";
   },
-  applyOnHead: (el: HTMLTableSectionElement) => {
+  applyOnHead: (el: HTMLElement) => {
     el.style.margin = "0px";
     el.style.padding = "0px";
   },
-  applyOnHeadRow: (el: HTMLTableRowElement) => {
+  applyOnHeadRow: (el: HTMLElement) => {
     el.style.margin = "0px";
     el.style.padding = "0px";
     el.style.backgroundColor = "#56cd6436";
   },
-  applyOnHeadCol: (el: HTMLTableCellElement) => {
+  applyOnHeadCol: (el: HTMLElement) => {
     el.style.margin = "0px";
     el.style.padding = "5px";
     el.style.borderRight = "1px solid #5e5e5e";
     el.style.borderBottom = "2px solid #5e5e5e";
   },
-  applyOnBody: (el: HTMLTableSectionElement) => {
+  applyOnBody: (el: HTMLElement) => {
     el.style.margin = "0px";
     el.style.padding = "0px";
   },
-  applyOnBodyRow: (el: HTMLTableRowElement) => {
+  applyOnBodyRow: (el: HTMLElement) => {
     el.style.margin = "0px";
     el.style.padding = "0px";
     el.style.backgroundColor = "#5664cd36";
   },
-  applyOnBodyRowOdd: (el: HTMLTableRowElement) => {
+  applyOnBodyRowOdd: (el: HTMLElement) => {
     el.style.margin = "0px";
     el.style.padding = "0px";
     el.style.backgroundColor = "#cda95636";
   },
-  applyOnBodyCol: (el: HTMLTableCellElement) => {
+  applyOnBodyCol: (el: HTMLElement) => {
     el.style.margin = "0px";
     el.style.padding = "5px";
     el.style.borderRight = "1px solid #5e5e5e";

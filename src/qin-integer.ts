@@ -2,14 +2,15 @@ import { QinNature, QinSoul } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 
 export class QinInteger extends QinEdit {
-  private _elMain = document.createElement("input");
-
-  public constructor(options?: QinIntegerSet) {
-    super();
-    this._elMain.type = "number";
-    QinSoul.skin.styleAsEdit(this._elMain);
-    this._elMain.style.width = "120px";
-    this._elMain.addEventListener("focusout", () => {
+  public constructor(options?: QinIntegerSet, isQindred?: string) {
+    super(
+      (isQindred ? isQindred + "_" : "") + "integer",
+      document.createElement("input")
+    );
+    this.castedQine().type = "number";
+    QinSoul.skin.styleAsEdit(this.qinedHTML);
+    this.qinedHTML.style.width = "120px";
+    this.qinedHTML.addEventListener("focusout", () => {
       this.setData(this.getData());
     });
     if (options?.initial) {
@@ -17,28 +18,28 @@ export class QinInteger extends QinEdit {
     }
   }
 
+  public override castedQine(): HTMLInputElement {
+    return this.qinedHTML as HTMLInputElement;
+  }
+
   public override getNature(): QinNature {
     return QinNature.INT;
   }
 
-  public override getMain(): HTMLInputElement {
-    return this._elMain;
-  }
-
   public override getData(): number {
-    const value = this._elMain.value;
+    const value = this.castedQine().value;
     if (value == null || value == undefined || value.length == 0) {
       return null;
     } else {
-      return parseInt(this._elMain.value, 10);
+      return parseInt(this.castedQine().value, 10);
     }
   }
 
   public override setData(data: number) {
     if (data == null || data == undefined) {
-      this._elMain.value = "";
+      this.castedQine().value = "";
     } else {
-      this._elMain.value = (data | 0).toString();
+      this.castedQine().value = (data | 0).toString();
     }
   }
 }

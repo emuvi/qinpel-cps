@@ -2,11 +2,9 @@ import { QinFilesNature, QinFoot, QinNature, QinSoul } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 import { QinPanel } from "./qin-panel";
 
-type OnExplorerLoad = (loaded: string) => void;
+type OnFileViewLoad = (loaded: string) => void;
 
 export class QinFileView extends QinEdit {
-  private _qinMain = new QinPanel();
-
   private _nature: QinFilesNature;
   private _extensions: string[];
   private _singleSelection: boolean;
@@ -16,26 +14,26 @@ export class QinFileView extends QinEdit {
 
   private _items: Item[] = [];
 
-  public constructor(options?: QinFileExplorerSet) {
-    super();
+  public constructor(options?: QinFileExplorerSet, isQindred?: string) {
+    super((isQindred ? isQindred + "_" : "") + "file-view", new QinPanel());
     this._nature = options?.nature ? options.nature : QinFilesNature.BOTH;
     this._extensions = options?.extensions ? options.extensions : [];
     this._singleSelection = options?.singleSelection ? options.singleSelection : false;
     this.initMain();
   }
 
+  public override castedQine(): QinPanel {
+    return this.qinedBase as QinPanel;
+  }
+
   private initMain() {
-    styles.applyOnMain(this._qinMain.getMain());
-    this._qinMain.addAction((qinEvent) => {
+    styles.applyOnMain(this.qinedHTML);
+    this.qinedBase.addAction((qinEvent) => {
       if (qinEvent.isMain) {
         this.cleanSelection();
       }
     });
-    this._qinMain.style.putAsDisabledSelection();
-  }
-
-  public override getMain(): HTMLDivElement {
-    return this._qinMain.getMain();
+    this.qinedBase.style.putAsDisabledSelection();
   }
 
   public getNature(): QinNature {
@@ -76,10 +74,6 @@ export class QinFileView extends QinEdit {
         }
       });
     }
-  }
-
-  public get qinMain(): QinPanel {
-    return this._qinMain;
   }
 
   public get nature(): QinFilesNature {
@@ -130,7 +124,7 @@ export class QinFileView extends QinEdit {
     }
   }
 
-  public load(folder: string, onLoad?: OnExplorerLoad) {
+  public load(folder: string, onLoad?: OnFileViewLoad) {
     this.clean();
     this.qinpel.talk
       .post("/dir/list", { path: folder })
@@ -175,11 +169,11 @@ export class QinFileView extends QinEdit {
       });
   }
 
-  public reload(onLoad?: OnExplorerLoad) {
+  public reload(onLoad?: OnFileViewLoad) {
     this.load(this._folderServer, onLoad);
   }
 
-  public goFolderUp(onLoad?: OnExplorerLoad) {
+  public goFolderUp(onLoad?: OnFileViewLoad) {
     let parent = QinFoot.getParent(this._folderServer);
     if (parent) {
       this.load(parent, onLoad);
@@ -187,7 +181,7 @@ export class QinFileView extends QinEdit {
   }
 
   public clean() {
-    this._qinMain.getMain().innerHTML = "";
+    this.qinedHTML.innerHTML = "";
     this._items = [];
     this._folderActual = "";
     this._folderServer = "";
@@ -229,7 +223,7 @@ export class QinFileView extends QinEdit {
 
   private newItem(name: string, icon: string) {
     const item = new Item(this, name, icon);
-    item.install(this._qinMain.getMain());
+    item.install(this.qinedHTML);
     this._items.push(item);
   }
 }
@@ -336,14 +330,14 @@ function getIconName(fromExtension: string): string {
 }
 
 const styles = {
-  applyOnMain: (el: HTMLDivElement) => {
+  applyOnMain: (el: HTMLElement) => {
     QinSoul.skin.styleAsEdit(el);
     el.style.overflow = "auto";
     el.style.minWidth = "160px";
     el.style.minHeight = "160px";
     el.tabIndex = 0;
   },
-  applyOnDivItem: (el: HTMLDivElement) => {
+  applyOnDivItem: (el: HTMLElement) => {
     el.style.margin = "2px";
     el.style.padding = "9px";
     el.style.display = "inline-block";
@@ -361,22 +355,22 @@ const styles = {
       el.style.border = "1px solid #360045";
     });
   },
-  applyOnDivItemBody: (el: HTMLDivElement) => {
+  applyOnDivItemBody: (el: HTMLElement) => {
     el.style.display = "flex";
     el.style.flexDirection = "column";
     el.style.width = "96px";
   },
-  applyOnSpanIcon: (el: HTMLSpanElement) => {
+  applyOnSpanIcon: (el: HTMLElement) => {
     el.style.textAlign = "center";
   },
-  applyOnSpanText: (el: HTMLSpanElement) => {
+  applyOnSpanText: (el: HTMLElement) => {
     el.style.textAlign = "center";
     el.style.wordWrap = "break-word";
   },
-  applyOnDivSelect: (el: HTMLSpanElement) => {
+  applyOnDivSelect: (el: HTMLElement) => {
     el.style.backgroundColor = "#faefff";
   },
-  applyOnDivUnSelect: (el: HTMLSpanElement) => {
+  applyOnDivUnSelect: (el: HTMLElement) => {
     el.style.backgroundColor = "#ffffff";
   },
 };

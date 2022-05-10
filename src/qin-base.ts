@@ -4,7 +4,36 @@ import { QinBaseStyle } from "./qin-base-style";
 import { QinTool } from "./qin-tool";
 
 export abstract class QinBase {
-  public abstract getMain(): HTMLElement;
+  private _qindred: string;
+  private _qined: HTMLElement | QinBase;
+
+  public constructor(qindred: string, qined: HTMLElement | QinBase) {
+    this._qindred = qindred;
+    if (qined instanceof QinBase) {
+      qined.qinedHTML.id = qindred + qined.qinedHTML.id;
+    } else {
+      qined.id = QinTool.qinpel.our.soul.body.makeQindredUID(qindred);
+    }
+    this._qined = qined;
+  }
+
+  public get qinedHTML(): HTMLElement {
+    if (this._qined instanceof QinBase) {
+      return this._qined.qinedHTML;
+    } else {
+      return this._qined;
+    }
+  }
+
+  public get qinedBase(): QinBase {
+    if (this._qined instanceof QinBase) {
+      return this._qined;
+    } else {
+      return null;
+    }
+  }
+
+  public abstract castedQine(): HTMLElement | QinBase;
 
   protected _baseParent: QinBase = null;
   protected _pastParent: QinBase = null;
@@ -14,13 +43,17 @@ export abstract class QinBase {
 
   protected _style: QinBaseStyle = null;
 
+  public get qindred(): string {
+    return this._qindred;
+  }
+
   public get qinpel(): Qinpel {
     return QinTool.qinpel;
   }
 
   public get style(): QinBaseStyle {
     if (this._style == null) {
-      this._style = new QinBaseStyle(this.getMain());
+      this._style = new QinBaseStyle(this.qinedHTML);
     }
     return this._style;
   }
@@ -59,34 +92,34 @@ export abstract class QinBase {
   }
 
   public unDisplay() {
-    if (this.getMain().style.display !== "none") {
-      this._baseDisplay = this.getMain().style.display;
-      this.getMain().style.display = "none";
+    if (this.qinedHTML.style.display !== "none") {
+      this._baseDisplay = this.qinedHTML.style.display;
+      this.qinedHTML.style.display = "none";
     }
   }
 
   public reDisplay() {
     if (this._baseDisplay != null) {
-      this.getMain().style.display = this._baseDisplay;
+      this.qinedHTML.style.display = this._baseDisplay;
     }
   }
 
   public unVisible() {
-    if (this.getMain().style.display !== "hidden") {
-      this._baseVisibility = this.getMain().style.visibility;
-      this.getMain().style.visibility = "hidden";
+    if (this.qinedHTML.style.display !== "hidden") {
+      this._baseVisibility = this.qinedHTML.style.visibility;
+      this.qinedHTML.style.visibility = "hidden";
     }
   }
 
   public reVisible() {
     if (this._baseVisibility != null) {
-      this.getMain().style.visibility = this._baseVisibility;
+      this.qinedHTML.style.visibility = this._baseVisibility;
     }
   }
 
   public addChild(child: QinBase) {
     this._baseChildren.push(child);
-    this.getMain().appendChild(child.getMain());
+    this.qinedHTML.appendChild(child.qinedHTML);
   }
 
   public delChild(child: QinBase) {
@@ -94,7 +127,7 @@ export abstract class QinBase {
     if (index > -1) {
       this._baseChildren.splice(index, 1);
     }
-    this.getMain().removeChild(child.getMain());
+    this.qinedHTML.removeChild(child.qinedHTML);
   }
 
   public children(): QinBase[] {
@@ -111,86 +144,86 @@ export abstract class QinBase {
   }
 
   public get id(): string {
-    return this.getMain().id;
+    return this.qinedHTML.id;
   }
 
   public set id(id: string) {
-    this.getMain().id = id;
+    this.qinedHTML.id = id;
   }
 
   public get tabIndex(): number {
-    return this.getMain().tabIndex;
+    return this.qinedHTML.tabIndex;
   }
 
   public set tabIndex(index: number) {
-    this.getMain().tabIndex = index;
+    this.qinedHTML.tabIndex = index;
   }
 
   public focus() {
-    this.getMain().focus();
+    this.qinedHTML.focus();
   }
 
   public addAction(action: QinAction) {
-    QinArm.addAction(this.getMain(), action);
+    QinArm.addAction(this.qinedHTML, action);
   }
 
   public addActionMain(action: QinAction) {
-    QinArm.addActionMain(this.getMain(), action);
+    QinArm.addActionMain(this.qinedHTML, action);
   }
 
   public addActionMainKey(action: QinAction) {
-    QinArm.addActionMainKey(this.getMain(), action);
+    QinArm.addActionMainKey(this.qinedHTML, action);
   }
 
   public addActionMainMouse(action: QinAction) {
-    QinArm.addActionMainMouse(this.getMain(), action);
+    QinArm.addActionMainMouse(this.qinedHTML, action);
   }
 
   public addActionMainTouch(action: QinAction) {
-    QinArm.addActionMainTouch(this.getMain(), action);
+    QinArm.addActionMainTouch(this.qinedHTML, action);
   }
 
   public addActionMainPoint(action: QinAction) {
-    QinArm.addActionMainPoint(this.getMain(), action);
+    QinArm.addActionMainPoint(this.qinedHTML, action);
   }
 
   public addActionMidi(action: QinAction) {
-    QinArm.addActionMidi(this.getMain(), action);
+    QinArm.addActionMidi(this.qinedHTML, action);
   }
 
   public addActionMidiKey(action: QinAction) {
-    QinArm.addActionMidiKey(this.getMain(), action);
+    QinArm.addActionMidiKey(this.qinedHTML, action);
   }
 
   public addActionMidiMouse(action: QinAction) {
-    QinArm.addActionMidiMouse(this.getMain(), action);
+    QinArm.addActionMidiMouse(this.qinedHTML, action);
   }
 
   public addActionMidiTouch(action: QinAction) {
-    QinArm.addActionMidiTouch(this.getMain(), action);
+    QinArm.addActionMidiTouch(this.qinedHTML, action);
   }
 
   public addActionMidiPoint(action: QinAction) {
-    QinArm.addActionMidiPoint(this.getMain(), action);
+    QinArm.addActionMidiPoint(this.qinedHTML, action);
   }
 
   public addActionMenu(action: QinAction) {
-    QinArm.addActionMenu(this.getMain(), action);
+    QinArm.addActionMenu(this.qinedHTML, action);
   }
 
   public addActionMenuKey(action: QinAction) {
-    QinArm.addActionMenuKey(this.getMain(), action);
+    QinArm.addActionMenuKey(this.qinedHTML, action);
   }
 
   public addActionMenuMouse(action: QinAction) {
-    QinArm.addActionMenuMouse(this.getMain(), action);
+    QinArm.addActionMenuMouse(this.qinedHTML, action);
   }
 
   public addActionMenuTouch(action: QinAction) {
-    QinArm.addActionMenuTouch(this.getMain(), action);
+    QinArm.addActionMenuTouch(this.qinedHTML, action);
   }
 
   public addActionMenuPoint(action: QinAction) {
-    QinArm.addActionMenuPoint(this.getMain(), action);
+    QinArm.addActionMenuPoint(this.qinedHTML, action);
   }
 }

@@ -14,34 +14,35 @@ import { QinLine } from "./qin-line";
 import { QinString } from "./qin-string";
 
 export class QinFilePath extends QinEdit {
-  private _qinMain = new QinLine();
   private _qinPath = new QinString();
   private _qinSearch = new QinButton({
     icon: new QinIcon(QinAsset.FaceFolder),
   });
-  private _qinChooser: QinFilePick;
+  private _qinPicker: QinFilePick;
   private _qinPopup: QinJobberPopup;
 
-  public constructor(options?: QinFilePathSet) {
-    super();
-    this._qinChooser = new QinFilePick({
+  public constructor(options?: QinFilePathSet, isQindred?: string) {
+    super((isQindred ? isQindred + "_" : "") + "file-path", new QinLine());
+    this._qinPicker = new QinFilePick({
       nature: options?.nature,
       operation: options?.operation,
       descriptors: options?.descriptors,
       singleSelection: true,
     });
-    this._qinPopup = this.qinpel.jobbed.newPopup(this._qinChooser.getMain());
-    this._qinPath.install(this._qinMain);
-    this._qinSearch.install(this._qinMain);
+    this._qinPopup = this.qinpel.jobbed.newPopup(
+      this._qinPicker.castedQine().castedQine()
+    );
+    this._qinPath.install(this.qinedBase);
+    this._qinSearch.install(this.qinedBase);
     this._qinSearch.addAction((qinEvent) => {
       if (qinEvent.isMain) {
         this._qinPopup.show();
-        const upperHeight = this._qinChooser.qinUpper.getMain().clientHeight;
+        const upperHeight = this._qinPicker.qinUpper.qinedHTML.clientHeight;
         const explorerMaxHeight = this._qinPopup.maxHeight - (upperHeight + 12);
-        this._qinChooser.qinExplorer.style.putAsMaxHeight(explorerMaxHeight);
+        this._qinPicker.qinExplorer.style.putAsMaxHeight(explorerMaxHeight);
       }
     });
-    this._qinChooser.addChosen((chosen) => {
+    this._qinPicker.addChosen((chosen) => {
       if (chosen && chosen.length > 0) {
         this._qinPath.setData(chosen[0]);
       }
@@ -52,8 +53,8 @@ export class QinFilePath extends QinEdit {
     }
   }
 
-  public override getMain(): HTMLDivElement {
-    return this._qinMain.getMain();
+  public override castedQine(): QinLine {
+    return this.qinedBase as QinLine;
   }
 
   public getNature(): QinNature {
@@ -68,10 +69,6 @@ export class QinFilePath extends QinEdit {
     this._qinPath.setData(data);
   }
 
-  public get qinMain(): QinLine {
-    return this._qinMain;
-  }
-
   public get qinPath(): QinString {
     return this._qinPath;
   }
@@ -81,7 +78,7 @@ export class QinFilePath extends QinEdit {
   }
 
   public get qinChooser(): QinFilePick {
-    return this._qinChooser;
+    return this._qinPicker;
   }
 
   public get qinPopup(): QinJobberPopup {

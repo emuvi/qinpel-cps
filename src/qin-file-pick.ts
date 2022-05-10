@@ -16,7 +16,6 @@ import { QinPanel } from "./qin-panel";
 import { QinString } from "./qin-string";
 
 export class QinFilePick extends QinEdit {
-  private _qinMain = new QinColumn();
   private _qinUpper = new QinLine();
   private _qinConfirm = new QinButton({
     icon: new QinIcon(QinAsset.FaceConfirm),
@@ -36,8 +35,8 @@ export class QinFilePick extends QinEdit {
 
   private _listeners: QinFileChosen[] = [];
 
-  public constructor(options?: QinFileChooserSet) {
-    super();
+  public constructor(options?: QinFileChooserSet, isQindred?: string) {
+    super((isQindred ? isQindred + "_" : "") + "file-pick", new QinColumn());
     this._nature = options?.nature ? options.nature : QinFilesNature.BOTH;
     this._operation = options?.operation ? options.operation : QinFilesOperation.OPEN;
     this._descriptors = options?.descriptors ? options.descriptors : [];
@@ -47,9 +46,13 @@ export class QinFilePick extends QinEdit {
     this.initUnder();
   }
 
+  public override castedQine(): QinColumn {
+    return this.qinedBase as QinColumn;
+  }
+
   private initMain() {
-    this._qinUpper.install(this._qinMain);
-    this._qinUnder.install(this._qinMain);
+    this._qinUpper.install(this.qinedBase);
+    this._qinUnder.install(this.qinedBase);
   }
 
   private initUpper() {
@@ -114,10 +117,6 @@ export class QinFilePick extends QinEdit {
     }
   }
 
-  public override getMain(): HTMLDivElement {
-    return this._qinMain.getMain();
-  }
-
   public getNature(): QinNature {
     return QinNature.CHARS;
   }
@@ -128,10 +127,6 @@ export class QinFilePick extends QinEdit {
 
   public override setData(data: string[]) {
     this._qinExplorer.setData(data);
-  }
-
-  public get qinMain(): QinColumn {
-    return this._qinMain;
   }
 
   public get qinUpper(): QinLine {

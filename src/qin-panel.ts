@@ -1,10 +1,8 @@
 import { QinBase } from "./qin-base";
 
 export class QinPanel extends QinBase {
-  private _elMain = document.createElement("div");
-
-  public constructor(options?: QinPanelSet) {
-    super();
+  public constructor(options?: QinPanelSet, isQindred?: string) {
+    super((isQindred ? isQindred + "_" : "") + "panel", document.createElement("div"));
     this.style.putAsDisplayFlex();
     if (options?.items) {
       for (const item of options.items) {
@@ -13,8 +11,8 @@ export class QinPanel extends QinBase {
     }
   }
 
-  public override getMain(): HTMLDivElement {
-    return this._elMain;
+  public override castedQine(): HTMLDivElement {
+    return this.qinedHTML as HTMLDivElement;
   }
 
   public override put(item: QinBase): QinPanel {

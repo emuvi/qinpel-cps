@@ -1,7 +1,6 @@
 import { QinBase } from "./qin-base";
 
 export class QinSplitter extends QinBase {
-  private _elMain = document.createElement("div");
   private _elSideA = document.createElement("div");
   private _elMover = document.createElement("div");
   private _elGrowA = document.createElement("div");
@@ -13,15 +12,15 @@ export class QinSplitter extends QinBase {
   private _qinSideA: QinBase = null;
   private _qinSideB: QinBase = null;
 
-  public constructor(options?: QinSplitterSet) {
-    super();
-    this._elMain.appendChild(this._elSideA);
-    this._elMain.appendChild(this._elMover);
+  public constructor(options?: QinSplitterSet, isQindred?: string) {
+    super((isQindred ? isQindred + "_" : "") + "splitter", document.createElement("div"));
+    this.qinedHTML.appendChild(this._elSideA);
+    this.qinedHTML.appendChild(this._elMover);
     this._elMover.appendChild(this._elGrowA);
     this._elMover.appendChild(this._elGrowB);
-    this._elMain.appendChild(this._elSideB);
-    this._elMain.style.display = "flex";
-    this._elMain.style.flexWrap = "nowrap";
+    this.qinedHTML.appendChild(this._elSideB);
+    this.qinedHTML.style.display = "flex";
+    this.qinedHTML.style.flexWrap = "nowrap";
     this._elSideA.style.display = "flex";
     this._elSideA.style.flexWrap = "nowrap";
     this._elSideA.style.overflow = "auto";
@@ -71,21 +70,21 @@ export class QinSplitter extends QinBase {
     }
   }
 
-  public override getMain(): HTMLDivElement {
-    return this._elMain;
+  public override castedQine(): HTMLDivElement {
+    return this.qinedHTML as HTMLDivElement;
   }
 
   public override addChild(child: QinBase) {
     if (this._qinSideA === null) {
       this._qinSideA = child;
-      this._elSideA.appendChild(child.getMain());
+      this._elSideA.appendChild(child.qinedHTML);
     } else {
       if (this._qinSideB !== null) {
         this._qinSideB.unInstall();
         this._qinSideB = null;
       }
       this._qinSideB = child;
-      this._elSideB.appendChild(child.getMain());
+      this._elSideB.appendChild(child.qinedHTML);
     }
     this._baseChildren.push(child);
   }
@@ -96,16 +95,16 @@ export class QinSplitter extends QinBase {
       this._baseChildren.splice(index, 1);
     }
     if (this._qinSideA === child) {
-      this._elSideA.removeChild(child.getMain());
+      this._elSideA.removeChild(child.qinedHTML);
       this._qinSideA = null;
     } else if (this._qinSideB === child) {
-      this._elSideB.removeChild(child.getMain());
+      this._elSideB.removeChild(child.qinedHTML);
       this._qinSideB = null;
     }
   }
 
   public setHorizontal() {
-    this._elMain.style.flexDirection = "row";
+    this.qinedHTML.style.flexDirection = "row";
     this._elMover.style.flexDirection = "row";
     this._elSideA.style.width = "50%";
     this._elSideA.style.height = "100%";
@@ -125,7 +124,7 @@ export class QinSplitter extends QinBase {
   }
 
   public setVertical() {
-    this._elMain.style.flexDirection = "column";
+    this.qinedHTML.style.flexDirection = "column";
     this._elMover.style.flexDirection = "column";
     this._elSideA.style.width = "100%";
     this._elSideA.style.height = "50%";
@@ -150,7 +149,7 @@ export class QinSplitter extends QinBase {
       this._qinSideA = null;
     }
     this._qinSideA = side;
-    this._elSideA.appendChild(side.getMain());
+    this._elSideA.appendChild(side.qinedHTML);
   }
 
   public setSideB(side: QinBase) {
@@ -159,7 +158,7 @@ export class QinSplitter extends QinBase {
       this._qinSideB = null;
     }
     this._qinSideB = side;
-    this._elSideB.appendChild(side.getMain());
+    this._elSideB.appendChild(side.qinedHTML);
   }
 }
 

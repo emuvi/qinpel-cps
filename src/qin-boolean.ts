@@ -6,14 +6,13 @@ import { QinLabel } from "./qin-label";
 import { QinLine } from "./qin-line";
 
 export class QinBoolean extends QinEdit {
-  private _qinMain = new QinLine();
   private _qinSpan = new QinLabel();
   private _qinIcon = new QinIcon(QinAsset.FaceCheckRadio);
   private _value = false;
 
-  public constructor(options?: QinBooleanSet) {
-    super();
-    this._qinSpan.install(this._qinMain);
+  public constructor(options?: QinBooleanSet, isQindred?: string) {
+    super((isQindred ? isQindred + "_" : "") + "boolean", new QinLine());
+    this._qinSpan.install(this.qinedBase);
     this._qinIcon.install(this._qinSpan);
     this._qinSpan.style.putAsEdit();
     this._qinSpan.style.putAsDisplayFlex();
@@ -28,12 +27,12 @@ export class QinBoolean extends QinEdit {
     }
   }
 
-  public getNature(): QinNature {
-    return QinNature.BOOL;
+  public override castedQine(): QinLine {
+    return this.qinedBase as QinLine;
   }
 
-  public override getMain(): HTMLDivElement {
-    return this._qinMain.getMain();
+  public override getNature(): QinNature {
+    return QinNature.BOOL;
   }
 
   public override getData(): boolean {
@@ -43,10 +42,6 @@ export class QinBoolean extends QinEdit {
   public override setData(data: boolean) {
     this._value = data;
     this.updateIcon();
-  }
-
-  public get qinMain(): QinLine {
-    return this._qinMain;
   }
 
   public get qinSpan(): QinLabel {

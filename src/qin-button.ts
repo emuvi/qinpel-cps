@@ -4,13 +4,15 @@ import { QinIcon } from "./qin-icon";
 import { QinLabel } from "./qin-label";
 
 export class QinButton extends QinBase {
-  private _elMain = document.createElement("button");
   private _qinIcon: QinIcon = null;
   private _qinLabel: QinLabel = null;
 
-  public constructor(options?: QinButtonSet) {
-    super();
-    styles.applyOnButton(this._elMain);
+  public constructor(options?: QinButtonSet, isQindred?: string) {
+    super(
+      (isQindred ? isQindred + "_" : "") + "button",
+      document.createElement("button")
+    );
+    styles.applyOnButton(this.qinedHTML);
     if (options?.icon) {
       this._qinIcon = options.icon;
       this._qinIcon.install(this);
@@ -21,8 +23,8 @@ export class QinButton extends QinBase {
     }
   }
 
-  public override getMain(): HTMLButtonElement {
-    return this._elMain;
+  public override castedQine(): HTMLButtonElement {
+    return this.qinedHTML as HTMLButtonElement;
   }
 
   public get qinIcon(): QinIcon {
@@ -56,7 +58,7 @@ export type QinButtonSet = {
 };
 
 const styles = {
-  applyOnButton: (el: HTMLButtonElement) => {
+  applyOnButton: (el: HTMLElement) => {
     QinSkin.styleAsEdit(el);
     el.style.display = "flex";
     el.style.flexDirection = "row";

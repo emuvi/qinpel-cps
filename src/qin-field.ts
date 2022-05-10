@@ -4,22 +4,21 @@ import { QinEdit } from "./qin-edit";
 import { QinLabel } from "./qin-label";
 
 export class QinField extends QinEdit {
-  private _qinMain = new QinColumn();
   private _qinLabel = new QinLabel();
   private _qinEdit: QinEdit = null;
 
-  public constructor(title: string, edit: QinEdit) {
-    super();
+  public constructor(title: string, edit: QinEdit, isQindred?: string) {
+    super((isQindred ? isQindred + "_" : "") + edit.qindred + "_field", new QinColumn());
     this._qinLabel.title = title;
-    this._qinLabel.install(this._qinMain);
+    this._qinLabel.install(this.qinedBase);
     this._qinEdit = edit;
-    this._qinEdit.install(this._qinMain);
+    this._qinEdit.install(this.qinedBase);
     this._qinLabel.qinLink(this._qinEdit);
-    this._qinMain.style.putAsMargin(3);
+    this.qinedBase.style.putAsMargin(3);
   }
 
-  public override getMain(): HTMLDivElement {
-    return this._qinMain.getMain();
+  public override castedQine(): QinColumn {
+    return this.qinedBase as QinColumn;
   }
 
   public override getNature(): QinNature {
@@ -32,10 +31,6 @@ export class QinField extends QinEdit {
 
   public override setData(data: any) {
     this._qinEdit.setData(data);
-  }
-
-  public get qinMain(): QinColumn {
-    return this._qinMain;
   }
 
   public get qinLabel(): QinLabel {

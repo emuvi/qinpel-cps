@@ -2,11 +2,10 @@ import { QinNature, QinSkin } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 
 export class QinCombo extends QinEdit {
-  private _elMain = document.createElement("select");
   private _elGroups = new Array<HTMLOptGroupElement>();
 
-  public constructor(options?: QinComboSet) {
-    super();
+  public constructor(options?: QinComboSet, isQindred?: string) {
+    super((isQindred ? isQindred + "_" : "") + "combo", document.createElement("select"));
     this.style.putAsEdit();
     if (options?.items) {
       for (let item of options.items) {
@@ -18,8 +17,8 @@ export class QinCombo extends QinEdit {
     }
   }
 
-  public override getMain(): HTMLSelectElement {
-    return this._elMain;
+  public override castedQine(): HTMLSelectElement {
+    return this.qinedHTML as HTMLSelectElement;
   }
 
   public getNature(): QinNature {
@@ -27,11 +26,11 @@ export class QinCombo extends QinEdit {
   }
 
   public override getData(): string {
-    return this._elMain.value;
+    return (this.qinedHTML as HTMLSelectElement).value;
   }
 
   public override setData(data: string) {
-    this._elMain.value = data;
+    (this.qinedHTML as HTMLSelectElement).value = data;
   }
 
   public addItem(item: QinComboItem): QinCombo {
@@ -46,7 +45,7 @@ export class QinCombo extends QinEdit {
       group.appendChild(option);
     } else {
       QinSkin.styleAsBase(option);
-      this._elMain.appendChild(option);
+      this.qinedHTML.appendChild(option);
     }
     return this;
   }
@@ -64,7 +63,7 @@ export class QinCombo extends QinEdit {
     newGroup.label = label;
     QinSkin.styleAsBase(newGroup);
     this._elGroups.push(newGroup);
-    this._elMain.appendChild(newGroup);
+    this.qinedHTML.appendChild(newGroup);
     return newGroup;
   }
 }

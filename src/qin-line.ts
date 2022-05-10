@@ -2,12 +2,12 @@ import { QinBase } from "./qin-base";
 import { QinPanel, QinPanelSet } from "./qin-panel";
 
 export class QinLine extends QinPanel {
-  public constructor(options?: QinPanelSet) {
-    super(options);
+  public constructor(options?: QinPanelSet, isQindred?: string) {
+    super(options, (isQindred ? isQindred + "_" : "") + "line");
     this.style.putAsFlexDirectionRow();
     this.style.putAsFlexWrap();
-    this.getMain().style.minWidth = "min-content";
-    this.getMain().style.minHeight = "min-content";
+    this.qinedHTML.style.minWidth = "min-content";
+    this.qinedHTML.style.minHeight = "min-content";
   }
 
   public override put(item: QinBase): QinLine {

@@ -12,8 +12,8 @@ export class QinTabs extends QinColumn {
 
   private _tabs: QinTabRef[] = [];
 
-  public constructor(options?: QinTabsSet) {
-    super();
+  public constructor(options?: QinTabsSet, isQindred?: string) {
+    super(null, (isQindred ? isQindred + "_" : "") + "tabs");
     this._qinTabs.install(this);
     this._qinPanel.install(this);
     if (options?.initial) {

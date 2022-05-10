@@ -3,30 +3,29 @@ import { QinAsset, qinAssetUrl, qinUrlAsset } from "./qin-assets";
 import { QinBase } from "./qin-base";
 
 export class QinIcon extends QinBase {
-  private _elMain = document.createElement("img");
-
   public constructor(
     asset: QinAsset,
-    size: QinDimension | QinGrandeur = QinGrandeur.SMALL
+    size: QinDimension | QinGrandeur = QinGrandeur.SMALL,
+    isQindred?: string
   ) {
-    super();
-    this._elMain.src = qinAssetUrl(asset);
-    QinSkin.styleSize(this._elMain, size);
+    super((isQindred ? isQindred + "_" : "") + "icon", document.createElement("img"));
+    this.castedQine().src = qinAssetUrl(asset);
+    QinSkin.styleSize(this.qinedHTML, size);
   }
 
-  public override getMain(): HTMLImageElement {
-    return this._elMain;
+  public override castedQine(): HTMLImageElement {
+    return this.qinedHTML as HTMLImageElement;
   }
 
   public get asset(): QinAsset {
-    return qinUrlAsset(this._elMain.src);
+    return qinUrlAsset(this.castedQine().src);
   }
 
   public set asset(asset: QinAsset) {
-    this._elMain.src = qinAssetUrl(asset);
+    this.castedQine().src = qinAssetUrl(asset);
   }
 
   public get size(): QinDimension {
-    return QinSkin.getDimension(this._elMain);
+    return QinSkin.getDimension(this.qinedHTML);
   }
 }

@@ -2,8 +2,8 @@ import { QinBase } from "./qin-base";
 import { QinPanel, QinPanelSet } from "./qin-panel";
 
 export class QinStack extends QinPanel {
-  public constructor(options?: QinPanelSet) {
-    super(options);
+  public constructor(options?: QinPanelSet, isQindred?: string) {
+    super(options, (isQindred ? isQindred + "_" : "") + "stack");
     this.style.putAsFlexDirectionRow();
     this.style.putAsFlexWrapNot();
   }
