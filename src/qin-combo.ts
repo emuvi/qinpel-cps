@@ -6,7 +6,7 @@ export class QinCombo extends QinEdit {
 
   public constructor(options?: QinComboSet, isQindred?: string) {
     super((isQindred ? isQindred + "_" : "") + "combo", document.createElement("select"));
-    this.style.putAsEdit();
+    this.style.putAsEditable();
     if (options?.items) {
       for (let item of options.items) {
         this.addItem(item);
@@ -38,10 +38,12 @@ export class QinCombo extends QinEdit {
 
   public override turnReadOnly(): void {
     this.castedQine().disabled = true;
+    this.style.putAsReadOnly();
   }
 
   public override turnEditable(): void {
     this.castedQine().disabled = false;
+    this.style.putAsEditable();
   }
 
   public override isEditable(): boolean {

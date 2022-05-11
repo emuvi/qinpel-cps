@@ -43,10 +43,12 @@ export class QinFilePick extends QinEdit {
     this._operation = options?.operation ? options.operation : QinFilesOperation.OPEN;
     this._descriptors = options?.descriptors ? options.descriptors : [];
     this._singleSelection = options?.singleSelection ?? false;
-    this._readOnly = options?.readOnly ?? false;
     this.initMain();
     this.initUpper();
     this.initUnder();
+    if (options?.readOnly) {
+      this.turnReadOnly();
+    }
   }
 
   private initMain() {

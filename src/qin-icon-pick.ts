@@ -10,7 +10,7 @@ export class QinIconPick extends QinEdit {
 
   public constructor(options?: QinIconPickSet, isQindred?: string) {
     super((isQindred ? isQindred + "_" : "") + "icon-pick", new QinLine());
-    this.qinedBase.style.putAsEdit();
+    this.qinedBase.style.putAsEditable();
     if (options?.initial) {
       this.setData(options?.initial);
     }
@@ -24,7 +24,9 @@ export class QinIconPick extends QinEdit {
         this.addCell(cell);
       }
     }
-    this._readOnly = options?.readOnly ?? false;
+    if (options?.readOnly) {
+      this.turnReadOnly();
+    }
   }
 
   public override castedQine(): QinLine {
@@ -60,10 +62,12 @@ export class QinIconPick extends QinEdit {
 
   public override turnReadOnly(): void {
     this._readOnly = true;
+    this.style.putAsReadOnly();
   }
 
   public override turnEditable(): void {
     this._readOnly = false;
+    this.style.putAsEditable();
   }
 
   public override isEditable(): boolean {

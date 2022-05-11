@@ -21,8 +21,10 @@ export class QinFileView extends QinEdit {
     this._nature = options?.nature ? options.nature : QinFilesNature.BOTH;
     this._extensions = options?.extensions ? options.extensions : [];
     this._singleSelection = options?.singleSelection ?? false;
-    this._readOnly = options?.readOnly ?? false;
     this.initMain();
+    if (options?.readOnly) {
+      this.turnReadOnly();
+    }
   }
 
   public override castedQine(): QinPanel {
@@ -30,6 +32,7 @@ export class QinFileView extends QinEdit {
   }
 
   private initMain() {
+    this.style.putAsEditable();
     styles.applyOnMain(this.qinedHTML);
     this.qinedBase.addActionMain((_) => {
       if (!this._readOnly) {
@@ -81,10 +84,12 @@ export class QinFileView extends QinEdit {
 
   public override turnReadOnly(): void {
     this._readOnly = true;
+    this.style.putAsReadOnly();
   }
 
   public override turnEditable(): void {
     this._readOnly = false;
+    this.style.putAsEditable();
   }
 
   public override isEditable(): boolean {
@@ -346,7 +351,6 @@ function getIconName(fromExtension: string): string {
 
 const styles = {
   applyOnMain: (el: HTMLElement) => {
-    QinSoul.skin.styleAsEdit(el);
     el.style.overflow = "auto";
     el.style.minWidth = "160px";
     el.style.minHeight = "160px";

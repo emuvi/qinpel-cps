@@ -1,17 +1,17 @@
-import { QinNature, QinSkin } from "qinpel-res";
+import { QinNature } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 
 export class QinString extends QinEdit {
   public constructor(options?: QinStringSet, isQindred?: string) {
     super((isQindred ? isQindred + "_" : "") + "string", document.createElement("input"));
     this.castedQine().type = "text";
+    this.qinedBase.style.putAsEditable();
     if (options?.maxLength) {
       this.castedQine().maxLength = options.maxLength;
       let position = Math.min(Math.max(options.maxLength - 10, 0), 90);
       let width = Math.floor(90 + (position * 7) / 3);
       this.qinedHTML.style.width = width + "px";
     }
-    QinSkin.styleAsEdit(this.qinedHTML);
     if (options?.initial) {
       this.setData(options.initial);
     }
@@ -38,10 +38,12 @@ export class QinString extends QinEdit {
 
   public override turnReadOnly(): void {
     this.castedQine().readOnly = true;
+    this.qinedBase.style.putAsReadOnly();
   }
 
   public override turnEditable(): void {
     this.castedQine().readOnly = false;
+    this.qinedBase.style.putAsEditable();
   }
 
   public override isEditable(): boolean {

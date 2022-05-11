@@ -59,7 +59,7 @@ export type QinButtonSet = {
 
 const styles = {
   applyOnButton: (el: HTMLElement) => {
-    QinSkin.styleAsEdit(el);
+    QinSkin.styleAsEditable(el);
     el.style.display = "flex";
     el.style.flexDirection = "row";
     el.style.alignItems = "center";

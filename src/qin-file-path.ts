@@ -52,7 +52,9 @@ export class QinFilePath extends QinEdit {
     if (options?.initial) {
       this.setData(options.initial);
     }
-    this._readOnly = options?.readOnly ?? false;
+    if (options?.readOnly) {
+      this.turnReadOnly();
+    }
   }
 
   public override castedQine(): QinLine {

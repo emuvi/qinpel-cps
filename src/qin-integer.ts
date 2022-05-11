@@ -1,4 +1,4 @@
-import { QinNature, QinSoul } from "qinpel-res";
+import { QinNature, QinSkin } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 
 export class QinInteger extends QinEdit {
@@ -8,7 +8,7 @@ export class QinInteger extends QinEdit {
       document.createElement("input")
     );
     this.castedQine().type = "number";
-    QinSoul.skin.styleAsEdit(this.qinedHTML);
+    QinSkin.styleAsEditable(this.qinedHTML);
     this.qinedHTML.style.width = "120px";
     this.qinedHTML.addEventListener("focusout", () => {
       this.setData(this.getData());
@@ -40,10 +40,12 @@ export class QinInteger extends QinEdit {
 
   public override turnReadOnly(): void {
     this.castedQine().readOnly = true;
+    QinSkin.styleAsReadOnly(this.qinedHTML);
   }
 
   public override turnEditable(): void {
     this.castedQine().readOnly = false;
+    QinSkin.styleAsEditable(this.qinedHTML);
   }
 
   public override isEditable(): boolean {

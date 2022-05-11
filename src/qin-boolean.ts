@@ -15,7 +15,7 @@ export class QinBoolean extends QinEdit {
     super((isQindred ? isQindred + "_" : "") + "boolean", new QinLine());
     this._qinSpan.install(this.qinedBase);
     this._qinIcon.install(this._qinSpan);
-    this._qinSpan.style.putAsEdit();
+    this._qinSpan.style.putAsEditable();
     this._qinSpan.style.putAsDisplayFlex();
     this._qinSpan.style.putAsAllCentered();
     this._qinSpan.addAction((qinEvent) => {
@@ -26,7 +26,9 @@ export class QinBoolean extends QinEdit {
     if (options?.initial) {
       this.setData(options.initial);
     }
-    this._readOnly = options?.readOnly ?? false;
+    if (options?.readOnly) {
+      this.turnReadOnly();
+    }
   }
 
   public override castedQine(): QinLine {
@@ -48,10 +50,12 @@ export class QinBoolean extends QinEdit {
 
   public override turnReadOnly(): void {
     this._readOnly = true;
+    this._qinSpan.style.putAsReadOnly();
   }
 
   public override turnEditable(): void {
     this._readOnly = false;
+    this._qinSpan.style.putAsEditable();
   }
 
   public override isEditable(): boolean {
