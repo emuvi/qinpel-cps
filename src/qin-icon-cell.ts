@@ -1,27 +1,20 @@
 import { QinSkin } from "qinpel-res";
-import { QinBase } from "./qin-base";
+import { QinAsset } from "./qin-assets";
 import { QinIcon } from "./qin-icon";
+import { QinPanel } from "./qin-panel";
 
-export class QinIconCell extends QinBase {
+export class QinIconCell extends QinPanel {
   private _qinIcon: QinIcon;
   private _selected = false;
 
   public constructor(icon: QinIcon, isQindred?: string) {
-    super(
-      (isQindred ? isQindred + "_" : "") + "icon-cell",
-      document.createElement("div")
-    );
+    super(null, (isQindred ? isQindred + "_" : "") + "icon-cell");
     let border = Math.round(icon.size.width / 10);
     let padding = border * 2;
-    this.qinedHTML.style.borderRadius = border + "px";
-    this.qinedHTML.style.padding = padding + "px";
-    this.qinedHTML.style.display = "flex";
+    this.style.putAsBorderRadius(border);
+    this.style.putAsPadding(padding);
     this._qinIcon = icon;
     this._qinIcon.install(this);
-  }
-
-  public override castedQine(): HTMLDivElement {
-    return this.qinedHTML as HTMLDivElement;
   }
 
   public get qinIcon(): QinIcon {
@@ -32,12 +25,16 @@ export class QinIconCell extends QinBase {
     return this._selected;
   }
 
-  public set selected(selected: boolean) {
-    this._selected = selected;
+  public set selected(value: boolean) {
+    this._selected = value;
     if (this._selected) {
       this.qinedHTML.style.backgroundColor = QinSkin.styles.ColorSelected;
     } else {
       this.qinedHTML.style.backgroundColor = "initial";
     }
+  }
+
+  public get asset(): QinAsset {
+    return this._qinIcon.asset;
   }
 }

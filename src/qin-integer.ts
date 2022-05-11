@@ -16,6 +16,9 @@ export class QinInteger extends QinEdit {
     if (options?.initial) {
       this.setData(options.initial);
     }
+    if (options?.readOnly) {
+      this.turnReadOnly();
+    }
   }
 
   public override castedQine(): HTMLInputElement {
@@ -35,6 +38,18 @@ export class QinInteger extends QinEdit {
     }
   }
 
+  public override turnReadOnly(): void {
+    this.castedQine().readOnly = true;
+  }
+
+  public override turnEditable(): void {
+    this.castedQine().readOnly = false;
+  }
+
+  public override isEditable(): boolean {
+    return !this.castedQine().readOnly;
+  }
+
   public override setData(data: number) {
     if (data == null || data == undefined) {
       this.castedQine().value = "";
@@ -46,4 +61,5 @@ export class QinInteger extends QinEdit {
 
 export type QinIntegerSet = {
   initial?: number;
+  readOnly?: boolean;
 };

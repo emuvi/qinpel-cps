@@ -20,6 +20,7 @@ export class QinFilePath extends QinEdit {
   });
   private _qinPicker: QinFilePick;
   private _qinPopup: QinJobberPopup;
+  private _readOnly = false;
 
   public constructor(options?: QinFilePathSet, isQindred?: string) {
     super((isQindred ? isQindred + "_" : "") + "file-path", new QinLine());
@@ -51,6 +52,7 @@ export class QinFilePath extends QinEdit {
     if (options?.initial) {
       this.setData(options.initial);
     }
+    this._readOnly = options?.readOnly ?? false;
   }
 
   public override castedQine(): QinLine {
@@ -67,6 +69,20 @@ export class QinFilePath extends QinEdit {
 
   public override setData(data: string) {
     this._qinPath.setData(data);
+  }
+
+  public override turnReadOnly(): void {
+    this._readOnly = true;
+    this._qinPath.turnReadOnly();
+  }
+
+  public override turnEditable(): void {
+    this._readOnly = false;
+    this._qinPath.turnEditable();
+  }
+
+  public override isEditable(): boolean {
+    return !this._readOnly;
   }
 
   public get qinPath(): QinString {
@@ -91,4 +107,5 @@ export type QinFilePathSet = {
   nature?: QinFilesNature;
   operation?: QinFilesOperation;
   descriptors?: QinFilesDescriptor[];
+  readOnly?: boolean;
 };

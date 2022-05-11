@@ -33,6 +33,18 @@ export class QinField extends QinEdit {
     this._qinEdit.setData(data);
   }
 
+  public override turnReadOnly(): void {
+    this._qinEdit.turnReadOnly();
+  }
+
+  public override turnEditable(): void {
+    this._qinEdit.turnEditable();
+  }
+
+  public override isEditable(): boolean {
+    return this._qinEdit.isEditable();
+  }
+
   public get qinLabel(): QinLabel {
     return this._qinLabel;
   }

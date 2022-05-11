@@ -9,6 +9,7 @@ export class QinBoolean extends QinEdit {
   private _qinSpan = new QinLabel();
   private _qinIcon = new QinIcon(QinAsset.FaceCheckRadio);
   private _value = false;
+  private _readOnly = false;
 
   public constructor(options?: QinBooleanSet, isQindred?: string) {
     super((isQindred ? isQindred + "_" : "") + "boolean", new QinLine());
@@ -18,13 +19,14 @@ export class QinBoolean extends QinEdit {
     this._qinSpan.style.putAsDisplayFlex();
     this._qinSpan.style.putAsAllCentered();
     this._qinSpan.addAction((qinEvent) => {
-      if (qinEvent.isMain) {
+      if (qinEvent.isMain && !this._readOnly) {
         this.toggle();
       }
     });
     if (options?.initial) {
       this.setData(options.initial);
     }
+    this._readOnly = options?.readOnly ?? false;
   }
 
   public override castedQine(): QinLine {
@@ -42,6 +44,18 @@ export class QinBoolean extends QinEdit {
   public override setData(data: boolean) {
     this._value = data;
     this.updateIcon();
+  }
+
+  public override turnReadOnly(): void {
+    this._readOnly = true;
+  }
+
+  public override turnEditable(): void {
+    this._readOnly = false;
+  }
+
+  public override isEditable(): boolean {
+    return !this._readOnly;
   }
 
   public get qinSpan(): QinLabel {
@@ -77,4 +91,5 @@ export class QinBoolean extends QinEdit {
 
 export type QinBooleanSet = {
   initial?: boolean;
+  readOnly?: boolean;
 };

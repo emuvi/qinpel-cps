@@ -35,19 +35,18 @@ export class QinFilePick extends QinEdit {
 
   private _listeners: QinFileChosen[] = [];
 
+  private _readOnly = false;
+
   public constructor(options?: QinFileChooserSet, isQindred?: string) {
     super((isQindred ? isQindred + "_" : "") + "file-pick", new QinColumn());
     this._nature = options?.nature ? options.nature : QinFilesNature.BOTH;
     this._operation = options?.operation ? options.operation : QinFilesOperation.OPEN;
     this._descriptors = options?.descriptors ? options.descriptors : [];
-    this._singleSelection = options?.singleSelection ? options?.singleSelection : false;
+    this._singleSelection = options?.singleSelection ?? false;
+    this._readOnly = options?.readOnly ?? false;
     this.initMain();
     this.initUpper();
     this.initUnder();
-  }
-
-  public override castedQine(): QinColumn {
-    return this.qinedBase as QinColumn;
   }
 
   private initMain() {
@@ -58,32 +57,27 @@ export class QinFilePick extends QinEdit {
   private initUpper() {
     this._qinUpper.style.putAsFlexMin();
     this._qinConfirm.install(this._qinUpper);
-    this._qinConfirm.addAction((qinEvent) => {
-      if (qinEvent.isMain) {
-        let data = this.getData();
-        for (const chosen of this._listeners) {
-          chosen(data);
-        }
-        qinEvent.consumed();
+    this._qinConfirm.addActionMain((_) => {
+      let data = this.getData();
+      for (const chosen of this._listeners) {
+        chosen(data);
       }
     });
     this._qinFolder.install(this._qinUpper);
     this._qinFolder.style.putAsMinWidth(100);
     this._qinFolder.style.putAsFlexMax();
-    this._qinFolder.addAction((qinEvent) => {
-      if (qinEvent.isEnter) {
+    this._qinFolder.addActionMain((_) => {
+      if (this.isEditable()) {
         this.loadFolder();
-        qinEvent.consumed();
       }
     });
     this._qinExtensions.install(this._qinUpper);
     this._qinExtensions.style.putAsMinWidth(100);
     this.initExtensions();
     this._qinSearch.install(this._qinUpper);
-    this._qinSearch.addAction((qinEvent) => {
-      if (qinEvent.isMain) {
+    this._qinSearch.addAction((_) => {
+      if (this.isEditable()) {
         this.loadFolder();
-        qinEvent.consumed();
       }
     });
   }
@@ -117,7 +111,11 @@ export class QinFilePick extends QinEdit {
     }
   }
 
-  public getNature(): QinNature {
+  public override castedQine(): QinColumn {
+    return this.qinedBase as QinColumn;
+  }
+
+  public override getNature(): QinNature {
     return QinNature.CHARS;
   }
 
@@ -127,6 +125,24 @@ export class QinFilePick extends QinEdit {
 
   public override setData(data: string[]) {
     this._qinExplorer.setData(data);
+  }
+
+  public override turnReadOnly(): void {
+    this._readOnly = true;
+    this._qinFolder.turnReadOnly();
+    this._qinExtensions.turnReadOnly();
+    this._qinExplorer.turnReadOnly();
+  }
+
+  public override turnEditable(): void {
+    this._readOnly = false;
+    this._qinFolder.turnEditable();
+    this._qinExtensions.turnEditable();
+    this._qinExplorer.turnEditable();
+  }
+
+  public override isEditable(): boolean {
+    return !this._readOnly;
   }
 
   public get qinUpper(): QinLine {
@@ -208,6 +224,7 @@ export type QinFileChooserSet = {
   operation?: QinFilesOperation;
   descriptors?: QinFilesDescriptor[];
   singleSelection?: boolean;
+  readOnly?: boolean;
 };
 
 export type QinFileChosen = (chosen: string[]) => void;

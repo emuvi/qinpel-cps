@@ -15,6 +15,9 @@ export class QinString extends QinEdit {
     if (options?.initial) {
       this.setData(options.initial);
     }
+    if (options?.readOnly) {
+      this.turnReadOnly();
+    }
   }
 
   public override castedQine(): HTMLInputElement {
@@ -31,6 +34,18 @@ export class QinString extends QinEdit {
 
   public override setData(data: string) {
     this.castedQine().value = data;
+  }
+
+  public override turnReadOnly(): void {
+    this.castedQine().readOnly = true;
+  }
+
+  public override turnEditable(): void {
+    this.castedQine().readOnly = false;
+  }
+
+  public override isEditable(): boolean {
+    return !this.castedQine().readOnly;
   }
 
   public insertAtCursor(data: string) {
@@ -51,4 +66,5 @@ export class QinString extends QinEdit {
 export type QinStringSet = {
   initial?: string;
   maxLength?: number;
+  readOnly?: boolean;
 };

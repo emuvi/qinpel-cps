@@ -14,11 +14,14 @@ export class QinFileView extends QinEdit {
 
   private _items: Item[] = [];
 
+  private _readOnly = false;
+
   public constructor(options?: QinFileExplorerSet, isQindred?: string) {
     super((isQindred ? isQindred + "_" : "") + "file-view", new QinPanel());
     this._nature = options?.nature ? options.nature : QinFilesNature.BOTH;
     this._extensions = options?.extensions ? options.extensions : [];
-    this._singleSelection = options?.singleSelection ? options.singleSelection : false;
+    this._singleSelection = options?.singleSelection ?? false;
+    this._readOnly = options?.readOnly ?? false;
     this.initMain();
   }
 
@@ -28,8 +31,8 @@ export class QinFileView extends QinEdit {
 
   private initMain() {
     styles.applyOnMain(this.qinedHTML);
-    this.qinedBase.addAction((qinEvent) => {
-      if (qinEvent.isMain) {
+    this.qinedBase.addActionMain((_) => {
+      if (!this._readOnly) {
         this.cleanSelection();
       }
     });
@@ -74,6 +77,18 @@ export class QinFileView extends QinEdit {
         }
       });
     }
+  }
+
+  public override turnReadOnly(): void {
+    this._readOnly = true;
+  }
+
+  public override turnEditable(): void {
+    this._readOnly = false;
+  }
+
+  public override isEditable(): boolean {
+    return !this._readOnly;
   }
 
   public get nature(): QinFilesNature {
@@ -232,78 +247,78 @@ export type QinFileExplorerSet = {
   nature?: QinFilesNature;
   extensions?: string[];
   singleSelection: boolean;
+  readOnly?: boolean;
 };
 
 class Item {
-  private explorer: QinFileView;
-  private divItem = document.createElement("div");
-  private divItemBody = document.createElement("div");
-  private spanIcon = document.createElement("span");
-  private imgIcon = document.createElement("img");
-  private spanText = document.createElement("span");
-  private fileName: string;
-  private iconName: string;
-  private selected: boolean = false;
+  private _dad: QinFileView;
+  private _divItem = document.createElement("div");
+  private _divBody = document.createElement("div");
+  private _spanIcon = document.createElement("span");
+  private _imgIcon = document.createElement("img");
+  private _spanText = document.createElement("span");
+  private _fileName: string;
+  private _iconName: string;
+  private _selected: boolean = false;
 
-  public constructor(explorer: QinFileView, fileName: string, iconName: string) {
-    this.explorer = explorer;
-    this.fileName = fileName;
-    this.iconName = iconName;
+  public constructor(dad: QinFileView, fileName: string, iconName: string) {
+    this._dad = dad;
+    this._fileName = fileName;
+    this._iconName = iconName;
     this.initItem();
   }
 
   private initItem() {
-    styles.applyOnDivItem(this.divItem);
-    this.divItem.tabIndex = 0;
-    styles.applyOnDivItemBody(this.divItemBody);
-    this.divItem.appendChild(this.divItemBody);
-    styles.applyOnSpanIcon(this.spanIcon);
-    this.divItemBody.appendChild(this.spanIcon);
-    this.imgIcon.src = "/app/qinpel-app/assets/" + this.iconName;
-    this.spanIcon.appendChild(this.imgIcon);
-    this.spanText.innerText = this.fileName;
-    styles.applyOnSpanText(this.spanText);
-    this.divItemBody.appendChild(this.spanText);
-    QinSoul.arm.addAction(this.divItem, (qinEvent) => {
-      if (qinEvent.isMain) {
-        this.divItem.focus();
+    styles.applyOnDivItem(this._divItem);
+    this._divItem.tabIndex = 0;
+    styles.applyOnDivBody(this._divBody);
+    this._divItem.appendChild(this._divBody);
+    styles.applyOnSpanIcon(this._spanIcon);
+    this._divBody.appendChild(this._spanIcon);
+    this._imgIcon.src = "/app/qinpel-app/assets/" + this._iconName;
+    this._spanIcon.appendChild(this._imgIcon);
+    this._spanText.innerText = this._fileName;
+    styles.applyOnSpanText(this._spanText);
+    this._divBody.appendChild(this._spanText);
+    QinSoul.arm.addActionMain(this._divItem, (qinEvent) => {
+      if (this._dad.isEditable()) {
+        this._divItem.focus();
         this.toggle();
-        qinEvent.consumed();
       }
     });
   }
 
   public install(on: HTMLElement) {
-    on.appendChild(this.divItem);
+    on.appendChild(this._divItem);
   }
 
   public select() {
-    styles.applyOnDivSelect(this.divItem);
-    this.selected = true;
+    styles.applyOnDivSelect(this._divItem);
+    this._selected = true;
   }
 
   public unselect() {
-    styles.applyOnDivUnSelect(this.divItem);
-    this.selected = false;
+    styles.applyOnDivUnSelect(this._divItem);
+    this._selected = false;
   }
 
   public toggle() {
-    if (this.selected) {
+    if (this._selected) {
       this.unselect();
     } else {
-      if (this.explorer.singleSelection) {
-        this.explorer.cleanSelection();
+      if (this._dad.singleSelection) {
+        this._dad.cleanSelection();
       }
       this.select();
     }
   }
 
   public getName(): string {
-    return this.fileName;
+    return this._fileName;
   }
 
   public isSelected(): boolean {
-    return this.selected;
+    return this._selected;
   }
 }
 
@@ -355,7 +370,7 @@ const styles = {
       el.style.border = "1px solid #360045";
     });
   },
-  applyOnDivItemBody: (el: HTMLElement) => {
+  applyOnDivBody: (el: HTMLElement) => {
     el.style.display = "flex";
     el.style.flexDirection = "column";
     el.style.width = "96px";

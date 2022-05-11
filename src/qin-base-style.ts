@@ -131,6 +131,10 @@ export class QinBaseStyle {
     }
   }
 
+  public putAsBorderRadius(radius: number) {
+    this._el.style.borderRadius = radius + "px";
+  }
+
   public putAsDisplayFlex() {
     this._el.style.display = "flex";
   }

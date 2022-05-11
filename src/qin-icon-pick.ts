@@ -6,6 +6,8 @@ import { QinIconCell } from "./qin-icon-cell";
 import { QinLine } from "./qin-line";
 
 export class QinIconPick extends QinEdit {
+  private _readOnly = false;
+
   public constructor(options?: QinIconPickSet, isQindred?: string) {
     super((isQindred ? isQindred + "_" : "") + "icon-pick", new QinLine());
     this.qinedBase.style.putAsEdit();
@@ -22,6 +24,7 @@ export class QinIconPick extends QinEdit {
         this.addCell(cell);
       }
     }
+    this._readOnly = options?.readOnly ?? false;
   }
 
   public override castedQine(): QinLine {
@@ -55,13 +58,29 @@ export class QinIconPick extends QinEdit {
     }
   }
 
-  public addIcon(icon: QinIcon) {
-    let option = new QinIconCell(icon);
-    option.install(this.qinedBase);
+  public override turnReadOnly(): void {
+    this._readOnly = true;
   }
 
-  public addCell(option: QinIconCell) {
-    option.install(this.qinedBase);
+  public override turnEditable(): void {
+    this._readOnly = false;
+  }
+
+  public override isEditable(): boolean {
+    return !this._readOnly;
+  }
+
+  public addIcon(icon: QinIcon) {
+    this.addCell(new QinIconCell(icon));
+  }
+
+  public addCell(cell: QinIconCell) {
+    cell.addActionMain((_) => {
+      if (this.isEditable()) {
+        this.setData(cell.asset);
+      }
+    });
+    cell.install(this.qinedBase);
   }
 }
 
@@ -69,4 +88,5 @@ export type QinIconPickSet = {
   initial?: QinAsset;
   icons?: QinIcon[];
   cells?: QinIconCell[];
+  readOnly?: boolean;
 };

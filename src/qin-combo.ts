@@ -15,6 +15,9 @@ export class QinCombo extends QinEdit {
     if (options?.selected) {
       this.setData(options.selected);
     }
+    if (options?.readOnly) {
+      this.turnReadOnly();
+    }
   }
 
   public override castedQine(): HTMLSelectElement {
@@ -31,6 +34,18 @@ export class QinCombo extends QinEdit {
 
   public override setData(data: string) {
     (this.qinedHTML as HTMLSelectElement).value = data;
+  }
+
+  public override turnReadOnly(): void {
+    this.castedQine().disabled = true;
+  }
+
+  public override turnEditable(): void {
+    this.castedQine().disabled = false;
+  }
+
+  public override isEditable(): boolean {
+    return !this.castedQine().disabled;
   }
 
   public addItem(item: QinComboItem): QinCombo {
@@ -71,6 +86,7 @@ export class QinCombo extends QinEdit {
 export type QinComboSet = {
   items?: QinComboItem[];
   selected?: string;
+  readOnly?: boolean;
 };
 
 export type QinComboItem = {
