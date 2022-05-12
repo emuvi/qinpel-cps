@@ -10,7 +10,7 @@ export class QinIconPick extends QinEdit {
 
   public constructor(options?: QinIconPickSet, isQindred?: string) {
     super((isQindred ? isQindred + "_" : "") + "icon-pick", new QinLine());
-    this.qinedBase.style.putAsEditable();
+    this.style.putAsEditable();
     if (options?.initial) {
       this.setData(options?.initial);
     }

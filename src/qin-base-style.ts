@@ -52,7 +52,7 @@ export class QinBaseStyle {
     if (this._styledAsReadOnlyFocusEvent) {
       this._el.removeEventListener("focus", this._styledAsReadOnlyFocusEvent);
     }
-    if (!this._styledAsReadOnlyFocusoutEvent) {
+    if (this._styledAsReadOnlyFocusoutEvent) {
       this._el.removeEventListener("focusout", this._styledAsReadOnlyFocusoutEvent);
     }
     this._el.addEventListener("focus", this._styledAsEditableFocusEvent);
@@ -80,7 +80,7 @@ export class QinBaseStyle {
     if (this._styledAsEditableFocusEvent) {
       this._el.removeEventListener("focus", this._styledAsEditableFocusEvent);
     }
-    if (!this._styledAsEditableFocusoutEvent) {
+    if (this._styledAsEditableFocusoutEvent) {
       this._el.removeEventListener("focusout", this._styledAsEditableFocusoutEvent);
     }
     this._el.addEventListener("focus", this._styledAsReadOnlyFocusEvent);
