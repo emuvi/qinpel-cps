@@ -97,7 +97,7 @@ export class QinTable extends QinBase {
     const row = this._elTBody.children.length;
     if (this._onLineMainAct) {
       tr.style.cursor = "pointer";
-      QinTool.qinpel.our.soul.arm.addActionMain(tr, (_) => {
+      QinTool.qinpel.our.soul.arms.addActionMain(tr, (_) => {
         this._onLineMainAct.forEach((act) => {
           act(row, this.getColumnsValues(tr));
         });
@@ -105,7 +105,7 @@ export class QinTable extends QinBase {
     }
     if (this._onLineMidiAct) {
       tr.style.cursor = "pointer";
-      QinTool.qinpel.our.soul.arm.addActionMidi(tr, (_) => {
+      QinTool.qinpel.our.soul.arms.addActionMidi(tr, (_) => {
         this._onLineMidiAct.forEach((act) => {
           act(row, this.getColumnsValues(tr));
         });
@@ -113,7 +113,7 @@ export class QinTable extends QinBase {
     }
     if (this._onLineMenuAct) {
       tr.style.cursor = "pointer";
-      QinTool.qinpel.our.soul.arm.addActionMenu(tr, (_) => {
+      QinTool.qinpel.our.soul.arms.addActionMenu(tr, (_) => {
         this._onLineMenuAct.forEach((act) => {
           act(row, this.getColumnsValues(tr));
         });
@@ -126,7 +126,7 @@ export class QinTable extends QinBase {
       styles.applyOnBodyCol(td);
       if (this._onColumnMainAct) {
         td.style.cursor = "pointer";
-        QinTool.qinpel.our.soul.arm.addActionMain(td, (_) => {
+        QinTool.qinpel.our.soul.arms.addActionMain(td, (_) => {
           this._onColumnMainAct.forEach((act) => {
             act(row, column, td.innerText);
           });
@@ -134,7 +134,7 @@ export class QinTable extends QinBase {
       }
       if (this._onColumnMidiAct) {
         td.style.cursor = "pointer";
-        QinTool.qinpel.our.soul.arm.addActionMidi(td, (_) => {
+        QinTool.qinpel.our.soul.arms.addActionMidi(td, (_) => {
           this._onColumnMidiAct.forEach((act) => {
             act(row, column, td.innerText);
           });
@@ -142,7 +142,7 @@ export class QinTable extends QinBase {
       }
       if (this._onColumnMenuAct) {
         td.style.cursor = "pointer";
-        QinTool.qinpel.our.soul.arm.addActionMenu(td, (_) => {
+        QinTool.qinpel.our.soul.arms.addActionMenu(td, (_) => {
           this._onColumnMenuAct.forEach((act) => {
             act(row, column, td.innerText);
           });

@@ -1,5 +1,5 @@
 import { Qinpel } from "qinpel-app/types/qinpel";
-import { QinAction, QinArm, QinBody } from "qinpel-res";
+import { QinAction, QinArms, QinBody } from "qinpel-res";
 import { QinBaseStyle } from "./qin-base-style";
 import { QinTool } from "./qin-tool";
 
@@ -164,66 +164,66 @@ export abstract class QinBase {
   }
 
   public addAction(action: QinAction) {
-    QinArm.addAction(this.qinedHTML, action);
+    QinArms.addAction(this.qinedHTML, action);
   }
 
   public addActionMain(action: QinAction) {
-    QinArm.addActionMain(this.qinedHTML, action);
+    QinArms.addActionMain(this.qinedHTML, action);
   }
 
   public addActionMainKey(action: QinAction) {
-    QinArm.addActionMainKey(this.qinedHTML, action);
+    QinArms.addActionMainKey(this.qinedHTML, action);
   }
 
   public addActionMainMouse(action: QinAction) {
-    QinArm.addActionMainMouse(this.qinedHTML, action);
+    QinArms.addActionMainMouse(this.qinedHTML, action);
   }
 
   public addActionMainTouch(action: QinAction) {
-    QinArm.addActionMainTouch(this.qinedHTML, action);
+    QinArms.addActionMainTouch(this.qinedHTML, action);
   }
 
   public addActionMainPoint(action: QinAction) {
-    QinArm.addActionMainPoint(this.qinedHTML, action);
+    QinArms.addActionMainPoint(this.qinedHTML, action);
   }
 
   public addActionMidi(action: QinAction) {
-    QinArm.addActionMidi(this.qinedHTML, action);
+    QinArms.addActionMidi(this.qinedHTML, action);
   }
 
   public addActionMidiKey(action: QinAction) {
-    QinArm.addActionMidiKey(this.qinedHTML, action);
+    QinArms.addActionMidiKey(this.qinedHTML, action);
   }
 
   public addActionMidiMouse(action: QinAction) {
-    QinArm.addActionMidiMouse(this.qinedHTML, action);
+    QinArms.addActionMidiMouse(this.qinedHTML, action);
   }
 
   public addActionMidiTouch(action: QinAction) {
-    QinArm.addActionMidiTouch(this.qinedHTML, action);
+    QinArms.addActionMidiTouch(this.qinedHTML, action);
   }
 
   public addActionMidiPoint(action: QinAction) {
-    QinArm.addActionMidiPoint(this.qinedHTML, action);
+    QinArms.addActionMidiPoint(this.qinedHTML, action);
   }
 
   public addActionMenu(action: QinAction) {
-    QinArm.addActionMenu(this.qinedHTML, action);
+    QinArms.addActionMenu(this.qinedHTML, action);
   }
 
   public addActionMenuKey(action: QinAction) {
-    QinArm.addActionMenuKey(this.qinedHTML, action);
+    QinArms.addActionMenuKey(this.qinedHTML, action);
   }
 
   public addActionMenuMouse(action: QinAction) {
-    QinArm.addActionMenuMouse(this.qinedHTML, action);
+    QinArms.addActionMenuMouse(this.qinedHTML, action);
   }
 
   public addActionMenuTouch(action: QinAction) {
-    QinArm.addActionMenuTouch(this.qinedHTML, action);
+    QinArms.addActionMenuTouch(this.qinedHTML, action);
   }
 
   public addActionMenuPoint(action: QinAction) {
-    QinArm.addActionMenuPoint(this.qinedHTML, action);
+    QinArms.addActionMenuPoint(this.qinedHTML, action);
   }
 }

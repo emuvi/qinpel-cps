@@ -285,7 +285,7 @@ class Item {
     this._spanText.innerText = this._fileName;
     styles.applyOnSpanText(this._spanText);
     this._divBody.appendChild(this._spanText);
-    QinSoul.arm.addActionMain(this._divItem, (qinEvent) => {
+    QinSoul.arms.addActionMain(this._divItem, (qinEvent) => {
       if (this._dad.isEditable()) {
         this._divItem.focus();
         this.toggle();
