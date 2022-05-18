@@ -205,6 +205,16 @@ export class QinTable extends QinBase {
     });
   }
 
+  public scrollTo(row: number) {
+    let index = 0;
+    this._elTBody.querySelectorAll("tr").forEach((tr) => {
+      if (index === row) {
+        tr.scrollIntoView();
+      }
+      index++;
+    });
+  }
+
   public addOnLineMainAct(act: QinTableOnLineAct): void {
     if (!this._onLineMainAct) {
       this._onLineMainAct = [];
