@@ -168,10 +168,7 @@ export class QinFileView extends QinEdit {
               this.newDir(lineValue);
             }
           } else if (line.startsWith("F: ")) {
-            if (
-              this._nature == QinFilesNature.BOTH ||
-              this._nature == QinFilesNature.FILES
-            ) {
+            if (this._nature == QinFilesNature.BOTH || this._nature == QinFilesNature.FILES) {
               let extension = QinSoul.foot.getFileExtension(lineValue);
               let passedExtension = true;
               if (this._extensions && this._extensions.length > 0) {
@@ -251,7 +248,7 @@ export class QinFileView extends QinEdit {
 export type QinFileExplorerSet = {
   nature?: QinFilesNature;
   extensions?: string[];
-  singleSelection: boolean;
+  singleSelection?: boolean;
   readOnly?: boolean;
 };
 
