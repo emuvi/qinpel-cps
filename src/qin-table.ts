@@ -47,6 +47,14 @@ export class QinTable extends QinBase {
     return result;
   }
 
+  public getLine(row: number): string[] {
+    let lines = this._elTBody.querySelectorAll("tr");
+    if (row < lines.length) {
+      return this.getColumnsValues(lines[row]);
+    }
+    return null;
+  }
+
   private getColumnsValues(tr: HTMLTableRowElement): string[] {
     let result = [];
     tr.querySelectorAll("td").forEach((td) => {
