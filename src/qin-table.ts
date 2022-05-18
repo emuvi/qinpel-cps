@@ -15,6 +15,8 @@ export class QinTable extends QinBase {
   private _onColumnMidiAct: Array<QinTableOnColumnAct> = null;
   private _onColumnMenuAct: Array<QinTableOnColumnAct> = null;
 
+  private _singleSelection: boolean;
+
   public constructor(options?: QinTableSet, isQindred?: string) {
     super((isQindred ? isQindred + "_" : "") + "table", document.createElement("div"));
     this.qinedHTML.appendChild(this._elTable);
@@ -33,6 +35,7 @@ export class QinTable extends QinBase {
         this.setLines(options.lines);
       }
     }
+    this._singleSelection = options?.singleSelection ?? false;
   }
 
   public override castedQine(): HTMLDivElement {
@@ -172,6 +175,36 @@ export class QinTable extends QinBase {
     this._linesSize = 0;
   }
 
+  public select(row: number) {
+    if (this._singleSelection) {
+      this.unselectAll();
+    }
+    let lines = this._elTBody.querySelectorAll("tr");
+    if (row < lines.length) {
+      lines[row].querySelectorAll("td").forEach((td) => {
+        td.style.backgroundColor = "#3333ff33";
+      });
+    }
+  }
+
+  public unselect(row: number) {
+    let lines = this._elTBody.querySelectorAll("tr");
+    if (row < lines.length) {
+      lines[row].querySelectorAll("td").forEach((td) => {
+        td.style.backgroundColor = "#ffffff00";
+      });
+    }
+  }
+
+  public unselectAll() {
+    let lines = this._elTBody.querySelectorAll("tr");
+    lines.forEach((tr) => {
+      tr.querySelectorAll("td").forEach((td) => {
+        td.style.backgroundColor = "#ffffff00";
+      });
+    });
+  }
+
   public addOnLineMainAct(act: QinTableOnLineAct): void {
     if (!this._onLineMainAct) {
       this._onLineMainAct = [];
@@ -272,6 +305,7 @@ export class QinTable extends QinBase {
 export type QinTableSet = {
   head?: string[];
   lines?: string[][];
+  singleSelection?: boolean;
 };
 
 export type QinTableOnLineAct = (row: number, values: string[]) => void;
@@ -305,23 +339,23 @@ const styles = {
   applyOnBodyRow: (el: HTMLElement) => {
     el.style.margin = "0px";
     el.style.padding = "0px";
-    el.style.backgroundColor = "#5664cd36";
+    el.style.backgroundColor = "#ba56cd1f";
     el.addEventListener("mouseenter", () => {
       el.style.backgroundColor = "#cd566436";
     });
     el.addEventListener("mouseleave", () => {
-      el.style.backgroundColor = "#5664cd36";
+      el.style.backgroundColor = "#ba56cd1f";
     });
   },
   applyOnBodyRowOdd: (el: HTMLElement) => {
     el.style.margin = "0px";
     el.style.padding = "0px";
-    el.style.backgroundColor = "#cda95636";
+    el.style.backgroundColor = "#cda9561f";
     el.addEventListener("mouseenter", () => {
       el.style.backgroundColor = "#cd566436";
     });
     el.addEventListener("mouseleave", () => {
-      el.style.backgroundColor = "#cda95636";
+      el.style.backgroundColor = "#cda9561f";
     });
   },
   applyOnBodyCol: (el: HTMLElement) => {
@@ -329,5 +363,6 @@ const styles = {
     el.style.padding = "5px";
     el.style.borderRight = "1px solid #5e5e5e";
     el.style.borderBottom = "2px solid #5e5e5e";
+    el.style.backgroundColor = "#ffffff00";
   },
 };
