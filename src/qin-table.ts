@@ -47,6 +47,10 @@ export class QinTable extends QinBase {
     return result;
   }
 
+  public getLinesSize(): number {
+    return this._elTBody.querySelectorAll("tr").length;
+  }
+
   public getLine(row: number): string[] {
     let lines = this._elTBody.querySelectorAll("tr");
     if (row < lines.length) {
