@@ -175,6 +175,11 @@ export class QinTable extends QinBase {
     this._linesSize = 0;
   }
 
+  public delLine(row: number) {
+    let lines = this._elTBody.querySelectorAll("tr");
+    this._elTBody.removeChild(lines[row]);
+  }
+
   public select(row: number) {
     if (this._singleSelection) {
       this.unselectAll();
