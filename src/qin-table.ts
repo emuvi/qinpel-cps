@@ -70,13 +70,6 @@ export class QinTable extends QinBase {
     return result;
   }
 
-  public setLines(lines: string[][]): void {
-    this.delLines();
-    for (const line of lines) {
-      this.addLine(line);
-    }
-  }
-
   public setHead(head: string[]): void {
     this._elTHeadRow.innerHTML = "";
     for (const cell of head) {
@@ -100,6 +93,22 @@ export class QinTable extends QinBase {
     th.innerText = head;
     styles.applyOnHeadCol(th);
     this._elTHeadRow.appendChild(th);
+  }
+
+  public setLines(lines: string[][]): void {
+    this.delLines();
+    for (const line of lines) {
+      this.addLine(line);
+    }
+  }
+
+  public setLine(row: number, values: string[]) {
+    let lines = this._elTBody.querySelectorAll("tr");
+    let rowElement = lines[row];
+    let columns = rowElement.querySelectorAll("td");
+    for (let i = 0; i < values.length; i++) {
+      columns[i].innerText = values[i];
+    }
   }
 
   public addLine(line: any[]): void {
