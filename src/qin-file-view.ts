@@ -27,10 +27,6 @@ export class QinFileView extends QinEdit {
     }
   }
 
-  public override castedQine(): QinPanel {
-    return this.qinedBase as QinPanel;
-  }
-
   private initMain() {
     this.style.putAsEditable();
     styles.applyOnMain(this.qinedHTML);
@@ -40,6 +36,15 @@ export class QinFileView extends QinEdit {
       }
     });
     this.qinedBase.style.putAsDisabledSelection();
+  }
+
+  public override castedQine(): QinPanel {
+    return this.qinedBase as QinPanel;
+  }
+
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinFileView {
+    super.styled(styles);
+    return this;
   }
 
   public getNature(): QinNature {

@@ -17,6 +17,11 @@ export class QinIconCell extends QinPanel {
     this._qinIcon.install(this);
   }
 
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinIconCell {
+    super.styled(styles);
+    return this;
+  }
+
   public get qinIcon(): QinIcon {
     return this._qinIcon;
   }

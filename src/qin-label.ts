@@ -12,6 +12,11 @@ export class QinLabel extends QinBase {
     return this.qinedHTML as HTMLLabelElement;
   }
 
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinLabel {
+    super.styled(styles);
+    return this;
+  }
+
   public get title(): string {
     return this.qinedHTML.textContent;
   }

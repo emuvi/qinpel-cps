@@ -24,6 +24,11 @@ export class QinString extends QinEdit {
     return this.qinedHTML as HTMLInputElement;
   }
 
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinString {
+    super.styled(styles);
+    return this;
+  }
+
   public override getNature(): QinNature {
     return QinNature.CHARS;
   }

@@ -8,10 +8,7 @@ export class QinButton extends QinBase {
   private _qinLabel: QinLabel = null;
 
   public constructor(options?: QinButtonSet, isQindred?: string) {
-    super(
-      (isQindred ? isQindred + "_" : "") + "button",
-      document.createElement("button")
-    );
+    super((isQindred ? isQindred + "_" : "") + "button", document.createElement("button"));
     styles.applyOnButton(this.qinedHTML);
     if (options?.icon) {
       this._qinIcon = options.icon;
@@ -25,6 +22,11 @@ export class QinButton extends QinBase {
 
   public override castedQine(): HTMLButtonElement {
     return this.qinedHTML as HTMLButtonElement;
+  }
+
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinButton {
+    super.styled(styles);
+    return this;
   }
 
   public get qinIcon(): QinIcon {

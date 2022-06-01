@@ -5,4 +5,9 @@ export class QinSpacer extends QinPanel {
     super(null, (isQindred ? isQindred + "_" : "") + "spacer");
     this.style.putAsMinSize(distance ?? 4, distance ?? 4);
   }
+
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinSpacer {
+    super.styled(styles);
+    return this;
+  }
 }

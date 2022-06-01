@@ -21,6 +21,11 @@ export class QinField extends QinEdit {
     return this.qinedBase as QinColumn;
   }
 
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinField {
+    super.styled(styles);
+    return this;
+  }
+
   public override getNature(): QinNature {
     return this._qinEdit.getNature();
   }

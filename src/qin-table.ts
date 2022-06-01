@@ -42,6 +42,11 @@ export class QinTable extends QinBase {
     return this.qinedHTML as HTMLDivElement;
   }
 
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinTable {
+    super.styled(styles);
+    return this;
+  }
+
   public getLines(): string[][] {
     let result = [];
     this._elTBody.querySelectorAll("tr").forEach((tr) => {

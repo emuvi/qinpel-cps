@@ -3,10 +3,7 @@ import { QinEdit } from "./qin-edit";
 
 export class QinInteger extends QinEdit {
   public constructor(options?: QinIntegerSet, isQindred?: string) {
-    super(
-      (isQindred ? isQindred + "_" : "") + "integer",
-      document.createElement("input")
-    );
+    super((isQindred ? isQindred + "_" : "") + "integer", document.createElement("input"));
     this.castedQine().type = "number";
     QinSkin.styleAsEditable(this.qinedHTML);
     this.qinedHTML.style.width = "120px";
@@ -23,6 +20,11 @@ export class QinInteger extends QinEdit {
 
   public override castedQine(): HTMLInputElement {
     return this.qinedHTML as HTMLInputElement;
+  }
+
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinInteger {
+    super.styled(styles);
+    return this;
   }
 
   public override getNature(): QinNature {

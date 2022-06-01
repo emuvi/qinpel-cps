@@ -33,6 +33,11 @@ export class QinIconPick extends QinEdit {
     return this.qinedBase as QinLine;
   }
 
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinIconPick {
+    super.styled(styles);
+    return this;
+  }
+
   public override getNature(): QinNature {
     return QinNature.CHARS;
   }

@@ -10,6 +10,11 @@ export class QinLine extends QinPanel {
     this.qinedHTML.style.minHeight = "min-content";
   }
 
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinLine {
+    super.styled(styles);
+    return this;
+  }
+
   public override put(item: QinBase): QinLine {
     item.install(this);
     return this;

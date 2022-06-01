@@ -43,18 +43,10 @@ export class QinSplitter extends QinBase {
       grow.style[related] = growAt + 10 + "%";
       fall.style[related] = fallAt - 10 + "%";
     };
-    this._elGrowA.addEventListener("mousedown", (_) =>
-      balance(this._elSideA, this._elSideB)
-    );
-    this._elGrowA.addEventListener("touchstart", (_) =>
-      balance(this._elSideA, this._elSideB)
-    );
-    this._elGrowB.addEventListener("mousedown", (_) =>
-      balance(this._elSideB, this._elSideA)
-    );
-    this._elGrowB.addEventListener("touchstart", (_) =>
-      balance(this._elSideB, this._elSideA)
-    );
+    this._elGrowA.addEventListener("mousedown", (_) => balance(this._elSideA, this._elSideB));
+    this._elGrowA.addEventListener("touchstart", (_) => balance(this._elSideA, this._elSideB));
+    this._elGrowB.addEventListener("mousedown", (_) => balance(this._elSideB, this._elSideA));
+    this._elGrowB.addEventListener("touchstart", (_) => balance(this._elSideB, this._elSideA));
     if (options) {
       if (options.sideA) {
         this.setSideA(options.sideA);
@@ -72,6 +64,11 @@ export class QinSplitter extends QinBase {
 
   public override castedQine(): HTMLDivElement {
     return this.qinedHTML as HTMLDivElement;
+  }
+
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinSplitter {
+    super.styled(styles);
+    return this;
   }
 
   public override addChild(child: QinBase) {

@@ -23,6 +23,11 @@ export class QinTabs extends QinColumn {
     }
   }
 
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinTabs {
+    super.styled(styles);
+    return this;
+  }
+
   public get qinTabs(): QinLine {
     return this._qinTabs;
   }

@@ -1,5 +1,5 @@
 import { Qinpel } from "qinpel-app/types/qinpel";
-import { QinAction, QinArms, QinBody } from "qinpel-res";
+import { QinAction, QinArms, QinBody, QinSkin } from "qinpel-res";
 import { QinBaseStyle } from "./qin-base-style";
 import { QinTool } from "./qin-tool";
 
@@ -17,6 +17,8 @@ export abstract class QinBase {
     this._qined = qined;
   }
 
+  public abstract castedQine(): HTMLElement | QinBase;
+
   public get qinedHTML(): HTMLElement {
     if (this._qined instanceof QinBase) {
       return this._qined.qinedHTML;
@@ -33,7 +35,10 @@ export abstract class QinBase {
     }
   }
 
-  public abstract castedQine(): HTMLElement | QinBase;
+  public styled(styles: Partial<CSSStyleDeclaration>): QinBase {
+    QinSkin.applyStyles(this.qinedHTML, styles);
+    return this;
+  }
 
   protected _baseParent: QinBase = null;
   protected _pastParent: QinBase = null;

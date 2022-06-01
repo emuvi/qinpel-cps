@@ -8,6 +8,11 @@ export class QinStack extends QinPanel {
     this.style.putAsFlexWrapNot();
   }
 
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinStack {
+    super.styled(styles);
+    return this;
+  }
+
   public override put(item: QinBase): QinStack {
     item.install(this);
     return this;

@@ -8,6 +8,11 @@ export class QinColumn extends QinPanel {
     this.style.putAsFlexWrapNot();
   }
 
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinColumn {
+    super.styled(styles);
+    return this;
+  }
+
   public override put(item: QinBase): QinColumn {
     item.install(this);
     return this;

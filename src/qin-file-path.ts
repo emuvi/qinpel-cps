@@ -1,10 +1,5 @@
 import { QinJobberPopup } from "qinpel-app/types/qin-jobber-popup";
-import {
-  QinFilesDescriptor,
-  QinFilesNature,
-  QinFilesOperation,
-  QinNature,
-} from "qinpel-res";
+import { QinFilesDescriptor, QinFilesNature, QinFilesOperation, QinNature } from "qinpel-res";
 import { QinAsset } from "./qin-assets";
 import { QinButton } from "./qin-button";
 import { QinEdit } from "./qin-edit";
@@ -30,9 +25,7 @@ export class QinFilePath extends QinEdit {
       descriptors: options?.descriptors,
       singleSelection: true,
     });
-    this._qinPopup = this.qinpel.jobbed.newPopup(
-      this._qinPicker.castedQine().castedQine()
-    );
+    this._qinPopup = this.qinpel.jobbed.newPopup(this._qinPicker.castedQine().castedQine());
     this._qinPath.install(this.qinedBase);
     this._qinSearch.install(this.qinedBase);
     this._qinSearch.addAction((qinEvent) => {
@@ -59,6 +52,11 @@ export class QinFilePath extends QinEdit {
 
   public override castedQine(): QinLine {
     return this.qinedBase as QinLine;
+  }
+
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinFilePath {
+    super.styled(styles);
+    return this;
   }
 
   public getNature(): QinNature {

@@ -20,6 +20,11 @@ export class QinTitled extends QinColumn {
     }
   }
 
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinTitled {
+    super.styled(styles);
+    return this;
+  }
+
   public override put(item: QinBase): QinTitled {
     item.install(this);
     return this;

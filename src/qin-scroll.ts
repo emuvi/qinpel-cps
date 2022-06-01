@@ -7,6 +7,11 @@ export class QinScroll extends QinPanel {
     this.style.putAsScroll();
   }
 
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinScroll {
+    super.styled(styles);
+    return this;
+  }
+
   public override put(item: QinBase): QinScroll {
     item.install(this);
     return this;

@@ -16,6 +16,11 @@ export class QinDivider extends QinBase {
     return this.qinedHTML as HTMLDivElement;
   }
 
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinDivider {
+    super.styled(styles);
+    return this;
+  }
+
   public setHorizontal() {
     this.qinedHTML.style.minWidth = "initial";
     this.qinedHTML.style.maxWidth = "initial";

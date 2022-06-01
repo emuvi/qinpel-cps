@@ -35,6 +35,11 @@ export class QinBoolean extends QinEdit {
     return this.qinedBase as QinLine;
   }
 
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinBoolean {
+    super.styled(styles);
+    return this;
+  }
+
   public override getNature(): QinNature {
     return QinNature.BOOL;
   }

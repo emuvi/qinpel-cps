@@ -24,6 +24,11 @@ export class QinCombo extends QinEdit {
     return this.qinedHTML as HTMLSelectElement;
   }
 
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinCombo {
+    super.styled(styles);
+    return this;
+  }
+
   public getNature(): QinNature {
     return QinNature.CHARS;
   }

@@ -17,6 +17,11 @@ export class QinIcon extends QinBase {
     return this.qinedHTML as HTMLImageElement;
   }
 
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinIcon {
+    super.styled(styles);
+    return this;
+  }
+
   public get asset(): QinAsset {
     return qinUrlAsset(this.castedQine().src);
   }

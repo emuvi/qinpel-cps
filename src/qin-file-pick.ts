@@ -1,9 +1,4 @@
-import {
-  QinFilesDescriptor,
-  QinFilesNature,
-  QinFilesOperation,
-  QinNature,
-} from "qinpel-res";
+import { QinFilesDescriptor, QinFilesNature, QinFilesOperation, QinNature } from "qinpel-res";
 import { QinAsset } from "./qin-assets";
 import { QinButton } from "./qin-button";
 import { QinColumn } from "./qin-column";
@@ -115,6 +110,11 @@ export class QinFilePick extends QinEdit {
 
   public override castedQine(): QinColumn {
     return this.qinedBase as QinColumn;
+  }
+
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinFilePick {
+    super.styled(styles);
+    return this;
   }
 
   public override getNature(): QinNature {
