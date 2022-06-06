@@ -90,7 +90,7 @@ export class QinFilePick extends QinEdit {
   private initExtensions() {
     if (this._descriptors.length == 0) {
       this._qinExtensions.addItem({
-        title: "All Files (*.*)",
+        title: this.qinpel.tr("All files") + " (*.*)",
         value: "*",
         selected: true,
       });
