@@ -39,7 +39,6 @@ export class QinString extends QinEdit<string> {
 
   protected override setData(data: string) {
     this.castedQine().value = data;
-    this.sendChanged();
   }
 
   protected override mayChange(): HTMLElement[] {

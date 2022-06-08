@@ -46,7 +46,6 @@ export class QinInteger extends QinEdit<number> {
     } else {
       this.castedQine().value = data.toString();
     }
-    this.sendChanged();
   }
 
   protected override mayChange(): HTMLElement[] {
