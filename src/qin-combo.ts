@@ -41,7 +41,7 @@ export class QinCombo extends QinEdit<string> {
     this.castedQine().value = data;
   }
 
-  public override mayChange(): HTMLElement[] {
+  protected override mayChange(): HTMLElement[] {
     return [this.castedQine()];
   }
 

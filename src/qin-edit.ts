@@ -16,7 +16,7 @@ export abstract class QinEdit<T> extends QinBase {
   protected abstract getData(): T;
   protected abstract setData(data: T): void;
 
-  public abstract mayChange(): HTMLElement[];
+  protected abstract mayChange(): HTMLElement[];
 
   public get value(): T {
     return this.getData();
@@ -39,5 +39,9 @@ export abstract class QinEdit<T> extends QinBase {
 
   public getOnChanged(waiter: QinWaiter) {
     this._changedWaiters.addWaiter(waiter);
+  }
+
+  public getChangeable(): HTMLElement[] {
+    return this.mayChange();
   }
 }

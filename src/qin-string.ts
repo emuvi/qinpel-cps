@@ -42,7 +42,7 @@ export class QinString extends QinEdit<string> {
     this.sendChanged();
   }
 
-  public override mayChange(): HTMLElement[] {
+  protected override mayChange(): HTMLElement[] {
     return [this.castedQine()];
   }
 

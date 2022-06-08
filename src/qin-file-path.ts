@@ -71,8 +71,8 @@ export class QinFilePath extends QinEdit<string> {
     this._qinPath.value = data;
   }
 
-  public override mayChange(): HTMLElement[] {
-    return [...this._qinPath.mayChange(), ...this._qinPicker.mayChange()];
+  protected override mayChange(): HTMLElement[] {
+    return [...this._qinPath.getChangeable(), ...this._qinPicker.getChangeable()];
   }
 
   public override turnReadOnly(): void {

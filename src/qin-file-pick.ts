@@ -129,8 +129,8 @@ export class QinFilePick extends QinEdit<string[]> {
     this._qinExplorer.value = data;
   }
 
-  public override mayChange(): HTMLElement[] {
-    return [...this._qinExplorer.mayChange()];
+  protected override mayChange(): HTMLElement[] {
+    return [...this._qinExplorer.getChangeable()];
   }
 
   public override turnReadOnly(): void {

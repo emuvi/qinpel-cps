@@ -67,7 +67,7 @@ export class QinIconPick extends QinEdit<QinAsset> {
     }
   }
 
-  public override mayChange(): HTMLElement[] {
+  protected override mayChange(): HTMLElement[] {
     return [];
   }
 

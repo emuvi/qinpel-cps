@@ -49,7 +49,7 @@ export class QinInteger extends QinEdit<number> {
     this.sendChanged();
   }
 
-  public override mayChange(): HTMLElement[] {
+  protected override mayChange(): HTMLElement[] {
     return [this.castedQine()];
   }
 

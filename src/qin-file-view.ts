@@ -87,7 +87,7 @@ export class QinFileView extends QinEdit<string[]> {
     }
   }
 
-  public override mayChange(): HTMLElement[] {
+  protected override mayChange(): HTMLElement[] {
     return [];
   }
 

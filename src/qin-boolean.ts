@@ -53,7 +53,7 @@ export class QinBoolean extends QinEdit<boolean> {
     this.updateIcon();
   }
 
-  public override mayChange(): HTMLElement[] {
+  protected override mayChange(): HTMLElement[] {
     return [];
   }
 
