@@ -80,7 +80,7 @@ export class QinBoolean extends QinEdit<boolean> {
   }
 
   public toggle() {
-    this.setData(!this.getData());
+    this.value = !this.value;
   }
 }
 
