@@ -10,11 +10,11 @@ export class QinField<T> extends QinColumn {
   public constructor(title: string, edit: QinEdit<T>, isQindred?: string) {
     super(null, (isQindred ? isQindred + "_" : "") + edit.qindred + "_field");
     this._qinLabel.title = title;
-    this._qinLabel.install(this.qinedBase);
+    this._qinLabel.install(this);
     this._qinEdit = edit;
-    this._qinEdit.install(this.qinedBase);
+    this._qinEdit.install(this);
     this._qinLabel.qinLink(this._qinEdit);
-    this.qinedBase.style.putAsMargin(3);
+    this.style.putAsMargin(3);
   }
 
   public override styled(styles: Partial<CSSStyleDeclaration>): QinField<T> {
@@ -56,5 +56,9 @@ export class QinField<T> extends QinColumn {
 
   public addOnChanged(waiter: QinWaiter) {
     this._qinEdit.addOnChanged(waiter);
+  }
+
+  public focus() {
+    this._qinEdit.focus();
   }
 }
