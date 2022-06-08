@@ -1,14 +1,14 @@
-import { QinNature } from "qinpel-res";
+import { QinNature, QinWaiter } from "qinpel-res";
 import { QinColumn } from "./qin-column";
 import { QinEdit } from "./qin-edit";
 import { QinLabel } from "./qin-label";
 
-export class QinField extends QinEdit {
+export class QinField<T> extends QinColumn {
   private _qinLabel = new QinLabel();
-  private _qinEdit: QinEdit = null;
+  private _qinEdit: QinEdit<T>;
 
-  public constructor(title: string, edit: QinEdit, isQindred?: string) {
-    super((isQindred ? isQindred + "_" : "") + edit.qindred + "_field", new QinColumn());
+  public constructor(title: string, edit: QinEdit<T>, isQindred?: string) {
+    super(null, (isQindred ? isQindred + "_" : "") + edit.qindred + "_field");
     this._qinLabel.title = title;
     this._qinLabel.install(this.qinedBase);
     this._qinEdit = edit;
@@ -17,44 +17,44 @@ export class QinField extends QinEdit {
     this.qinedBase.style.putAsMargin(3);
   }
 
-  public override castedQine(): QinColumn {
-    return this.qinedBase as QinColumn;
-  }
-
-  public override styled(styles: Partial<CSSStyleDeclaration>): QinField {
+  public override styled(styles: Partial<CSSStyleDeclaration>): QinField<T> {
     super.styled(styles);
     return this;
   }
 
-  public override getNature(): QinNature {
-    return this._qinEdit.getNature();
-  }
-
-  public override getData() {
-    return this._qinEdit.getData();
-  }
-
-  public override setData(data: any) {
-    this._qinEdit.setData(data);
-  }
-
-  public override turnReadOnly(): void {
-    this._qinEdit.turnReadOnly();
-  }
-
-  public override turnEditable(): void {
-    this._qinEdit.turnEditable();
-  }
-
-  public override isEditable(): boolean {
-    return this._qinEdit.isEditable();
-  }
-
-  public get qinLabel(): QinLabel {
+  public get label(): QinLabel {
     return this._qinLabel;
   }
 
-  public get qinEdit(): QinEdit {
+  public get edit(): QinEdit<T> {
     return this._qinEdit;
+  }
+
+  public getNature(): QinNature {
+    return this._qinEdit.getNature();
+  }
+
+  public get value(): T {
+    return this._qinEdit.value;
+  }
+
+  public set value(data: T) {
+    this._qinEdit.value = data;
+  }
+
+  public turnReadOnly(): void {
+    this._qinEdit.turnReadOnly();
+  }
+
+  public turnEditable(): void {
+    this._qinEdit.turnEditable();
+  }
+
+  public isEditable(): boolean {
+    return this._qinEdit.isEditable();
+  }
+
+  public getOnChanged(waiter: QinWaiter) {
+    this._qinEdit.getOnChanged(waiter);
   }
 }

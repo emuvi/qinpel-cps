@@ -5,7 +5,7 @@ import { QinIcon } from "./qin-icon";
 import { QinIconCell } from "./qin-icon-cell";
 import { QinLine } from "./qin-line";
 
-export class QinIconPick extends QinEdit {
+export class QinIconPick extends QinEdit<QinAsset> {
   private _readOnly = false;
 
   public constructor(options?: QinIconPickSet, isQindred?: string) {
@@ -42,7 +42,7 @@ export class QinIconPick extends QinEdit {
     return QinNature.CHARS;
   }
 
-  public override getData(): QinAsset {
+  protected override getData(): QinAsset {
     for (let child of this.children()) {
       if (child instanceof QinIconCell) {
         if (child.selected) {
@@ -53,16 +53,22 @@ export class QinIconPick extends QinEdit {
     return null;
   }
 
-  public override setData(asset: QinAsset) {
+  protected override setData(asset: QinAsset) {
+    let found = false;
     for (let child of this.qinedBase.children()) {
       if (child instanceof QinIconCell) {
         if (child.qinIcon.asset == asset) {
+          found = true;
           child.selected = true;
         } else {
           child.selected = false;
         }
       }
     }
+  }
+
+  public override mayChange(): HTMLElement[] {
+    return [];
   }
 
   public override turnReadOnly(): void {

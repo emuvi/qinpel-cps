@@ -4,7 +4,7 @@ import { QinPanel } from "./qin-panel";
 
 type OnFileViewLoad = (loaded: string) => void;
 
-export class QinFileView extends QinEdit {
+export class QinFileView extends QinEdit<string[]> {
   private _nature: QinFilesNature;
   private _extensions: string[];
   private _singleSelection: boolean;
@@ -51,7 +51,7 @@ export class QinFileView extends QinEdit {
     return QinNature.CHARS;
   }
 
-  public override getData(): string[] {
+  protected override getData(): string[] {
     let result = [];
     this._items.forEach((item) => {
       if (item.isSelected()) {
@@ -61,7 +61,7 @@ export class QinFileView extends QinEdit {
     return result;
   }
 
-  public override setData(data: string[]) {
+  protected override setData(data: string[]) {
     this.clean();
     if (data && data.length > 0) {
       let folderRoot = QinSoul.foot.getParent(data[0]);
@@ -85,6 +85,10 @@ export class QinFileView extends QinEdit {
         }
       });
     }
+  }
+
+  public override mayChange(): HTMLElement[] {
+    return [];
   }
 
   public override turnReadOnly(): void {

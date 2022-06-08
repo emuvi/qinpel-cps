@@ -20,7 +20,7 @@ export enum QinMutants {
   FILE_VIEW = "file_view",
 }
 
-function newEdit(kind: QinMutants, options: any): QinEdit {
+function newEdit(kind: QinMutants, options: any): QinEdit<any> {
   switch (kind) {
     case QinMutants.BOOLEAN:
       return new QinBoolean(options);

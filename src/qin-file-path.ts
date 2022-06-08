@@ -8,7 +8,7 @@ import { QinIcon } from "./qin-icon";
 import { QinLine } from "./qin-line";
 import { QinString } from "./qin-string";
 
-export class QinFilePath extends QinEdit {
+export class QinFilePath extends QinEdit<string> {
   private _qinPath = new QinString();
   private _qinSearch = new QinButton({
     icon: new QinIcon(QinAsset.FaceFolder),
@@ -38,7 +38,7 @@ export class QinFilePath extends QinEdit {
     });
     this._qinPicker.addChosen((chosen) => {
       if (chosen && chosen.length > 0) {
-        this._qinPath.setData(chosen[0]);
+        this._qinPath.value = chosen[0];
       }
       this._qinPopup.close();
     });
@@ -63,12 +63,16 @@ export class QinFilePath extends QinEdit {
     return QinNature.CHARS;
   }
 
-  public override getData(): string {
-    return this._qinPath.getData();
+  protected override getData(): string {
+    return this._qinPath.value;
   }
 
-  public override setData(data: string) {
-    this._qinPath.setData(data);
+  protected override setData(data: string) {
+    this._qinPath.value = data;
+  }
+
+  public override mayChange(): HTMLElement[] {
+    return [...this._qinPath.mayChange(), ...this._qinPicker.mayChange()];
   }
 
   public override turnReadOnly(): void {

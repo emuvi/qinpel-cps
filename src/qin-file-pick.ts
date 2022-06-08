@@ -10,7 +10,7 @@ import { QinLine } from "./qin-line";
 import { QinPanel } from "./qin-panel";
 import { QinString } from "./qin-string";
 
-export class QinFilePick extends QinEdit {
+export class QinFilePick extends QinEdit<string[]> {
   private _qinUpper = new QinLine();
   private _qinConfirm = new QinButton({
     icon: new QinIcon(QinAsset.FaceConfirm),
@@ -121,12 +121,16 @@ export class QinFilePick extends QinEdit {
     return QinNature.CHARS;
   }
 
-  public override getData(): string[] {
-    return this._qinExplorer.getData();
+  protected override getData(): string[] {
+    return this._qinExplorer.value;
   }
 
-  public override setData(data: string[]) {
-    this._qinExplorer.setData(data);
+  protected override setData(data: string[]) {
+    this._qinExplorer.value = data;
+  }
+
+  public override mayChange(): HTMLElement[] {
+    return [...this._qinExplorer.mayChange()];
   }
 
   public override turnReadOnly(): void {
@@ -210,8 +214,8 @@ export class QinFilePick extends QinEdit {
   }
 
   private loadFolder() {
-    this._qinExplorer.load(this._qinFolder.getData(), (loaded) => {
-      this._qinFolder.setData(loaded);
+    this._qinExplorer.load(this._qinFolder.value, (loaded) => {
+      this._qinFolder.value = loaded;
     });
   }
 

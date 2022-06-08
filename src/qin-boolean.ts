@@ -5,7 +5,7 @@ import { QinIcon } from "./qin-icon";
 import { QinLabel } from "./qin-label";
 import { QinLine } from "./qin-line";
 
-export class QinBoolean extends QinEdit {
+export class QinBoolean extends QinEdit<boolean> {
   private _qinSpan = new QinLabel();
   private _qinIcon = new QinIcon(QinAsset.FaceCheckRadio);
   private _value = false;
@@ -44,13 +44,17 @@ export class QinBoolean extends QinEdit {
     return QinNature.BOOL;
   }
 
-  public override getData(): boolean {
+  protected override getData(): boolean {
     return this._value;
   }
 
-  public override setData(data: boolean) {
+  protected override setData(data: boolean) {
     this._value = data;
     this.updateIcon();
+  }
+
+  public override mayChange(): HTMLElement[] {
+    return [];
   }
 
   public override turnReadOnly(): void {
@@ -67,23 +71,6 @@ export class QinBoolean extends QinEdit {
     return !this._readOnly;
   }
 
-  public get qinSpan(): QinLabel {
-    return this._qinSpan;
-  }
-
-  public get qinIcon(): QinIcon {
-    return this._qinIcon;
-  }
-
-  public get value(): boolean {
-    return this._value;
-  }
-
-  public set value(value: boolean) {
-    this._value = value;
-    this.updateIcon();
-  }
-
   private updateIcon() {
     if (this._value) {
       this._qinIcon.asset = QinAsset.FaceCheckedRadio;
@@ -93,8 +80,7 @@ export class QinBoolean extends QinEdit {
   }
 
   public toggle() {
-    this._value = !this._value;
-    this.updateIcon();
+    this.setData(!this.getData());
   }
 }
 

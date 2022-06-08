@@ -1,7 +1,7 @@
 import { QinNature, QinSkin } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 
-export class QinCombo extends QinEdit {
+export class QinCombo extends QinEdit<string> {
   private _elGroups = new Array<HTMLOptGroupElement>();
 
   public constructor(options?: QinComboSet, isQindred?: string) {
@@ -33,12 +33,16 @@ export class QinCombo extends QinEdit {
     return QinNature.CHARS;
   }
 
-  public override getData(): string {
-    return (this.qinedHTML as HTMLSelectElement).value;
+  protected override getData(): string {
+    return this.castedQine().value;
   }
 
-  public override setData(data: string) {
-    (this.qinedHTML as HTMLSelectElement).value = data;
+  protected override setData(data: string) {
+    this.castedQine().value = data;
+  }
+
+  public override mayChange(): HTMLElement[] {
+    return [this.castedQine()];
   }
 
   public override turnReadOnly(): void {

@@ -1,7 +1,7 @@
 import { QinNature, QinSkin } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 
-export class QinInteger extends QinEdit {
+export class QinInteger extends QinEdit<number> {
   public constructor(options?: QinIntegerSet, isQindred?: string) {
     super((isQindred ? isQindred + "_" : "") + "integer", document.createElement("input"));
     this.castedQine().type = "number";
@@ -31,13 +31,26 @@ export class QinInteger extends QinEdit {
     return QinNature.INT;
   }
 
-  public override getData(): number {
+  protected override getData(): number {
     const value = this.castedQine().value;
     if (value == null || value == undefined || value.length == 0) {
       return null;
     } else {
-      return parseInt(this.castedQine().value, 10);
+      return parseInt(value, 10);
     }
+  }
+
+  protected override setData(data: number) {
+    if (data == null || data == undefined) {
+      this.castedQine().value = "";
+    } else {
+      this.castedQine().value = data.toString();
+    }
+    this.sendChanged();
+  }
+
+  public override mayChange(): HTMLElement[] {
+    return [this.castedQine()];
   }
 
   public override turnReadOnly(): void {
@@ -52,14 +65,6 @@ export class QinInteger extends QinEdit {
 
   public override isEditable(): boolean {
     return !this.castedQine().readOnly;
-  }
-
-  public override setData(data: number) {
-    if (data == null || data == undefined) {
-      this.castedQine().value = "";
-    } else {
-      this.castedQine().value = (data | 0).toString();
-    }
   }
 }
 

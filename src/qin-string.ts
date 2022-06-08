@@ -1,7 +1,7 @@
 import { QinNature } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 
-export class QinString extends QinEdit {
+export class QinString extends QinEdit<string> {
   public constructor(options?: QinStringSet, isQindred?: string) {
     super((isQindred ? isQindred + "_" : "") + "string", document.createElement("input"));
     this.castedQine().type = "text";
@@ -33,12 +33,17 @@ export class QinString extends QinEdit {
     return QinNature.CHARS;
   }
 
-  public override getData(): string {
+  protected override getData(): string {
     return this.castedQine().value;
   }
 
-  public override setData(data: string) {
+  protected override setData(data: string) {
     this.castedQine().value = data;
+    this.sendChanged();
+  }
+
+  public override mayChange(): HTMLElement[] {
+    return [this.castedQine()];
   }
 
   public override turnReadOnly(): void {
@@ -64,7 +69,7 @@ export class QinString extends QinEdit {
       (startPos > 0 ? oldVal.substring(0, startPos) : "") +
       data +
       (endPos < oldVal.length ? oldVal.substring(endPos) : "");
-    this.castedQine().value = newVal;
+    this.value = newVal;
     this.castedQine().selectionStart = startPos;
     this.castedQine().selectionEnd = startPos + data.length;
   }
