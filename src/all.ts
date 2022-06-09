@@ -36,6 +36,8 @@ export { QinPanel } from './qin-panel';
 export { QinPanelSet } from './qin-panel';
 export { QinPopup } from './qin-popup';
 export { QinRow } from './qin-row';
+export { QinRows } from './qin-rows';
+export { QinRowsSet } from './qin-rows';
 export { QinScroll } from './qin-scroll';
 export { QinSpacer } from './qin-spacer';
 export { QinSplitter } from './qin-splitter';
