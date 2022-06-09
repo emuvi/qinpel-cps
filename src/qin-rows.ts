@@ -15,7 +15,7 @@ export class QinRows extends QinColumn {
     }
     if (options?.size) {
       while (this._qinRows.length < options.size) {
-        this._qinRows.push(new QinRow());
+        this.addRow();
       }
     }
   }
@@ -30,12 +30,18 @@ export class QinRows extends QinColumn {
     return this;
   }
 
-  public put_on(row: number, item: QinBase): QinRows {
+  public putOn(row: number, item: QinBase): QinRows {
     while (row >= this._qinRows.length) {
-      this._qinRows.push(new QinRow());
+      this.addRow();
     }
     this._qinRows[row].put(item);
     return this;
+  }
+
+  public addRow() {
+    let row = new QinRow();
+    row.install(this);
+    this._qinRows.push(row);
   }
 }
 
