@@ -30,7 +30,7 @@ export class QinRows extends QinColumn {
     return this;
   }
 
-  public put_on(item: QinBase, row: number): QinRows {
+  public put_on(row: number, item: QinBase): QinRows {
     while (row >= this._qinRows.length) {
       this._qinRows.push(new QinRow());
     }
