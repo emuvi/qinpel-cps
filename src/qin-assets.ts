@@ -271,6 +271,7 @@ export enum QinAsset {
   FaceScan = "face-scan.png",
   FaceScreen = "face-screen.png",
   FaceSearch2 = "face-search-2.png",
+  FaceSearchLink = "face-search-link.png",
   FaceSearch = "face-search.png",
   FaceSelect = "face-select.png",
   FaceSend = "face-send.png",
