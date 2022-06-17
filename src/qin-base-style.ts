@@ -195,6 +195,22 @@ export class QinBaseStyle {
     this._el.style.borderRadius = radius + "px";
   }
 
+  public putAsBorderTopLeftRadius(radius: number) {
+    this._el.style.borderTopLeftRadius = radius + "px";
+  }
+
+  public putAsBorderTopRightRadius(radius: number) {
+    this._el.style.borderTopRightRadius = radius + "px";
+  }
+
+  public putAsBorderBottomRightRadius(radius: number) {
+    this._el.style.borderBottomRightRadius = radius + "px";
+  }
+
+  public putAsBorderBottomLeftRadius(radius: number) {
+    this._el.style.borderBottomLeftRadius = radius + "px";
+  }
+
   public putAsDisplayFlex() {
     this._el.style.display = "flex";
   }
