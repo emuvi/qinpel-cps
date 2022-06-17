@@ -1,6 +1,6 @@
-import { QinSkin } from "qinpel-res";
+import { QinStyles } from "qinpel-res";
 import { QinBase } from "./qin-base";
-import { QinButton } from "./qin-button";
+import { QinButtonPick } from "./qin-button-pick";
 import { QinColumn } from "./qin-column";
 import { QinLabel } from "./qin-label";
 import { QinLine } from "./qin-line";
@@ -16,6 +16,16 @@ export class QinTabs extends QinColumn {
     super(null, (isQindred ? isQindred + "_" : "") + "tabs");
     this._qinTabs.install(this);
     this._qinPanel.install(this);
+    this._qinTabs.style.putAsMargin(0);
+    this._qinTabs.style.putAsPaddingLeft(5);
+    this._qinPanel.style.putAsMargin(0);
+    this._qinPanel.style.putAsBorder(1, QinStyles.ColorForeground);
+    this._qinPanel.style.putAsBorderRadius(3);
+    this._qinPanel.style.putAsPadding(5);
+    this._qinPanel.styled({
+      minWidth: "fit-content",
+      minHeight: "fit-content",
+    });
     if (options?.initial) {
       for (const tab of options?.initial) {
         this.addTab(tab);
@@ -37,13 +47,12 @@ export class QinTabs extends QinColumn {
   }
 
   public addTab(tab: QinTab) {
-    const button = new QinButton({ label: new QinLabel(tab.title) });
-    button.style.putAsBackground(QinSkin.styles.ColorInactive);
-    button.addAction((qinEvent) => {
-      if (qinEvent.isMain) {
-        this.showViewer(tab.viewer);
-      }
-    });
+    const button = new QinButtonPick({ label: new QinLabel(tab.title) });
+    button.style.putAsMargin(0);
+    button.style.putAsMarginRight(1);
+    button.style.putAsBorderBottomRightRadius(0);
+    button.style.putAsBorderBottomLeftRadius(0);
+    button.addActionMain((_) => this.showViewer(tab.viewer));
     button.install(this._qinTabs);
     let first = this._tabs.length == 0;
     let tabRef = {
@@ -71,9 +80,9 @@ export class QinTabs extends QinColumn {
     viewer.install(this._qinPanel);
     for (const tab of this._tabs) {
       if (tab.viewer == viewer) {
-        tab.button.style.putAsBackground(QinSkin.styles.ColorActive);
+        tab.button.pick();
       } else {
-        tab.button.style.putAsBackground(QinSkin.styles.ColorInactive);
+        tab.button.unPick();
       }
     }
   }
@@ -91,5 +100,5 @@ export type QinTab = {
 type QinTabRef = {
   title: string;
   viewer: QinBase;
-  button: QinButton;
+  button: QinButtonPick;
 };

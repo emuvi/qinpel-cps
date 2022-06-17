@@ -5,6 +5,7 @@ export { QinBaseStyle } from './qin-base-style';
 export { QinBase } from './qin-base';
 export { QinBoolean } from './qin-boolean';
 export { QinBooleanSet } from './qin-boolean';
+export { QinButtonPick } from './qin-button-pick';
 export { QinButton } from './qin-button';
 export { QinButtonSet } from './qin-button';
 export { QinColumn } from './qin-column';
