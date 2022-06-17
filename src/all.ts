@@ -12,6 +12,8 @@ export { QinColumn } from './qin-column';
 export { QinCombo } from './qin-combo';
 export { QinComboSet } from './qin-combo';
 export { QinComboItem } from './qin-combo';
+export { QinDate } from './qin-date';
+export { QinDateSet } from './qin-date';
 export { QinDivider } from './qin-divider';
 export { QinDividerSet } from './qin-divider';
 export { QinEdit } from './qin-edit';
