@@ -168,6 +168,10 @@ export abstract class QinBase {
     this.qinedHTML.focus();
   }
 
+  public hasFocus(): boolean {
+    return this.qinedHTML == document.activeElement;
+  }
+
   public addAction(action: QinAction) {
     QinArms.addAction(this.qinedHTML, action);
   }
