@@ -7,12 +7,14 @@ import { QinFileView } from "./qin-file-view";
 import { QinIconPick } from "./qin-icon-pick";
 import { QinInteger } from "./qin-integer";
 import { QinString } from "./qin-string";
+import { QinSuggestion } from "./qin-suggestion";
 import { QinTool } from "./qin-tool";
 
 export enum QinMutants {
   BOOLEAN = "boolean",
   INTEGER = "integer",
   STRING = "string",
+  SUGGESTION = "suggestion",
   COMBO = "combo",
   ICON_PICK = "icon-pick",
   FILE_PATH = "file_path",
@@ -28,6 +30,8 @@ function newEdit(kind: QinMutants, options: any): QinEdit<any> {
       return new QinInteger(options);
     case QinMutants.STRING:
       return new QinString(options);
+    case QinMutants.SUGGESTION:
+      return new QinSuggestion(options);
     case QinMutants.COMBO:
       return new QinCombo(options);
     case QinMutants.ICON_PICK:

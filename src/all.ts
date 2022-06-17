@@ -46,6 +46,8 @@ export { QinSplitterSet } from './qin-splitter';
 export { QinStack } from './qin-stack';
 export { QinString } from './qin-string';
 export { QinStringSet } from './qin-string';
+export { QinSuggestion } from './qin-suggestion';
+export { QinSuggestionSet } from './qin-suggestion';
 export { QinTable } from './qin-table';
 export { QinTableSet } from './qin-table';
 export { QinTableOnLineAct } from './qin-table';
