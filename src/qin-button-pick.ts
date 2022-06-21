@@ -1,4 +1,4 @@
-import { ActionableStyles, QinSkin, QinStylesPicker } from "qinpel-res";
+import { QinActionableStyles, QinSkin, QinStylesPicker } from "qinpel-res";
 import { QinBase } from "./qin-base";
 import { QinButtonSet } from "./qin-button";
 import { QinIcon } from "./qin-icon";
@@ -7,7 +7,7 @@ import { QinLabel } from "./qin-label";
 export class QinButtonPick extends QinBase {
   private _qinIcon: QinIcon = null;
   private _qinLabel: QinLabel = null;
-  private _styles: ActionableStyles;
+  private _styles: QinActionableStyles;
   private _picked: boolean = false;
 
   public constructor(options?: QinButtonSet, isQindred?: string) {
@@ -93,7 +93,7 @@ export class QinButtonPick extends QinBase {
 }
 
 const styles = {
-  applyOnButton: (el: HTMLElement, styles: ActionableStyles) => {
+  applyOnButton: (el: HTMLElement, styles: QinActionableStyles) => {
     QinSkin.styleAsActionable(el, styles);
     el.style.display = "flex";
     el.style.flexDirection = "row";
