@@ -7,6 +7,7 @@ export class QinLine extends QinPanel {
     this.style.putAsFlexDirectionRow();
     this.style.putAsFlexWrap();
     this.style.putAsAlignItemsFlexStart();
+    this.style.putAsJustifyContentFlexStart();
     this.qinedHTML.style.minWidth = "min-content";
     this.qinedHTML.style.minHeight = "min-content";
   }
