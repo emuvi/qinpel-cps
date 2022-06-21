@@ -290,31 +290,31 @@ export class QinBaseStyle {
     this._el.style.verticalAlign = "middle";
   }
 
-  public putAsAlignItensStretch() {
+  public putAsAlignItemsStretch() {
     this._el.style.alignItems = "stretch";
   }
 
-  public putAsAlignItensCenter() {
+  public putAsAlignItemsCenter() {
     this._el.style.alignItems = "center";
   }
 
-  public putAsAlignItensFlexStart() {
+  public putAsAlignItemsFlexStart() {
     this._el.style.alignItems = "flex-start";
   }
 
-  public putAsAlignItensFlexEnd() {
+  public putAsAlignItemsFlexEnd() {
     this._el.style.alignItems = "flex-end";
   }
 
-  public putAsAlignItensBaseline() {
+  public putAsAlignItemsBaseline() {
     this._el.style.alignItems = "baseline";
   }
 
-  public putAsAlignItensInitial() {
+  public putAsAlignItemsInitial() {
     this._el.style.alignItems = "initial";
   }
 
-  public putAsAlignItensInherit() {
+  public putAsAlignItemsInherit() {
     this._el.style.alignItems = "inherit";
   }
 

@@ -1,5 +1,6 @@
 import { QinFilesNature, QinFoot, QinNature, QinSoul } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
+import { QinLine } from "./qin-line";
 import { QinPanel } from "./qin-panel";
 
 type OnFileViewLoad = (loaded: string) => void;
@@ -17,7 +18,7 @@ export class QinFileView extends QinEdit<string[]> {
   private _readOnly = false;
 
   public constructor(options?: QinFileExplorerSet, isQindred?: string) {
-    super((isQindred ? isQindred + "_" : "") + "file-view", new QinPanel());
+    super((isQindred ? isQindred + "_" : "") + "file-view", new QinLine());
     this._nature = options?.nature ? options.nature : QinFilesNature.BOTH;
     this._extensions = options?.extensions ? options.extensions : [];
     this._singleSelection = options?.singleSelection ?? false;
@@ -365,6 +366,7 @@ const styles = {
   applyOnDivItem: (el: HTMLElement) => {
     el.style.margin = "2px";
     el.style.padding = "9px";
+    el.style.maxHeight = "fit-content";
     el.style.display = "inline-block";
     el.style.outline = "none";
     el.style.backgroundColor = "#ffffff";
@@ -384,6 +386,7 @@ const styles = {
     el.style.display = "flex";
     el.style.flexDirection = "column";
     el.style.width = "96px";
+    el.style.maxHeight = "fit-content";
   },
   applyOnSpanIcon: (el: HTMLElement) => {
     el.style.textAlign = "center";
