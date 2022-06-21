@@ -1,4 +1,13 @@
-import { QinArms, QinFilesNature, QinFoot, QinNature, QinSoul } from "qinpel-res";
+import {
+  QinActionableStyles,
+  QinArms,
+  QinFilesNature,
+  QinFoot,
+  QinNature,
+  QinSkin,
+  QinSoul,
+  QinStylesPicker,
+} from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 import { QinLine } from "./qin-line";
 import { QinPanel } from "./qin-panel";
@@ -55,7 +64,7 @@ export class QinFileView extends QinEdit<string[]> {
   protected override getData(): string[] {
     let result = [];
     this._items.forEach((item) => {
-      if (item.isSelected()) {
+      if (item.isPicked()) {
         result.push(QinSoul.foot.getPathJoin(this._folderServer, item.getName()));
       }
     });
@@ -143,9 +152,9 @@ export class QinFileView extends QinEdit<string[]> {
     if (this._singleSelection) {
       let alreadyHas = false;
       for (const item of this._items) {
-        if (item.isSelected()) {
+        if (item.isPicked()) {
           if (alreadyHas) {
-            item.unselect();
+            item.unPick();
           } else {
             alreadyHas = true;
           }
@@ -216,14 +225,14 @@ export class QinFileView extends QinEdit<string[]> {
 
   public cleanSelection() {
     for (const item of this._items) {
-      item.unselect();
+      item.unPick();
     }
   }
 
   public select(itemName: string): boolean {
     let item = this._items.find((inside) => inside.getName() == itemName);
     if (item) {
-      item.select();
+      item.pick();
       return true;
     } else {
       return false;
@@ -233,7 +242,7 @@ export class QinFileView extends QinEdit<string[]> {
   public unselect(itemName: string): boolean {
     let item = this._items.find((inside) => inside.getName() == itemName);
     if (item) {
-      item.unselect();
+      item.unPick();
       return true;
     } else {
       return false;
@@ -264,6 +273,7 @@ export type QinFileExplorerSet = {
 
 class Item {
   private _dad: QinFileView;
+  private _styles: QinActionableStyles;
   private _divItem = document.createElement("div");
   private _divBody = document.createElement("div");
   private _spanIcon = document.createElement("span");
@@ -271,17 +281,23 @@ class Item {
   private _spanText = document.createElement("span");
   private _fileName: string;
   private _iconName: string;
-  private _selected: boolean = false;
+  private _picked: boolean = false;
 
   public constructor(dad: QinFileView, fileName: string, iconName: string) {
     this._dad = dad;
+    this._styles = {
+      ColorForeground: QinStylesPicker.ColorPickerForeground,
+      ColorAccentAct: QinStylesPicker.ColorPickerAccentAct,
+      ColorInactiveAct: QinStylesPicker.ColorUnPickedInactiveAct,
+      ColorActiveAct: QinStylesPicker.ColorUnPickedActiveAct,
+    };
     this._fileName = fileName;
     this._iconName = iconName;
     this.initItem();
   }
 
   private initItem() {
-    styles.applyOnDivItem(this._divItem);
+    styles.applyOnDivItem(this._divItem, this._styles);
     this._divItem.tabIndex = 0;
     styles.applyOnDivBody(this._divBody);
     this._divItem.appendChild(this._divBody);
@@ -304,33 +320,41 @@ class Item {
     on.appendChild(this._divItem);
   }
 
-  public select() {
-    styles.applyOnDivSelect(this._divItem);
-    this._selected = true;
-  }
-
-  public unselect() {
-    styles.applyOnDivUnSelect(this._divItem);
-    this._selected = false;
-  }
-
   public toggle() {
-    if (this._selected) {
-      this.unselect();
+    this._picked = !this._picked;
+    this.updateStyles();
+  }
+
+  public pick() {
+    this._picked = true;
+    this.updateStyles();
+  }
+
+  public unPick() {
+    this._picked = false;
+    this.updateStyles();
+  }
+
+  private updateStyles() {
+    this._styles.ColorInactiveAct = this._picked
+      ? QinStylesPicker.ColorPickedInactiveAct
+      : QinStylesPicker.ColorUnPickedInactiveAct;
+    this._styles.ColorActiveAct = this._picked
+      ? QinStylesPicker.ColorPickedActiveAct
+      : QinStylesPicker.ColorUnPickedActiveAct;
+    if (this._divItem == document.activeElement) {
+      this._divItem.style.backgroundColor = this._styles.ColorActiveAct;
     } else {
-      if (this._dad.singleSelection) {
-        this._dad.cleanSelection();
-      }
-      this.select();
+      this._divItem.style.backgroundColor = this._styles.ColorInactiveAct;
     }
+  }
+
+  public isPicked(): boolean {
+    return this._picked;
   }
 
   public getName(): string {
     return this._fileName;
-  }
-
-  public isSelected(): boolean {
-    return this._selected;
   }
 }
 
@@ -363,24 +387,12 @@ const styles = {
     el.style.minHeight = "160px";
     el.tabIndex = 0;
   },
-  applyOnDivItem: (el: HTMLElement) => {
+  applyOnDivItem: (el: HTMLElement, styles: QinActionableStyles) => {
+    QinSkin.styleAsActionable(el, styles);
     el.style.margin = "2px";
     el.style.padding = "9px";
     el.style.maxHeight = "fit-content";
     el.style.display = "inline-block";
-    el.style.outline = "none";
-    el.style.backgroundColor = "#ffffff";
-    el.style.border = "1px solid #360045";
-    el.style.borderRadius = "3px";
-    el.style.color = "#270036";
-    el.addEventListener("focus", () => {
-      el.style.outline = "none";
-      el.style.border = "1px solid #ae0000";
-    });
-    el.addEventListener("focusout", () => {
-      el.style.outline = "none";
-      el.style.border = "1px solid #360045";
-    });
   },
   applyOnDivBody: (el: HTMLElement) => {
     el.style.display = "flex";
@@ -394,11 +406,5 @@ const styles = {
   applyOnSpanText: (el: HTMLElement) => {
     el.style.textAlign = "center";
     el.style.wordWrap = "break-word";
-  },
-  applyOnDivSelect: (el: HTMLElement) => {
-    el.style.backgroundColor = "#faefff";
-  },
-  applyOnDivUnSelect: (el: HTMLElement) => {
-    el.style.backgroundColor = "#ffffff";
   },
 };
