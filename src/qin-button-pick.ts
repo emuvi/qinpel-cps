@@ -1,4 +1,4 @@
-import { ActionableStyles, QinSkin } from "qinpel-res";
+import { ActionableStyles, QinSkin, QinStylesPicker } from "qinpel-res";
 import { QinBase } from "./qin-base";
 import { QinButtonSet } from "./qin-button";
 import { QinIcon } from "./qin-icon";
@@ -13,10 +13,10 @@ export class QinButtonPick extends QinBase {
   public constructor(options?: QinButtonSet, isQindred?: string) {
     super((isQindred ? isQindred + "_" : "") + "button-pick", document.createElement("button"));
     this._styles = {
-      ColorForeground: stylesPicker.ColorForeground,
-      ColorInactiveAct: stylesPicker.ColorUnPickedInactiveAct,
-      ColorActiveAct: stylesPicker.ColorUnPickedActiveAct,
-      ColorAccentAct: stylesPicker.ColorAccentAct,
+      ColorForeground: QinStylesPicker.ColorPickerForeground,
+      ColorAccentAct: QinStylesPicker.ColorPickerAccentAct,
+      ColorInactiveAct: QinStylesPicker.ColorUnPickedInactiveAct,
+      ColorActiveAct: QinStylesPicker.ColorUnPickedActiveAct,
     };
     styles.applyOnButton(this.qinedHTML, this._styles);
     if (options?.icon) {
@@ -63,11 +63,11 @@ export class QinButtonPick extends QinBase {
 
   private updateStyles() {
     this._styles.ColorInactiveAct = this._picked
-      ? stylesPicker.ColorPickedInactiveAct
-      : stylesPicker.ColorUnPickedInactiveAct;
+      ? QinStylesPicker.ColorPickedInactiveAct
+      : QinStylesPicker.ColorUnPickedInactiveAct;
     this._styles.ColorActiveAct = this._picked
-      ? stylesPicker.ColorPickedActiveAct
-      : stylesPicker.ColorUnPickedActiveAct;
+      ? QinStylesPicker.ColorPickedActiveAct
+      : QinStylesPicker.ColorUnPickedActiveAct;
     if (this.hasFocus()) {
       this.qinedHTML.style.backgroundColor = this._styles.ColorActiveAct;
     } else {
@@ -91,15 +91,6 @@ export class QinButtonPick extends QinBase {
     this.style.putAsFlexDirectionColumnReverse();
   }
 }
-
-const stylesPicker = {
-  ColorForeground: "#180027ff",
-  ColorUnPickedInactiveAct: "#f0f7ffff",
-  ColorUnPickedActiveAct: "#ddddffff",
-  ColorPickedInactiveAct: "#b9dbffff",
-  ColorPickedActiveAct: "#c4c4ffff",
-  ColorAccentAct: "#0000aeff",
-};
 
 const styles = {
   applyOnButton: (el: HTMLElement, styles: ActionableStyles) => {
