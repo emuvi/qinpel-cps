@@ -1,4 +1,4 @@
-import { QinFilesNature, QinFoot, QinNature, QinSoul } from "qinpel-res";
+import { QinArms, QinFilesNature, QinFoot, QinNature, QinSoul } from "qinpel-res";
 import { QinEdit } from "./qin-edit";
 import { QinLine } from "./qin-line";
 import { QinPanel } from "./qin-panel";
@@ -292,7 +292,7 @@ class Item {
     this._spanText.innerText = this._fileName;
     styles.applyOnSpanText(this._spanText);
     this._divBody.appendChild(this._spanText);
-    QinSoul.arms.addActionMain(this._divItem, (qinEvent) => {
+    QinArms.addActionMain(this._divItem, (_) => {
       if (this._dad.isEditable()) {
         this._divItem.focus();
         this.toggle();
@@ -345,7 +345,7 @@ function getIconName(fromExtension: string): string {
   } else if (QinSoul.foot.isFileImage(fromExtension)) {
     result = "explorer-image.png";
   } else if (QinSoul.foot.isFileVector(fromExtension)) {
-    result = "explorer-image.png"; // TODO
+    result = "explorer-image.png";
   } else if (QinSoul.foot.isFileMusic(fromExtension)) {
     result = "explorer-music.png";
   } else if (QinSoul.foot.isFileMovie(fromExtension)) {
