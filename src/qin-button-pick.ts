@@ -75,6 +75,10 @@ export class QinButtonPick extends QinBase {
     }
   }
 
+  public isPicked(): boolean {
+    return this._picked;
+  }
+
   public putAsRow() {
     this.style.putAsFlexDirectionRow();
   }
