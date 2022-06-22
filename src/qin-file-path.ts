@@ -28,13 +28,8 @@ export class QinFilePath extends QinEdit<string> {
     this._qinPopup = this.qinpel.jobbed.newPopup(this._qinPicker.castedQine().castedQine());
     this._qinPath.install(this.qinedBase);
     this._qinSearch.install(this.qinedBase);
-    this._qinSearch.addAction((qinEvent) => {
-      if (qinEvent.isMain) {
-        this._qinPopup.show();
-        const upperHeight = this._qinPicker.qinUpper.qinedHTML.clientHeight;
-        const explorerMaxHeight = this._qinPopup.maxHeight - (upperHeight + 12);
-        this._qinPicker.qinExplorer.style.putAsMaxHeight(explorerMaxHeight);
-      }
+    this._qinSearch.addActionMain((_) => {
+      this._qinPopup.showOnParent(this._qinSearch.castedQine());
     });
     this._qinPicker.addChosen((chosen) => {
       if (chosen && chosen.length > 0) {
