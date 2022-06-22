@@ -59,6 +59,10 @@ export class QinCombo extends QinEdit<string> {
     return !this.castedQine().disabled;
   }
 
+  public addSame(titleAndValue: string) {
+    this.addItem({ title: titleAndValue, value: titleAndValue });
+  }
+
   public addItem(item: QinComboItem): QinCombo {
     const option = document.createElement("option");
     option.text = item.title;
