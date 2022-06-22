@@ -44,6 +44,7 @@ export class QinFilePick extends QinEdit<string[]> {
     if (options?.readOnly) {
       this.turnReadOnly();
     }
+    this.prepareEdit();
   }
 
   private initMain() {

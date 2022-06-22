@@ -35,6 +35,7 @@ export class QinFileView extends QinEdit<string[]> {
     if (options?.readOnly) {
       this.turnReadOnly();
     }
+    this.prepareEdit();
   }
 
   private initMain() {

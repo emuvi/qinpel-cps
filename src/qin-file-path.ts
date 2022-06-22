@@ -48,6 +48,7 @@ export class QinFilePath extends QinEdit<string> {
     if (options?.readOnly) {
       this.turnReadOnly();
     }
+    this.prepareEdit();
   }
 
   public override castedQine(): QinLine {

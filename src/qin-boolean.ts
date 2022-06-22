@@ -29,6 +29,7 @@ export class QinBoolean extends QinEdit<boolean> {
     if (options?.readOnly) {
       this.turnReadOnly();
     }
+    this.prepareEdit();
   }
 
   public override castedQine(): QinLine {

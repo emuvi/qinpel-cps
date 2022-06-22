@@ -18,6 +18,7 @@ export class QinString extends QinEdit<string> {
     if (options?.readOnly) {
       this.turnReadOnly();
     }
+    this.prepareEdit();
   }
 
   public override castedQine(): HTMLInputElement {

@@ -4,11 +4,6 @@ import { QinBase } from "./qin-base";
 export abstract class QinEdit<T> extends QinBase {
   public constructor(qindred: string, qined: HTMLElement | QinBase) {
     super(qindred + "_" + "edit", qined);
-    for (let mayChange of this.mayChange()) {
-      mayChange.addEventListener("change", () => {
-        this.sendChanged();
-      });
-    }
   }
 
   public abstract getNature(): QinNature;
@@ -17,6 +12,14 @@ export abstract class QinEdit<T> extends QinBase {
   protected abstract setData(data: T): void;
 
   protected abstract mayChange(): HTMLElement[];
+
+  protected prepareEdit() {
+    for (let mayChange of this.mayChange()) {
+      mayChange.addEventListener("change", () => {
+        this.sendChanged();
+      });
+    }
+  }
 
   public get value(): T {
     return this.getData();

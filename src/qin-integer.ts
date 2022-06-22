@@ -16,6 +16,7 @@ export class QinInteger extends QinEdit<number> {
     if (options?.readOnly) {
       this.turnReadOnly();
     }
+    this.prepareEdit();
   }
 
   public override castedQine(): HTMLInputElement {

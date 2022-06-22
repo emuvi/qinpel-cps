@@ -27,6 +27,7 @@ export class QinIconPick extends QinEdit<QinAsset> {
     if (options?.readOnly) {
       this.turnReadOnly();
     }
+    this.prepareEdit();
   }
 
   public override castedQine(): QinLine {
