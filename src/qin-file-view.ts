@@ -322,11 +322,17 @@ class Item {
   }
 
   public toggle() {
+    if (this._dad.singleSelection) {
+      this._dad.cleanSelection();
+    }
     this._picked = !this._picked;
     this.updateStyles();
   }
 
   public pick() {
+    if (this._dad.singleSelection) {
+      this._dad.cleanSelection();
+    }
     this._picked = true;
     this.updateStyles();
   }
