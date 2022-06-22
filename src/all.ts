@@ -57,6 +57,8 @@ export { QinTableOnColumnAct } from './qin-table';
 export { QinTabs } from './qin-tabs';
 export { QinTabsSet } from './qin-tabs';
 export { QinTab } from './qin-tabs';
+export { QinText } from './qin-text';
+export { QinTextSet } from './qin-text';
 export { QinTitled } from './qin-titled';
 export { QinTitledSet } from './qin-titled';
 export { QinTool } from './qin-tool';
